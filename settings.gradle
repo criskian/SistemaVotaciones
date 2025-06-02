@@ -1,0 +1,10 @@
+rootProject.name = 'SistemaElectoralVotaciones'
+
+include 'interfaces'
+include 'common'
+include 'fiscalia'
+include 'votacion'
+include 'portal'
+include 'electoraldb'
+include 'reliablemsg'
+include 'seguridad' 

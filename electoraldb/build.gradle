@@ -1,0 +1,16 @@
+dependencies {
+    implementation project(':interfaces')
+    implementation project(':common')
+    
+    // Dependencias para base de datos
+    implementation 'org.postgresql:postgresql:42.3.1'
+    implementation 'org.hibernate:hibernate-core:5.6.3.Final'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.sistemaelectoral.electoraldb.DatabaseServer'
+        )
+    }
+} 

@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':interfaces')
+    implementation project(':common')
+    implementation project(':reliablemsg')
+    implementation 'com.zeroc:ice:3.7.10'
+    implementation 'com.zeroc:ice-compat:3.7.10'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'com.google.code.gson:gson:2.8.9'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.sistemaelectoral.consulta.ConsultaServer'
+        )
+    }
+    
+    from('src/main/resources') {
+        include 'config.consulta'
+    }
+    
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// JAR para el cliente de consulta ciudadana
+task consultaClientJar(type: Jar) {
+    archiveBaseName = 'consulta-client'
+    manifest {
+        attributes(
+            'Main-Class': 'com.sistemaelectoral.consulta.ConsultaClient'
+        )
+    }
+    
+    from sourceSets.main.output
+    
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+} 

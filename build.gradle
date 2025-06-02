@@ -1,0 +1,83 @@
+// Configuración común para todos los subproyectos
+allprojects {
+    apply plugin: 'java'
+    
+    group = 'com.sistemaelectoral'
+    version = '1.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'com.zeroc:ice:3.7.10'
+        implementation 'com.zeroc:glacier2:3.7.10'
+        implementation 'com.zeroc:icebox:3.7.10'
+        implementation 'com.zeroc:icegrid:3.7.10'
+        implementation 'com.zeroc:icepatch2:3.7.10'
+        implementation 'com.zeroc:icestorm:3.7.10'
+    }
+
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+    
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}
+
+project(':interfaces') {
+    dependencies {
+        implementation 'com.zeroc:ice:3.7.10'
+    }
+}
+
+project(':common') {
+    dependencies {
+        implementation project(':interfaces')
+        implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+        implementation 'com.google.code.gson:gson:2.8.9'
+    }
+}
+
+project(':fiscalia') {
+    dependencies {
+        implementation project(':interfaces')
+        implementation project(':common')
+    }
+}
+
+project(':votacion') {
+    dependencies {
+        implementation project(':interfaces')
+        implementation project(':common')
+    }
+}
+
+project(':portal') {
+    dependencies {
+        implementation project(':interfaces')
+        implementation project(':common')
+    }
+}
+
+project(':electoraldb') {
+    dependencies {
+        implementation project(':interfaces')
+        implementation project(':common')
+    }
+}
+
+project(':reliablemsg') {
+    dependencies {
+        implementation project(':interfaces')
+        implementation project(':common')
+    }
+}
+
+project(':seguridad') {
+    dependencies {
+        implementation project(':interfaces')
+        implementation project(':common')
+    }
+}

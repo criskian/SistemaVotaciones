@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':interfaces')
+    implementation project(':common')
+    implementation 'com.zeroc:ice:3.7.10'
+    implementation 'org.apache.activemq:activemq-client:5.16.3'
+    implementation 'com.zeroc:ice-compat:3.7.10'
+}
+
+// Tarea para limpiar el código generado por Ice
+task cleanGeneratedIce(type: Delete) {
+    delete fileTree('src/main/java/com/sistemaelectoral/reliablemsg') {
+        include '**/VotoQueue.java'
+        include '**/VotoQueuePrx.java'
+        include '**/_VotoQueuePrxI.java'
+        include '**/ReliableMsg/**'
+    }
+}
+
+// Tarea personalizada para generar código desde archivos .ice
+task generateIceFiles(type: Exec) {
+    workingDir = file('src/main/resources')
+    commandLine 'slice2java', 
+                '--output-dir', '../java',
+                '--compat',
+                '--tie',
+                'ReliableMsg.ice'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
+
+clean.dependsOn cleanGeneratedIce
+compileJava.dependsOn generateIceFiles
+generateIceFiles.mustRunAfter cleanGeneratedIce
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.sistemaelectoral.reliablemsg.MessageServer'
+        )
+    }
+    
+    // Incluir todas las dependencias en el JAR
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    // Excluir archivos META-INF que puedan causar conflictos
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+} 

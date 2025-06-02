@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.zeroc:ice:3.7.10'
+    implementation 'com.zeroc:glacier2:3.7.10'
+    implementation 'com.zeroc:icebox:3.7.10'
+    implementation 'com.zeroc:icegrid:3.7.10'
+    implementation 'com.zeroc:icepatch2:3.7.10'
+    implementation 'com.zeroc:icestorm:3.7.10'
+    implementation 'com.zeroc:ice-compat:3.7.10'
+}
+
+def generatedSrcDir = "${buildDir}/generated-src"
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir generatedSrcDir
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+tasks.withType(Copy) {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+// Tarea para limpiar el código generado por Ice
+task cleanGeneratedSrc(type: Delete) {
+    delete generatedSrcDir
+    delete 'src/main/java/com/sistemaelectoral/interfaces'
+}
+
+// Tarea personalizada para generar código desde archivos .ice
+task generateIceFiles(type: Exec) {
+    def resourcesDir = file('src/main/resources')
+    def outputDir = file(generatedSrcDir)
+    
+    doFirst {
+        outputDir.mkdirs()
+    }
+    
+    workingDir = resourcesDir
+    commandLine 'slice2java',
+                '--output-dir', outputDir.absolutePath,
+                '--compat',
+                '--tie',
+                'Fiscalia.ice',
+                'Portal.ice',
+                'Votacion.ice',
+                'Consulta.ice'
+}
+
+clean.dependsOn cleanGeneratedSrc
+compileJava.dependsOn generateIceFiles
+generateIceFiles.mustRunAfter cleanGeneratedSrc 

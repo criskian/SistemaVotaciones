@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<icegrid>
+    <application name="SistemaElectoral">
+        <properties>
+            <property name="Ice.Default.Locator" value="IceGrid/Locator -t:tcp -h localhost -p 4061"/>
+        </properties>
+        
+        <server-template id="ServerTemplate">
+            <parameter name="id"/>
+            <parameter name="endpoints"/>
+            <parameter name="className"/>
+            <server id="${id}" exe="java" activation="on-demand">
+                <option>-jar</option>
+                <option>${id}.jar</option>
+                <adapter name="${id}Adapter" endpoints="${endpoints}">
+                    <object identity="${id}" type="::com::sistemaelectoral::interfaces::${className}"/>
+                </adapter>
+                <property name="Ice.ThreadPool.Server.Size" value="4"/>
+                <property name="Ice.ThreadPool.Server.SizeMax" value="8"/>
+            </server>
+        </server-template>
+        
+        <node name="node1">
+            <server-instance template="ServerTemplate"
+                id="MesaVotacion"
+                endpoints="tcp -h localhost -p 10000"
+                className="MesaVotacion"/>
+                
+            <server-instance template="ServerTemplate"
+                id="ConsultaCiudadano"
+                endpoints="tcp -h localhost -p 10001"
+                className="ConsultaCiudadano"/>
+                
+            <server-instance template="ServerTemplate"
+                id="Fiscalia"
+                endpoints="tcp -h localhost -p 10002"
+                className="Fiscalia"/>
+        </node>
+        
+        <node name="node2">
+            <server-instance template="ServerTemplate"
+                id="Portal"
+                endpoints="tcp -h localhost -p 10003"
+                className="Portal">
+                <service name="Consultoria"/>
+                <service name="Seguridad"/>
+                <service name="AccesoDatos"/>
+            </server-instance>
+        </node>
+    </application>
+</icegrid> 
