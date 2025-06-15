@@ -1,0 +1,9 @@
+rootProject.name = 'SistemaVotaciones'
+
+include 'common'
+include 'reliable-message'
+include 'portal-web-de-consulta'
+include 'estacion-de-votacion-local'
+include 'seguridad'
+include 'sistema-de-gestion-mesas'
+

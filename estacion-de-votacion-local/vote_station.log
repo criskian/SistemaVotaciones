@@ -1,0 +1,36 @@
+2025-06-06 21:38:13.750 [main] ERROR c.v.votestation.VoteStationServer - Error en el servidor
+com.zeroc.Ice.InitializationException: null
+	at com.zeroc.Ice.LoggerI.<init>(LoggerI.java:32)
+	at com.zeroc.IceInternal.Instance.<init>(Instance.java:969)
+	at com.zeroc.Ice.CommunicatorI.<init>(CommunicatorI.java:297)
+	at com.zeroc.Ice.Util.initialize(Util.java:228)
+	at com.zeroc.Ice.Util.initialize(Util.java:259)
+	at com.zeroc.Ice.Util.initialize(Util.java:189)
+	at com.votaciones.votestation.VoteStationServer.main(VoteStationServer.java:15)
+2025-06-06 21:44:36.252 [main] ERROR c.v.votestation.VoteStationServer - Error en el servidor
+com.zeroc.Ice.InitializationException: null
+	at com.zeroc.Ice.LoggerI.<init>(LoggerI.java:32)
+	at com.zeroc.IceInternal.Instance.<init>(Instance.java:969)
+	at com.zeroc.Ice.CommunicatorI.<init>(CommunicatorI.java:297)
+	at com.zeroc.Ice.Util.initialize(Util.java:228)
+	at com.zeroc.Ice.Util.initialize(Util.java:259)
+	at com.zeroc.Ice.Util.initialize(Util.java:189)
+	at com.votaciones.votestation.VoteStationServer.main(VoteStationServer.java:15)
+2025-06-06 21:44:56.261 [main] ERROR c.v.votestation.VoteStationServer - Error en el servidor
+com.zeroc.Ice.InitializationException: null
+	at com.zeroc.Ice.LoggerI.<init>(LoggerI.java:32)
+	at com.zeroc.IceInternal.Instance.<init>(Instance.java:969)
+	at com.zeroc.Ice.CommunicatorI.<init>(CommunicatorI.java:297)
+	at com.zeroc.Ice.Util.initialize(Util.java:228)
+	at com.zeroc.Ice.Util.initialize(Util.java:259)
+	at com.zeroc.Ice.Util.initialize(Util.java:189)
+	at com.votaciones.votestation.VoteStationServer.main(VoteStationServer.java:15)
+2025-06-06 21:45:13.960 [main] INFO  c.v.votestation.VoteStationServer - Iniciando servidor Estación de Votación...
+2025-06-06 21:45:13.961 [main] INFO  c.v.votestation.VoteStationServer - Inicializando conexión a la base de datos...
+2025-06-06 21:45:13.967 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-06 21:45:14.011 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@31e5415e
+2025-06-06 21:45:14.013 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-06 21:45:14.013 [main] INFO  c.v.votestation.VoteStationServer - Conexión a la base de datos establecida.
+2025-06-06 21:45:14.013 [main] INFO  c.v.votestation.VoteStationServer - Creando adaptador Ice...
+2025-06-06 21:45:14.018 [main] INFO  c.v.votestation.VoteStationServer - Adaptador Ice activado y listo para recibir conexiones.
+2025-06-06 21:45:14.018 [main] INFO  c.v.votestation.VoteStationServer - Servidor iniciado y esperando conexiones...

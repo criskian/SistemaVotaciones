@@ -1,0 +1,69 @@
+18:22:50.558 [main] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+18:22:50.566 [main] ERROR com.zaxxer.hikari.HikariConfig - Failed to load driver class org.postgresql.Driver  from HikariConfig class classloader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44
+18:22:50.571 [main] ERROR c.v.common.db.DatabaseConnection - Failed to initialize database connection pool
+java.lang.RuntimeException: Failed to load driver class org.postgresql.Driver  in either of HikariConfig class loader or Thread context classloader
+	at com.zaxxer.hikari.HikariConfig.setDriverClassName(HikariConfig.java:494)
+	at com.votaciones.common.db.DatabaseConnection.<clinit>(DatabaseConnection.java:24)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaServer.main(PortalWebConsultaServer.java:22)
+18:22:55.829 [main] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+18:22:55.835 [main] ERROR com.zaxxer.hikari.HikariConfig - Failed to load driver class org.postgresql.Driver  from HikariConfig class classloader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44
+18:22:55.838 [main] ERROR c.v.common.db.DatabaseConnection - Failed to initialize database connection pool
+java.lang.RuntimeException: Failed to load driver class org.postgresql.Driver  in either of HikariConfig class loader or Thread context classloader
+	at com.zaxxer.hikari.HikariConfig.setDriverClassName(HikariConfig.java:494)
+	at com.votaciones.common.db.DatabaseConnection.<clinit>(DatabaseConnection.java:24)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaServer.main(PortalWebConsultaServer.java:22)
+18:24:07.493 [main] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+18:24:07.520 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+18:24:08.093 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4fb3ee4e
+18:24:08.099 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+18:24:08.099 [main] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+18:24:08.307 [main] INFO  c.v.p.PortalWebConsultaServer - Servidor iniciado en el puerto 10000
+18:26:05.484 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+18:26:05.515 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+18:26:06.116 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@49a934f5
+18:26:06.122 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+18:26:06.122 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+18:26:06.281 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Servicio de acceso a datos inicializado
+18:26:06.288 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Servicio de seguridad inicializado
+18:30:48.626 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+18:30:48.631 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+18:30:48.631 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+18:30:57.180 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:31:09.854 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+18:31:19.896 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 12
+18:31:19.902 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando mesa para cédula: 12
+18:31:19.903 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 12
+18:31:19.903 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona para cédula: 12
+18:31:29.030 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:31:30.742 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+18:34:48.991 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+18:34:48.995 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+18:34:48.995 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+18:34:57.490 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:34:59.963 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+18:35:01.335 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:35:06.969 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1221
+18:35:06.973 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando mesa para cédula: 1221
+18:35:06.974 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1221
+18:35:06.974 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona para cédula: 1221
+18:36:28.268 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+18:36:28.273 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+18:36:28.273 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+18:36:35.271 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:36:37.141 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+18:36:37.933 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:36:38.661 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+18:36:39.184 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:38:08.100 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+18:38:08.105 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+18:38:08.105 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+18:40:13.995 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+18:40:13.999 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+18:40:13.999 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+18:40:36.660 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:40:39.466 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:40:40.847 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+18:40:46.146 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 3333
+18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando mesa para cédula: 3333
+18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 3333
+18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona para cédula: 3333

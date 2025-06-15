@@ -1,0 +1,7 @@
+// plugins {
+//     id 'com.zeroc.gradle.ice-builder.slice' version '1.4.5'
+// }
+// slice {
+//     // configuración slice eliminada temporalmente
+// }
+// ... resto del archivo ... 

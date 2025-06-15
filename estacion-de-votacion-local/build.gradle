@@ -1,0 +1,36 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':common')
+}
+
+application {
+    mainClass = 'com.votaciones.votestation.VoteStationServer'
+}
+
+// Tarea para ejecutar el cliente
+task runClient(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.votaciones.votestation.VoteStationClient'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.votaciones.votestation.VoteStationServer',
+            'Class-Path': configurations.runtimeClasspath.files.collect { it.name }.join(' ')
+        )
+    }
+    
+    // Include dependencies in the JAR
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// Asegurarse de que el jar dependa de common:jar
+jar.dependsOn(':common:jar') 
