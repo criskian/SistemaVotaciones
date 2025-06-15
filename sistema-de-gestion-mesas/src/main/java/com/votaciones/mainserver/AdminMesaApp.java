@@ -44,19 +44,22 @@ public class AdminMesaApp extends JFrame {
     private boolean sistemaActivo = false;
 
     public static void main(String[] args) {
+        System.out.println("[LOG] main() iniciado");
         try {
-            // Configurar Look and Feel del sistema
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
-            // Fallback a look and feel por defecto
+            System.out.println("[LOG] Error en LookAndFeel: " + e.getMessage());
         }
-        
         SwingUtilities.invokeLater(() -> {
             try {
+                System.out.println("[LOG] Antes de crear AdminMesaApp");
                 AdminMesaApp app = new AdminMesaApp();
+                System.out.println("[LOG] Después de crear AdminMesaApp");
                 app.setVisible(true);
-                
+                System.out.println("[LOG] Después de setVisible(true)");
             } catch (Exception e) {
+                System.out.println("[LOG] Excepción en invokeLater: " + e.getMessage());
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(null,
                     "Error al iniciar AdminMesa.jar:\n" + e.getMessage(),
                     "Error Crítico",
@@ -68,33 +71,31 @@ public class AdminMesaApp extends JFrame {
 
     public AdminMesaApp() {
         super("AdminMesa.jar - Sistema de Gestión de Mesas FINAL");
-        
-        // Verificar conexión a base de datos
+        System.out.println("[LOG] Constructor AdminMesaApp");
         verificarBaseDatos();
-        
-        // Inicializar interfaz
+        System.out.println("[LOG] Después de verificarBaseDatos()");
         initializeUI();
-        
-        // Iniciar servicios
+        System.out.println("[LOG] Después de initializeUI()");
         startServices();
-        
+        System.out.println("[LOG] Después de startServices()");
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 shutdown();
             }
         });
-        
         mostrarMensajeInicio();
+        System.out.println("[LOG] Después de mostrarMensajeInicio()");
     }
 
     private void verificarBaseDatos() {
+        System.out.println("[LOG] verificarBaseDatos() llamado");
         try {
             Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             conn.close();
-            System.out.println("Conexión a PostgreSQL establecida correctamente");
+            System.out.println("[LOG] Conexión a PostgreSQL establecida correctamente");
         } catch (Exception e) {
-            System.err.println("Error al conectar con PostgreSQL: " + e.getMessage());
+            System.out.println("[LOG] Error al conectar con PostgreSQL: " + e.getMessage());
             JOptionPane.showMessageDialog(this,
                 "Error al conectar con PostgreSQL:\n" + e.getMessage() + 
                 "\n\nVerifique que PostgreSQL esté ejecutándose en puerto 5432\n" +
@@ -105,6 +106,7 @@ public class AdminMesaApp extends JFrame {
     }
 
     private void initializeUI() {
+        System.out.println("[LOG] initializeUI() llamado");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
         
@@ -124,6 +126,7 @@ public class AdminMesaApp extends JFrame {
         Timer timer = new Timer(2000, e -> setAlwaysOnTop(false));
         timer.setRepeats(false);
         timer.start();
+        System.out.println("[LOG] initializeUI() terminado");
     }
 
     private JPanel createPanelSuperior() {

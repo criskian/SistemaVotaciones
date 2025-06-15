@@ -12,7 +12,7 @@ public class DatabaseConnection {
 
     private DatabaseConnection() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/votaciones");
+        config.setJdbcUrl("jdbc:postgresql://localhost:5432/sistema_votaciones");
         config.setUsername("postgres");
         config.setPassword("postgres");
         config.setMaximumPoolSize(10);
