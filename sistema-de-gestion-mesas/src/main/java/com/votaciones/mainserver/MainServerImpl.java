@@ -316,4 +316,93 @@ public class MainServerImpl implements VotingSystem {
         }
         return -1;
     }
+
+    // Método para registrar un voto
+    public int registrarVoto(String documento, int mesaId, String candidato) {
+        try (Connection conn = dbConnection.getConnection()) {
+            // Verificar si el ciudadano existe
+            PreparedStatement stmt = conn.prepareStatement("SELECT id FROM ciudadanos WHERE documento = ?");
+            stmt.setString(1, documento);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) return 3; // No aparece en la BD
+            int ciudadanoId = rs.getInt("id");
+
+            // Verificar si ya votó en esta mesa
+            stmt = conn.prepareStatement("SELECT COUNT(*) FROM votos WHERE ciudadano_id = ? AND mesa_id = ?");
+            stmt.setInt(1, ciudadanoId);
+            stmt.setInt(2, mesaId);
+            rs = stmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) return 2; // Ya votó
+
+            // Verificar si está asignado a esta mesa
+            stmt = conn.prepareStatement("SELECT COUNT(*) FROM asignaciones_ciudadanos WHERE ciudadano_id = ? AND mesa_id = ?");
+            stmt.setInt(1, ciudadanoId);
+            stmt.setInt(2, mesaId);
+            rs = stmt.executeQuery();
+            if (!rs.next() || rs.getInt(1) == 0) return 1; // No es su mesa
+
+            // Registrar el voto
+            stmt = conn.prepareStatement("INSERT INTO votos (ciudadano_id, mesa_id, candidato_id) VALUES (?, ?, (SELECT id FROM candidatos WHERE nombres = ?))");
+            stmt.setInt(1, ciudadanoId);
+            stmt.setInt(2, mesaId);
+            stmt.setString(3, candidato);
+            stmt.executeUpdate();
+
+            return 0; // Puede votar y voto registrado
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Error inesperado
+        }
+    }
+
+    // Método para verificar el estado de un votante
+    public int verificarEstado(String documento, int mesaId) {
+        try (Connection conn = dbConnection.getConnection()) {
+            // Verificar si el ciudadano existe
+            PreparedStatement stmt = conn.prepareStatement("SELECT id FROM ciudadanos WHERE documento = ?");
+            stmt.setString(1, documento);
+            ResultSet rs = stmt.executeQuery();
+            if (!rs.next()) return 3; // No aparece en la BD
+            int ciudadanoId = rs.getInt("id");
+
+            // Verificar si ya votó en esta mesa
+            stmt = conn.prepareStatement("SELECT COUNT(*) FROM votos WHERE ciudadano_id = ? AND mesa_id = ?");
+            stmt.setInt(1, ciudadanoId);
+            stmt.setInt(2, mesaId);
+            rs = stmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) return 2; // Ya votó
+
+            // Verificar si está asignado a esta mesa
+            stmt = conn.prepareStatement("SELECT COUNT(*) FROM asignaciones_ciudadanos WHERE ciudadano_id = ? AND mesa_id = ?");
+            stmt.setInt(1, ciudadanoId);
+            stmt.setInt(2, mesaId);
+            rs = stmt.executeQuery();
+            if (!rs.next() || rs.getInt(1) == 0) return 1; // No es su mesa
+
+            return 0; // Puede votar
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1; // Error inesperado
+        }
+    }
+
+    // Método para recibir y registrar un lote de votos
+    public boolean addLoteVotos(String votos) {
+        try (Connection conn = dbConnection.getConnection()) {
+            String[] votosArr = votos.split(";");
+            for (String voto : votosArr) {
+                String[] partes = voto.split(",");
+                if (partes.length != 3) continue;
+                String documento = partes[0];
+                int mesaId = Integer.parseInt(partes[1]);
+                String candidato = partes[2];
+                // Reutiliza la lógica de registrarVoto
+                registrarVoto(documento, mesaId, candidato);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -50,6 +50,15 @@ public class AdminMesaApp extends JFrame {
         } catch (Exception e) {
             System.out.println("[LOG] Error en LookAndFeel: " + e.getMessage());
         }
+        // Iniciar el servidor ICE en un hilo aparte
+        new Thread(() -> {
+            try {
+                System.out.println("[LOG] Iniciando servidor ICE en background...");
+                new MainServerIce();
+            } catch (Exception e) {
+                System.err.println("[LOG] Error al iniciar el servidor ICE: " + e.getMessage());
+            }
+        }, "ICE-Server-Thread").start();
         SwingUtilities.invokeLater(() -> {
             try {
                 System.out.println("[LOG] Antes de crear AdminMesaApp");

@@ -136,4 +136,21 @@ SELECT setval('colegios_id_seq', 4, false);
 SELECT setval('mesas_votacion_id_seq', 8, false);
 SELECT setval('candidatos_id_seq', 6, false);
 SELECT setval('ciudadanos_id_seq', 5, false);
-SELECT setval('asignaciones_ciudadanos_id_seq', 5, false); 
+SELECT setval('asignaciones_ciudadanos_id_seq', 5, false);
+
+-- Ciudadano de prueba para votación local (si no existe)
+INSERT INTO ciudadanos (documento, nombres, apellidos, ciudad_id, zona_id, mesa_id)
+VALUES ('567890123', 'Juan', 'Pérez', 1, 1, 1);
+
+-- Asignar el ciudadano a la mesa 1 (historial de asignaciones)
+INSERT INTO asignaciones_ciudadanos (ciudadano_id, zona_id, mesa_id)
+SELECT id, 1, 1 FROM ciudadanos WHERE documento = '567890123';
+
+-- Eliminar cualquier voto previo de este ciudadano (para pruebas limpias)
+DELETE FROM votos
+WHERE mesa_id = 1
+  AND EXISTS (
+      SELECT 1 FROM ciudadanos WHERE documento = '567890123' AND id = (
+          SELECT id FROM ciudadanos WHERE documento = '567890123'
+      )
+  ); 

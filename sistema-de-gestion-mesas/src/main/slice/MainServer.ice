@@ -5,71 +5,70 @@ module VotingSystem {
     
     // Estructura para información de mesa
     struct MesaInfo {
-        int mesaId;
-        string zona;
+        int id;
+        string nombreColegio;
+        string direccion;
+        int numeroMesa;
         string estado;
-        int totalVotos;
-        string ultimoVoto;
-        int alertas;
-        string colegio;
+    };
+    
+    // Estructura para candidatos
+    struct Candidato {
+        int id;
+        string nombre;
+        string partido;
+    };
+    
+    // Estructura para votos
+    struct Voto {
+        string idVotante;
+        int idCandidato;
+    };
+    
+    // Estructura para lotes de votos
+    sequence<Voto> VotoSeq;
+    struct LoteVotos {
+        VotoSeq votos;
     };
     
     // Estructura para alertas
     struct AlertaInfo {
+        int id;
         string tipo;
         string mensaje;
-        string timestamp;
-        int mesaId;
-        string severidad;
+        string fecha;
     };
     
-    // Secuencias para listas
-    sequence<MesaInfo> MesaInfoList;
-    sequence<AlertaInfo> AlertaInfoList;
+    // Estructura para estadísticas
+    struct Estadisticas {
+        int totalVotos;
+        int totalMesas;
+        int mesasActivas;
+    };
     
     // Interface principal del servidor de gestión
+    sequence<MesaInfo> MesaInfoSeq;
+    sequence<Candidato> CandidatoSeq;
+    sequence<AlertaInfo> AlertaInfoSeq;
     interface MainServer {
         // Gestión de mesas
-        MesaInfoList obtenerEstadoMesas();
-        MesaInfo obtenerEstadoMesa(int mesaId);
-        void actualizarEstadoMesa(int mesaId, string estado);
+        MesaInfoSeq listarMesas();
         
         // Gestión de votos
-        int obtenerTotalVotos();
-        int obtenerVotosMesa(int mesaId);
-        string generarResultadosParciales(int mesaId);
-        string generarResultadosFinales();
+        bool validarVoto(string idVotante);
+        bool registrarVoto(string idVotante, int idCandidato);
+        bool verificarEstado(string idVotante);
+        bool addLoteVotos(LoteVotos lote);
+        
+        // Gestión de candidatos
+        CandidatoSeq listarCandidatos();
         
         // Gestión de alertas
-        AlertaInfoList obtenerAlertas();
         void registrarAlerta(AlertaInfo alerta);
-        void limpiarAlertas();
-        
-        // Control de votación
-        void cerrarVotacion();
-        void cerrarMesa(int mesaId);
-        bool validarMesaActiva(int mesaId);
+        AlertaInfoSeq listarAlertas();
         
         // Estadísticas
-        string obtenerEstadisticas();
-        int contarMesasActivas();
-    };
-    
-    // Interface para comunicación con estaciones
-    interface VoteStation {
-        int registrarVoto(string documento, int candidatoId);
-        bool validarVotante(string documento);
-        string obtenerEstadoEstacion();
-        void cerrarEstacion();
-        int obtenerTotalVotosEstacion();
-    };
-    
-    // Interface para notificaciones de estaciones a servidor principal
-    interface StationNotifier {
-        void notificarVoto(int mesaId, string timestamp);
-        void notificarError(int mesaId, string error);
-        void notificarAlerta(int mesaId, string alerta);
-        void notificarCambioEstado(int mesaId, string nuevoEstado);
+        Estadisticas obtenerEstadisticas();
     };
 };
 

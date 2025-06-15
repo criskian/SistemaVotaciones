@@ -2,13 +2,29 @@ plugins {
     id 'application'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
 dependencies {
     implementation project(':common')
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+    implementation 'com.zeroc:ice:3.7.6'
 }
 
 application {
-    mainClass = 'com.votaciones.votestation.VoteStationServer'
+    mainClass = 'com.votaciones.estacion.Main'
 }
+
+// Tarea para generar stubs de ICE
+task generateIceStubs(type: Exec) {
+    workingDir projectDir
+    commandLine 'slice2java', '-I', '../sistema-de-gestion-mesas/src/main/slice', '--output-dir', 'src/main/java', '../sistema-de-gestion-mesas/src/main/slice/MainServer.ice'
+}
+
+// Hacer que compileJava dependa de generateIceStubs
+compileJava.dependsOn generateIceStubs
 
 // Tarea para ejecutar el cliente
 task runClient(type: JavaExec) {

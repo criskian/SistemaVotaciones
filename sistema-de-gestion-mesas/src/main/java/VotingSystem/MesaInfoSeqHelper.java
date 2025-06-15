@@ -16,9 +16,9 @@
 package VotingSystem;
 
 /**
- * Helper class for marshaling/unmarshaling MesaInfoList.
+ * Helper class for marshaling/unmarshaling MesaInfoSeq.
  **/
-public final class MesaInfoListHelper
+public final class MesaInfoSeqHelper
 {
     public static void write(com.zeroc.Ice.OutputStream ostr, MesaInfo[] v)
     {
@@ -39,7 +39,7 @@ public final class MesaInfoListHelper
     public static MesaInfo[] read(com.zeroc.Ice.InputStream istr)
     {
         final MesaInfo[] v;
-        final int len0 = istr.readAndCheckSeqSize(16);
+        final int len0 = istr.readAndCheckSeqSize(11);
         v = new MesaInfo[len0];
         for(int i0 = 0; i0 < len0; i0++)
         {
@@ -61,7 +61,7 @@ public final class MesaInfoListHelper
         if(ostr.writeOptional(tag, com.zeroc.Ice.OptionalFormat.FSize))
         {
             int pos = ostr.startSize();
-            MesaInfoListHelper.write(ostr, v);
+            MesaInfoSeqHelper.write(ostr, v);
             ostr.endSize(pos);
         }
     }
@@ -72,7 +72,7 @@ public final class MesaInfoListHelper
         {
             istr.skip(4);
             MesaInfo[] v;
-            v = MesaInfoListHelper.read(istr);
+            v = MesaInfoSeqHelper.read(istr);
             return java.util.Optional.of(v);
         }
         else

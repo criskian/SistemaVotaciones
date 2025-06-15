@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group = 'com.votaciones'
@@ -11,17 +12,26 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.postgresql:postgresql:42.7.2'
+    implementation 'org.postgresql:postgresql:42.6.0'
     implementation 'com.zaxxer:HikariCP:5.1.0'
     implementation 'org.slf4j:slf4j-api:2.0.11'
     implementation 'ch.qos.logback:logback-classic:1.4.14'
+    implementation 'com.zeroc:ice:3.7.6'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
 }
 
-application {
-    mainClass = 'com.votaciones.mainserver.MainServer'
+javafx {
+    version = '17.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
 }
+
+application {
+    mainClass = 'com.votaciones.mainserver.MainServerIce'
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 jar {
     manifest {
@@ -64,6 +74,13 @@ task runSistemaGestionMesasUI(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'com.votaciones.mainserver.SistemaGestionMesasUI'
 }
+
+task generateIceStubs(type: Exec) {
+    workingDir projectDir
+    commandLine 'slice2java', '-I', 'src/main/slice', '--output-dir', 'src/main/java', 'src/main/slice/MainServer.ice'
+}
+
+compileJava.dependsOn generateIceStubs
 
 run {
     standardInput = System.in

@@ -16,11 +16,11 @@
 package VotingSystem;
 
 /**
- * Helper class for marshaling/unmarshaling MesaInfoList.
+ * Helper class for marshaling/unmarshaling CandidatoSeq.
  **/
-public final class MesaInfoListHelper
+public final class CandidatoSeqHelper
 {
-    public static void write(com.zeroc.Ice.OutputStream ostr, MesaInfo[] v)
+    public static void write(com.zeroc.Ice.OutputStream ostr, Candidato[] v)
     {
         if(v == null)
         {
@@ -31,24 +31,24 @@ public final class MesaInfoListHelper
             ostr.writeSize(v.length);
             for(int i0 = 0; i0 < v.length; i0++)
             {
-                MesaInfo.ice_write(ostr, v[i0]);
+                Candidato.ice_write(ostr, v[i0]);
             }
         }
     }
 
-    public static MesaInfo[] read(com.zeroc.Ice.InputStream istr)
+    public static Candidato[] read(com.zeroc.Ice.InputStream istr)
     {
-        final MesaInfo[] v;
-        final int len0 = istr.readAndCheckSeqSize(16);
-        v = new MesaInfo[len0];
+        final Candidato[] v;
+        final int len0 = istr.readAndCheckSeqSize(6);
+        v = new Candidato[len0];
         for(int i0 = 0; i0 < len0; i0++)
         {
-            v[i0] = MesaInfo.ice_read(istr);
+            v[i0] = Candidato.ice_read(istr);
         }
         return v;
     }
 
-    public static void write(com.zeroc.Ice.OutputStream ostr, int tag, java.util.Optional<MesaInfo[]> v)
+    public static void write(com.zeroc.Ice.OutputStream ostr, int tag, java.util.Optional<Candidato[]> v)
     {
         if(v != null && v.isPresent())
         {
@@ -56,23 +56,23 @@ public final class MesaInfoListHelper
         }
     }
 
-    public static void write(com.zeroc.Ice.OutputStream ostr, int tag, MesaInfo[] v)
+    public static void write(com.zeroc.Ice.OutputStream ostr, int tag, Candidato[] v)
     {
         if(ostr.writeOptional(tag, com.zeroc.Ice.OptionalFormat.FSize))
         {
             int pos = ostr.startSize();
-            MesaInfoListHelper.write(ostr, v);
+            CandidatoSeqHelper.write(ostr, v);
             ostr.endSize(pos);
         }
     }
 
-    public static java.util.Optional<MesaInfo[]> read(com.zeroc.Ice.InputStream istr, int tag)
+    public static java.util.Optional<Candidato[]> read(com.zeroc.Ice.InputStream istr, int tag)
     {
         if(istr.readOptional(tag, com.zeroc.Ice.OptionalFormat.FSize))
         {
             istr.skip(4);
-            MesaInfo[] v;
-            v = MesaInfoListHelper.read(istr);
+            Candidato[] v;
+            v = CandidatoSeqHelper.read(istr);
             return java.util.Optional.of(v);
         }
         else
