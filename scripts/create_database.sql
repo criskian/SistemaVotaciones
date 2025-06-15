@@ -51,5 +51,6 @@ CREATE TABLE votos (
     id SERIAL PRIMARY KEY,
     candidato_id INTEGER REFERENCES candidatos(id),
     mesa_id INTEGER REFERENCES mesas_votacion(id),
+    ciudadano_id INTEGER REFERENCES ciudadanos(id),
     fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ); 

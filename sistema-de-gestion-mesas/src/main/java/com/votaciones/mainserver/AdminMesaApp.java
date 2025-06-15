@@ -36,6 +36,8 @@ public class AdminMesaApp extends JFrame {
     private JLabel mesasActivasLabel;
     private JLabel horaLabel;
     private JProgressBar estadoSistemaBar;
+    private JComboBox<String> colegioFiltroCombo;
+    private String colegioFiltroSeleccionado = "Todos los colegios";
     
     // Control de aplicación
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
@@ -251,92 +253,41 @@ public class AdminMesaApp extends JFrame {
             }
         });
         
+        // Filtro por colegio
+        colegioFiltroCombo = new JComboBox<>();
+        cargarColegiosFiltro();
+        colegioFiltroCombo.addActionListener(e -> {
+            colegioFiltroSeleccionado = (String) colegioFiltroCombo.getSelectedItem();
+            cargarMesasDesdeDB();
+        });
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.add(new JLabel("Filtrar por colegio:"), BorderLayout.WEST);
+        topPanel.add(colegioFiltroCombo, BorderLayout.CENTER);
+
         JScrollPane scrollPane = new JScrollPane(mesasTable);
         scrollPane.setPreferredSize(new Dimension(0, 300));
+        panel.add(topPanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
         
         return panel;
     }
 
-    private JPanel createPanelInferior() {
-        JPanel panel = new JPanel(new GridLayout(1, 3, 10, 10));
-        panel.setBorder(BorderFactory.createTitledBorder("Monitoreo en Tiempo Real"));
-        
-        // Panel de alertas
-        JPanel alertasPanel = new JPanel(new BorderLayout());
-        alertasPanel.setBorder(BorderFactory.createTitledBorder("Alertas del Sistema"));
-        
-        alertasArea = new JTextArea(8, 30);
-        alertasArea.setEditable(false);
-        alertasArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
-        alertasArea.setBackground(new Color(248, 248, 248));
-        
-        alertasPanel.add(new JScrollPane(alertasArea), BorderLayout.CENTER);
-        
-        // Panel de errores
-        JPanel erroresPanel = new JPanel(new BorderLayout());
-        erroresPanel.setBorder(BorderFactory.createTitledBorder("MostrarErrores - Errores del Sistema"));
-        
-        erroresArea = new JTextArea(8, 30);
-        erroresArea.setEditable(false);
-        erroresArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
-        erroresArea.setBackground(new Color(255, 248, 248));
-        erroresArea.setForeground(Color.RED);
-        
-        erroresPanel.add(new JScrollPane(erroresArea), BorderLayout.CENTER);
-        
-        // Panel de alarmas
-        JPanel alarmasPanel = new JPanel(new BorderLayout());
-        alarmasPanel.setBorder(BorderFactory.createTitledBorder("MostrarAlarmaSospechoso - Actividad Sospechosa"));
-        
-        alarmasArea = new JTextArea(8, 30);
-        alarmasArea.setEditable(false);
-        alarmasArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
-        alarmasArea.setBackground(new Color(255, 248, 240));
-        alarmasArea.setForeground(new Color(255, 140, 0));
-        
-        alarmasPanel.add(new JScrollPane(alarmasArea), BorderLayout.CENTER);
-        
-        panel.add(alertasPanel);
-        panel.add(erroresPanel);
-        panel.add(alarmasPanel);
-        
-        return panel;
-    }
-
-    private void startServices() {
-        sistemaActivo = true;
-        
-        // Actualizar hora cada segundo
-        scheduler.scheduleAtFixedRate(() -> {
-            SwingUtilities.invokeLater(this::actualizarHora);
-        }, 0, 1, TimeUnit.SECONDS);
-        
-        // Actualizar datos cada 30 segundos
-        scheduler.scheduleAtFixedRate(() -> {
-            SwingUtilities.invokeLater(this::actualizarDatosAutomatico);
-        }, 5, 30, TimeUnit.SECONDS);
-        
-        // Cargar datos iniciales
-        SwingUtilities.invokeLater(this::cargarDatosIniciales);
-    }
-    
-    private void actualizarHora() {
-        String hora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-        horaLabel.setText("Hora: " + hora);
-    }
-    
-    private void cargarDatosIniciales() {
-        try {
-            cargarMesasDesdeDB();
-            actualizarEstadisticas();
-            agregarAlerta("AdminMesa.jar iniciado correctamente", "INFO");
-        } catch (Exception e) {
-            System.err.println("Error al cargar datos iniciales: " + e.getMessage());
-            agregarError("Error al cargar datos: " + e.getMessage());
+    private void cargarColegiosFiltro() {
+        colegioFiltroCombo.removeAllItems();
+        colegioFiltroCombo.addItem("Todos los colegios");
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(
+                 "SELECT DISTINCT col.nombre as colegio FROM colegios col JOIN mesas_votacion m ON col.id = m.colegio_id ORDER BY colegio")) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                colegioFiltroCombo.addItem(rs.getString("colegio"));
+            }
+        } catch (SQLException e) {
+            agregarError("Error al cargar colegios para filtro: " + e.getMessage());
         }
     }
-    
+
     private void cargarMesasDesdeDB() {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(
@@ -354,7 +305,11 @@ public class AdminMesaApp extends JFrame {
                 String ciudad = rs.getString("ciudad");
                 String colegio = rs.getString("colegio");
                 
-                // Obtener votos para esta mesa
+                // Filtro por colegio
+                if (!"Todos los colegios".equals(colegioFiltroSeleccionado) && !colegioFiltroSeleccionado.equals(colegio)) {
+                    continue;
+                }
+                
                 int votos = obtenerVotosMesa(mesaId);
                 String estado = votos > 0 ? "ACTIVA" : "INACTIVA";
                 String ultimaActualizacion = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
@@ -777,6 +732,85 @@ public class AdminMesaApp extends JFrame {
             }
             
             return c;
+        }
+    }
+
+    private JPanel createPanelInferior() {
+        JPanel panel = new JPanel(new GridLayout(1, 3, 10, 10));
+        panel.setBorder(BorderFactory.createTitledBorder("Monitoreo en Tiempo Real"));
+
+        // Panel de alertas
+        JPanel alertasPanel = new JPanel(new BorderLayout());
+        alertasPanel.setBorder(BorderFactory.createTitledBorder("Alertas del Sistema"));
+
+        alertasArea = new JTextArea(8, 30);
+        alertasArea.setEditable(false);
+        alertasArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
+        alertasArea.setBackground(new Color(248, 248, 248));
+
+        alertasPanel.add(new JScrollPane(alertasArea), BorderLayout.CENTER);
+
+        // Panel de errores
+        JPanel erroresPanel = new JPanel(new BorderLayout());
+        erroresPanel.setBorder(BorderFactory.createTitledBorder("MostrarErrores - Errores del Sistema"));
+
+        erroresArea = new JTextArea(8, 30);
+        erroresArea.setEditable(false);
+        erroresArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
+        erroresArea.setBackground(new Color(255, 248, 248));
+        erroresArea.setForeground(Color.RED);
+
+        erroresPanel.add(new JScrollPane(erroresArea), BorderLayout.CENTER);
+
+        // Panel de alarmas
+        JPanel alarmasPanel = new JPanel(new BorderLayout());
+        alarmasPanel.setBorder(BorderFactory.createTitledBorder("MostrarAlarmaSospechoso - Actividad Sospechosa"));
+
+        alarmasArea = new JTextArea(8, 30);
+        alarmasArea.setEditable(false);
+        alarmasArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 10));
+        alarmasArea.setBackground(new Color(255, 248, 240));
+        alarmasArea.setForeground(new Color(255, 140, 0));
+
+        alarmasPanel.add(new JScrollPane(alarmasArea), BorderLayout.CENTER);
+
+        panel.add(alertasPanel);
+        panel.add(erroresPanel);
+        panel.add(alarmasPanel);
+
+        return panel;
+    }
+
+    private void startServices() {
+        sistemaActivo = true;
+
+        // Actualizar hora cada segundo
+        scheduler.scheduleAtFixedRate(() -> {
+            SwingUtilities.invokeLater(this::actualizarHora);
+        }, 0, 1, TimeUnit.SECONDS);
+
+        // Actualizar datos cada 30 segundos
+        scheduler.scheduleAtFixedRate(() -> {
+            SwingUtilities.invokeLater(this::actualizarDatosAutomatico);
+        }, 5, 30, TimeUnit.SECONDS);
+
+        // Cargar datos iniciales
+        SwingUtilities.invokeLater(this::cargarDatosIniciales);
+    }
+
+    private void actualizarHora() {
+        String hora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        horaLabel.setText("Hora: " + hora);
+    }
+
+    private void cargarDatosIniciales() {
+        try {
+            cargarMesasDesdeDB();
+            actualizarEstadisticas();
+            agregarAlerta("AdminMesa.jar iniciado correctamente", "INFO");
+        } catch (Exception e) {
+            System.err.println("Error al cargar datos iniciales: " + e.getMessage());
+            agregarError("Error al cargar datos: " + e.getMessage());
         }
     }
 } 
