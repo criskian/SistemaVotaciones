@@ -191,5 +191,5 @@ public class MesaInfo implements java.lang.Cloneable,
     private static final MesaInfo _nullMarshalValue = new MesaInfo();
 
     /** @hidden */
-    public static final long serialVersionUID = 4006098205610611982L;
+    public static final long serialVersionUID = -1061153522L;
 }

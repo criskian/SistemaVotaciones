@@ -153,5 +153,5 @@ public class Voto implements java.lang.Cloneable,
     private static final Voto _nullMarshalValue = new Voto();
 
     /** @hidden */
-    public static final long serialVersionUID = -707888685086911763L;
+    public static final long serialVersionUID = -790605075L;
 }

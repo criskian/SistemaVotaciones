@@ -181,5 +181,5 @@ public class AlertaInfo implements java.lang.Cloneable,
     private static final AlertaInfo _nullMarshalValue = new AlertaInfo();
 
     /** @hidden */
-    public static final long serialVersionUID = -6481840070427358561L;
+    public static final long serialVersionUID = 1464388255L;
 }

@@ -39,11 +39,15 @@ public class GestorLotes {
 
     private Connection crearConexion() {
         try {
+            // Cargar el driver de SQLite explícitamente
+            Class.forName("org.sqlite.JDBC");
             File dbDir = new File("db");
             if (!dbDir.exists()) dbDir.mkdirs();
             return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
         } catch (SQLException e) {
             throw new RuntimeException("No se pudo conectar a la base de datos local", e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("No se encontró el driver de SQLite", e);
         }
     }
 
