@@ -1,0 +1,29 @@
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    
+    group = 'com.votaciones'
+    version = '1.0-SNAPSHOT'
+    
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
+    
+    repositories {
+        mavenCentral()
+    }
+    
+    dependencies {
+        implementation 'com.zeroc:ice:3.7.6'
+        testImplementation platform('org.junit:junit-bom:5.9.1')
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+    }
+    
+    test {
+        useJUnitPlatform()
+    }
+} 

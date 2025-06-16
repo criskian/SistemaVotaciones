@@ -1,0 +1,29 @@
+18:44:58.569 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+18:44:58.576 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+18:44:58.842 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5daedb6c
+18:44:58.845 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+18:44:58.845 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+18:44:58.845 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+18:44:58.845 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+18:44:58.846 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+18:45:32.910 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+18:45:32.937 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+18:45:42.410 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+18:45:44.745 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+18:45:55.561 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 111
+18:45:55.563 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 111
+19:01:16.633 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+19:01:16.647 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+19:01:16.877 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6bffcfec
+19:01:16.880 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+19:01:16.880 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+19:01:16.881 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+19:01:16.881 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+19:01:16.881 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+19:02:01.246 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+19:02:01.278 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+19:02:07.728 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 567890123
+19:02:07.729 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 567890123
+19:02:15.830 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 345678901
+19:02:15.832 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 345678901
+19:03:22.793 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos

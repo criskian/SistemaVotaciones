@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.votaciones'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':proxy-cache-db-ciudad')
+    implementation 'org.postgresql:postgresql:42.7.2'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    implementation 'org.slf4j:slf4j-api:2.0.12'
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
+    implementation 'com.zeroc:ice:3.7.6'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+application {
+    mainClass = 'com.votaciones.portalwebconsulta.ui.ConsultaUI'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.votaciones.portalwebconsulta.ui.ConsultaUI'
+        )
+    }
+} 

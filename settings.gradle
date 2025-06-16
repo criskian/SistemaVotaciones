@@ -1,0 +1,9 @@
+rootProject.name = 'SistemaVotaciones'
+
+include 'common'
+include 'proxy-cache-db-ciudad'
+include 'portal-web-de-consulta'
+include 'sistema-de-gestion-mesas'
+include 'estacion-de-votacion-local'
+include 'seguridad'
+include 'reliable-message' 
