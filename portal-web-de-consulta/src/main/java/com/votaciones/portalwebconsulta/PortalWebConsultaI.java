@@ -163,4 +163,26 @@ public class PortalWebConsultaI implements ProxyCacheDBCiudad {
             return "Error al consultar la mesa descriptiva: " + e.getMessage();
         }
     }
+
+    @Override
+    public boolean YaVoto(String cedula, Current current) {
+        try {
+            logger.info("Verificando si ya votó: {}", cedula);
+            return proxy.YaVoto(cedula);
+        } catch (Exception e) {
+            logger.error("Error al verificar si ya votó", e);
+            throw new RuntimeException("Error al verificar si ya votó", e);
+        }
+    }
+
+    @Override
+    public boolean EsSospechoso(String cedula, Current current) {
+        try {
+            logger.info("Verificando si es sospechoso: {}", cedula);
+            return proxy.EsSospechoso(cedula);
+        } catch (Exception e) {
+            logger.error("Error al verificar si es sospechoso", e);
+            throw new RuntimeException("Error al verificar si es sospechoso", e);
+        }
+    }
 }

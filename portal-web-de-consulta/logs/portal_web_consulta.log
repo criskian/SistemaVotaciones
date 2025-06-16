@@ -1,141 +1,414 @@
-18:22:50.558 [main] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
-18:22:50.566 [main] ERROR com.zaxxer.hikari.HikariConfig - Failed to load driver class org.postgresql.Driver  from HikariConfig class classloader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44
-18:22:50.571 [main] ERROR c.v.common.db.DatabaseConnection - Failed to initialize database connection pool
-java.lang.RuntimeException: Failed to load driver class org.postgresql.Driver  in either of HikariConfig class loader or Thread context classloader
-	at com.zaxxer.hikari.HikariConfig.setDriverClassName(HikariConfig.java:494)
-	at com.votaciones.common.db.DatabaseConnection.<clinit>(DatabaseConnection.java:24)
-	at com.votaciones.portalwebconsulta.PortalWebConsultaServer.main(PortalWebConsultaServer.java:22)
-18:22:55.829 [main] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
-18:22:55.835 [main] ERROR com.zaxxer.hikari.HikariConfig - Failed to load driver class org.postgresql.Driver  from HikariConfig class classloader jdk.internal.loader.ClassLoaders$AppClassLoader@c387f44
-18:22:55.838 [main] ERROR c.v.common.db.DatabaseConnection - Failed to initialize database connection pool
-java.lang.RuntimeException: Failed to load driver class org.postgresql.Driver  in either of HikariConfig class loader or Thread context classloader
-	at com.zaxxer.hikari.HikariConfig.setDriverClassName(HikariConfig.java:494)
-	at com.votaciones.common.db.DatabaseConnection.<clinit>(DatabaseConnection.java:24)
-	at com.votaciones.portalwebconsulta.PortalWebConsultaServer.main(PortalWebConsultaServer.java:22)
-18:24:07.493 [main] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
-18:24:07.520 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-18:24:08.093 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4fb3ee4e
-18:24:08.099 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-18:24:08.099 [main] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
-18:24:08.307 [main] INFO  c.v.p.PortalWebConsultaServer - Servidor iniciado en el puerto 10000
-18:26:05.484 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
-18:26:05.515 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-18:26:06.116 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@49a934f5
-18:26:06.122 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-18:26:06.122 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
-18:26:06.281 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Servicio de acceso a datos inicializado
-18:26:06.288 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Servicio de seguridad inicializado
-18:30:48.626 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
-18:30:48.631 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
-18:30:48.631 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
-18:30:57.180 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:31:09.854 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
-18:31:19.896 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 12
-18:31:19.902 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando mesa para cédula: 12
-18:31:19.903 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 12
-18:31:19.903 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona para cédula: 12
-18:31:29.030 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:31:30.742 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
-18:34:48.991 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
-18:34:48.995 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
-18:34:48.995 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
-18:34:57.490 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:34:59.963 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
-18:35:01.335 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:35:06.969 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1221
-18:35:06.973 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando mesa para cédula: 1221
-18:35:06.974 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1221
-18:35:06.974 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona para cédula: 1221
-18:36:28.268 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
-18:36:28.273 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
-18:36:28.273 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
-18:36:35.271 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:36:37.141 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
-18:36:37.933 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:36:38.661 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
-18:36:39.184 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:38:08.100 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
-18:38:08.105 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
-18:38:08.105 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
-18:40:13.995 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
-18:40:13.999 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
-18:40:13.999 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
-18:40:36.660 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:40:39.466 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-18:40:40.847 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
-18:40:46.146 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 3333
-18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando mesa para cédula: 3333
-18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 3333
-18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona para cédula: 3333
-17:29:38.524 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
-17:29:38.531 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-17:29:38.672 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@405cd144
-17:29:38.673 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-17:29:38.673 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
-17:29:38.674 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
-17:29:38.674 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
-17:29:38.674 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
-17:31:15.687 [main] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
-17:31:15.693 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-17:31:15.780 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7dfd3c81
-17:31:15.781 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-17:31:15.782 [main] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
-17:31:15.828 [main] INFO  c.v.p.PortalWebConsultaServer - Servidor iniciado en el puerto 10000
-17:31:42.465 [Ice.ThreadPool.Server-0] ERROR c.v.p.PortalWebConsultaI - Error al consultar el conteo de votos
-org.postgresql.util.PSQLException: ERROR: relation "candidates" does not exist
-  Position: 42
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2725)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2412)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:502)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:419)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
-	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
-	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
-	at com.votaciones.portalwebconsulta.PortalWebConsultaI.consultVoteCount(PortalWebConsultaI.java:102)
-	at VotingSystem.QueryStation._iceD_consultVoteCount(QueryStation.java:123)
-	at VotingSystem.QueryStation._iceDispatch(QueryStation.java:162)
-	at com.zeroc.IceInternal.Incoming.invoke(Incoming.java:222)
-	at com.zeroc.Ice.ConnectionI.invokeAll(ConnectionI.java:2723)
-	at com.zeroc.Ice.ConnectionI.dispatch(ConnectionI.java:1302)
-	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1213)
+-- 15/06/25 21:08:56:431 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:08:56:455 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 21:08:56:455 Network: established tcp connection
+   local address = 127.0.0.1:58206
+   remote address = 127.0.0.1:10000
+-- 15/06/25 21:08:56:458 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 84
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:08:56:462 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 16/6/25 05:27:21:664 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:27:21:693 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:21:693 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:21:693 Retry: retrying operation call because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:21:694 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:27:21:697 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:21:698 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:21:699 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:22:703 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:27:22:704 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:22:704 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:22:704 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:23:706 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:27:23:707 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:23:707 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:23:707 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:25:712 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:27:25:713 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:25:713 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:25:714 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:27:721 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:27:27:724 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:27:724 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:27:27:725 Retry: cannot retry operation call because retry limit has been exceeded
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+05:27:27.731 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al inicializar el proxy
+com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at com.zeroc.Ice._ObjectPrxI.ice_isA(_ObjectPrxI.java:31)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:949)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:868)
+	at VotingSystem.ProxyCacheDBCiudadPrx.checkedCast(ProxyCacheDBCiudadPrx.java:544)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:36)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:22)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:740)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:777)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2116)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
 	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
 	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
 	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
 	at java.base/java.lang.Thread.run(Thread.java:829)
-17:31:47.689 [Ice.ThreadPool.Server-0] ERROR c.v.p.PortalWebConsultaI - Error al consultar los candidatos
-org.postgresql.util.PSQLException: ERROR: relation "candidates" does not exist
-  Position: 18
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2725)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2412)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:502)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:419)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
-	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
-	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
-	at com.votaciones.portalwebconsulta.PortalWebConsultaI.consultCandidates(PortalWebConsultaI.java:82)
-	at VotingSystem.QueryStation._iceD_consultCandidates(QueryStation.java:105)
-	at VotingSystem.QueryStation._iceDispatch(QueryStation.java:158)
-	at com.zeroc.IceInternal.Incoming.invoke(Incoming.java:222)
-	at com.zeroc.Ice.ConnectionI.invokeAll(ConnectionI.java:2723)
-	at com.zeroc.Ice.ConnectionI.dispatch(ConnectionI.java:1302)
-	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1213)
+-- 16/6/25 05:28:16:722 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:28:16:749 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:16:749 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:16:749 Retry: retrying operation call because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:16:750 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:28:16:750 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:16:751 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:16:751 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:17:756 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:28:17:757 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:17:757 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:17:758 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:18:759 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:28:18:760 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:18:760 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:18:760 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:20:762 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:28:20:764 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:20:764 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:20:765 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:22:769 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:28:22:770 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:22:770 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 16/6/25 05:28:22:771 Retry: cannot retry operation call because retry limit has been exceeded
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+05:28:22.776 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al inicializar el proxy
+com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at com.zeroc.Ice._ObjectPrxI.ice_isA(_ObjectPrxI.java:31)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:949)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:868)
+	at VotingSystem.ProxyCacheDBCiudadPrx.checkedCast(ProxyCacheDBCiudadPrx.java:544)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:36)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:22)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:313)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:770)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:740)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:777)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2116)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
 	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
 	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
 	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
 	at java.base/java.lang.Thread.run(Thread.java:829)
-17:35:04.220 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
-17:35:04.226 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-17:35:04.354 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@405cd144
-17:35:04.355 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-17:35:04.355 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
-17:35:04.356 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
-17:35:04.356 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
-17:35:04.356 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
-17:35:07.792 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
-17:35:08.959 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
-17:35:18.962 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
-17:35:20.225 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+-- 16/6/25 05:28:55:090 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:28:55:125 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 16/6/25 05:28:55:125 Network: established tcp connection
+   local address = 127.0.0.1:56773
+   remote address = 127.0.0.1:10000
+-- 16/6/25 05:28:55:127 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 16/6/25 05:28:55:142 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+05:28:55.144 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+05:28:55.147 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+05:28:55.147 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+05:28:55.147 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+05:28:58.537 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 16/6/25 05:28:58:544 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 16/6/25 05:28:58:623 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 242
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 16/6/25 05:28:58:624 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 16/6/25 05:28:58:733 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 16/6/25 05:28:58:737 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 16/6/25 05:28:58:738 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 16/6/25 05:28:58:738 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 16/6/25 05:28:58:739 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 16/6/25 05:28:58:739 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 16/6/25 05:28:58:740 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 16/6/25 05:28:58:740 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 16/6/25 05:28:58:741 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+05:28:58.741 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+-- 16/6/25 05:29:18:016 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 16/6/25 05:29:18:043 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 16/6/25 05:29:18:043 Network: established tcp connection
+   local address = 127.0.0.1:56809
+   remote address = 127.0.0.1:10000
+-- 16/6/25 05:29:18:045 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 16/6/25 05:29:18:046 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+05:29:18.048 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+05:29:18.052 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+05:29:18.052 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+05:29:18.052 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
