@@ -29,7 +29,8 @@ public class PortalWebConsultaServer {
                     "PortalWebConsulta", "default -p 10000");
 
             // Crear el servant
-            PortalWebConsultaI servant = new PortalWebConsultaI();
+            PortalWebConsultaI proxy = new PortalWebConsultaI();
+            com.votaciones.portalwebconsulta.service.ProxyCacheAdapter servant = new com.votaciones.portalwebconsulta.service.ProxyCacheAdapter(proxy);
 
             // Activar el adaptador y el servant
             adapter.add(servant, new Identity("PortalWebConsulta", ""));

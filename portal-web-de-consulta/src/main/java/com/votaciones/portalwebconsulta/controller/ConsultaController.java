@@ -3,6 +3,7 @@ package com.votaciones.portalwebconsulta.controller;
 import com.votaciones.portalwebconsulta.service.AccesoDatosService;
 import com.votaciones.portalwebconsulta.service.SeguridadService;
 import com.votaciones.portalwebconsulta.service.ConsultoriaService;
+import com.votaciones.portalwebconsulta.service.ProxyCacheAdapter;
 import com.votaciones.portalwebconsulta.PortalWebConsultaI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +18,10 @@ public class ConsultaController {
         this.accesoDatos = new AccesoDatosService();
         this.seguridad = new SeguridadService();
 
-        // Crear instancia de QueryStation
-        PortalWebConsultaI queryStation = new PortalWebConsultaI();
-        this.consultoria = new ConsultoriaService(queryStation);
+        // Crear instancia de PortalWebConsultaI y adaptarla a QueryStation
+        PortalWebConsultaI proxy = new PortalWebConsultaI();
+        ProxyCacheAdapter adapter = new ProxyCacheAdapter(proxy);
+        this.consultoria = new ConsultoriaService(adapter);
 
         // Inicializar servicios
         try {

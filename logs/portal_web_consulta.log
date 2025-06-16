@@ -357,3 +357,2369 @@ org.postgresql.util.PSQLException: ERROR: column c.nombre does not exist
 19:28:34.852 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
 19:28:34.852 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
 19:28:38.629 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+19:29:48.319 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+19:29:48.335 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+19:29:51.169 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+19:29:54.635 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+19:29:56.301 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+19:29:57.518 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+20:35:37.837 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+20:35:37.843 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20:35:37.931 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2dad5d18
+20:35:37.931 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20:35:37.931 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+20:35:37.931 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+20:35:37.931 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+20:35:37.931 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+20:36:07.686 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+20:36:09.255 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+20:36:18.387 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1117013298
+20:36:18.396 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1117013298
+20:36:22.819 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+20:36:22.821 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+20:38:04.204 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+20:43:17.910 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+20:43:18.542 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+20:54:48.840 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al inicializar el proxy
+com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at com.zeroc.Ice._ObjectPrxI.ice_isA(_ObjectPrxI.java:31)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:949)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:868)
+	at VotingSystem.QueryStationPrx.checkedCast(QueryStationPrx.java:182)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:25)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:21)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2116)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+20:55:49.064 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al inicializar el proxy
+com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at com.zeroc.Ice._ObjectPrxI.ice_isA(_ObjectPrxI.java:31)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:949)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:868)
+	at VotingSystem.QueryStationPrx.checkedCast(QueryStationPrx.java:182)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:25)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:21)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2116)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+20:58:43.496 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al inicializar el proxy
+com.zeroc.Ice.InitializationException: null
+	at com.zeroc.Ice.LoggerI.<init>(LoggerI.java:32)
+	at com.zeroc.IceInternal.Instance.<init>(Instance.java:969)
+	at com.zeroc.Ice.CommunicatorI.<init>(CommunicatorI.java:297)
+	at com.zeroc.Ice.Util.initialize(Util.java:228)
+	at com.zeroc.Ice.Util.initialize(Util.java:130)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:22)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:21)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+-- 15/06/25 20:59:11:537 Retry: retrying operation call because of exception
+   com.zeroc.Ice.NoEndpointException
+       proxy = "ProxyCacheDBCiudad -t -e 1.1"
+-- 15/06/25 20:59:11:538 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.NoEndpointException
+       proxy = "ProxyCacheDBCiudad -t -e 1.1"
+-- 15/06/25 20:59:12:543 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.NoEndpointException
+       proxy = "ProxyCacheDBCiudad -t -e 1.1"
+-- 15/06/25 20:59:13:546 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.NoEndpointException
+       proxy = "ProxyCacheDBCiudad -t -e 1.1"
+-- 15/06/25 20:59:15:552 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.NoEndpointException
+       proxy = "ProxyCacheDBCiudad -t -e 1.1"
+-- 15/06/25 20:59:17:559 Retry: cannot retry operation call because retry limit has been exceeded
+   com.zeroc.Ice.NoEndpointException
+       proxy = "ProxyCacheDBCiudad -t -e 1.1"
+20:59:17.561 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al inicializar el proxy
+com.zeroc.Ice.NoEndpointException: null
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at com.zeroc.Ice._ObjectPrxI.ice_isA(_ObjectPrxI.java:31)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:949)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:868)
+	at VotingSystem.QueryStationPrx.checkedCast(QueryStationPrx.java:182)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:26)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:21)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+-- 15/06/25 21:00:53:633 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:00:53:689 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 21:00:53:689 Network: established tcp connection
+   local address = 127.0.0.1:57787
+   remote address = 127.0.0.1:10000
+-- 15/06/25 21:00:53:699 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 84
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:00:53:709 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 21:02:59:386 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:02:59:521 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 21:02:59:521 Network: established tcp connection
+   local address = 127.0.0.1:57865
+   remote address = 127.0.0.1:10000
+-- 15/06/25 21:02:59:526 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 84
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:02:59:530 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 21:20:24:551 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:20:24:602 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 21:20:24:604 Network: established tcp connection
+   local address = 127.0.0.1:58585
+   remote address = 127.0.0.1:10000
+-- 15/06/25 21:20:24:618 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 84
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:20:24:646 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 21:20:54:486 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:20:54:528 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 21:20:54:529 Network: established tcp connection
+   local address = 127.0.0.1:58622
+   remote address = 127.0.0.1:10000
+-- 15/06/25 21:20:54:533 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 84
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:20:54:551 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 21:24:40:258 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:24:40:299 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 21:24:40:299 Network: established tcp connection
+   local address = 127.0.0.1:58750
+   remote address = 127.0.0.1:10000
+-- 15/06/25 21:24:40:304 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 84
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:24:40:309 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 21:28:39:180 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:28:39:220 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 21:28:39:220 Network: established tcp connection
+   local address = 127.0.0.1:58947
+   remote address = 127.0.0.1:10000
+-- 15/06/25 21:28:39:230 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:28:39:234 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+21:28:39.236 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+21:28:39.240 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+21:28:39.240 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+21:28:39.241 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+21:28:43.105 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando zonas de votación
+-- 15/06/25 21:28:43:106 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 64
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetZonasVotacion
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:28:43:129 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 91
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+21:28:43.130 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 1
+-- 15/06/25 21:28:43:133 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:28:43:137 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+21:28:43.138 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 2
+-- 15/06/25 21:28:43:139 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:28:43:141 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+21:28:43.141 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 3
+-- 15/06/25 21:28:43:142 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:28:43:146 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+21:28:43.147 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:29:05.185 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 21:29:05:187 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:29:05:191 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+21:29:05.191 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:29:19.201 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+21:29:19.203 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando votante por cédula: 123456789
+-- 15/06/25 21:29:19:205 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarVotantePorCedula
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:29:19:211 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 63
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+21:29:19.212 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+21:31:43.067 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 21:31:43:068 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 8
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:31:43:072 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 8
+   reply status = 0 (ok)
+   encoding = 1.1
+21:31:43.073 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:32:09.185 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando zonas de votación
+-- 15/06/25 21:32:09:186 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 64
+   request id = 9
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetZonasVotacion
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:32:09:189 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 91
+   request id = 9
+   reply status = 0 (ok)
+   encoding = 1.1
+21:32:09.189 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 1
+-- 15/06/25 21:32:09:190 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 10
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:32:09:191 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 10
+   reply status = 0 (ok)
+   encoding = 1.1
+21:32:09.191 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 2
+-- 15/06/25 21:32:09:191 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 11
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:32:09:192 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 11
+   reply status = 0 (ok)
+   encoding = 1.1
+21:32:09.193 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 3
+-- 15/06/25 21:32:09:193 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 12
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:32:09:194 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 12
+   reply status = 0 (ok)
+   encoding = 1.1
+21:32:09.194 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+-- 15/06/25 21:56:56:724 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:56:56:774 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:56:775 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:56:775 Retry: retrying operation call because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:56:777 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:56:56:778 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:56:778 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:56:778 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:57:784 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:56:57:785 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:57:785 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:57:786 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:58:791 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:56:58:792 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:58:792 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:56:58:792 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:57:00:797 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:57:00:799 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:57:00:799 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:57:00:799 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:57:02:802 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:57:02:804 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:57:02:804 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 21:57:02:805 Retry: cannot retry operation call because retry limit has been exceeded
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+21:57:02.807 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al inicializar el proxy
+com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at com.zeroc.Ice._ObjectPrxI.ice_isA(_ObjectPrxI.java:31)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:949)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:868)
+	at VotingSystem.ProxyCacheDBCiudadPrx.checkedCast(ProxyCacheDBCiudadPrx.java:384)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:36)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:22)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2116)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+-- 15/06/25 23:26:43:949 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:26:43:976 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 23:26:43:976 Network: established tcp connection
+   local address = 127.0.0.1:63519
+   remote address = 127.0.0.1:10000
+-- 15/06/25 23:26:43:980 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:43:985 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:43.986 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+23:26:43.988 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+23:26:43.988 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+23:26:43.988 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+23:26:46.639 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando zonas de votación
+-- 15/06/25 23:26:46:643 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 64
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetZonasVotacion
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:46:663 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 91
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:46.664 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 1
+-- 15/06/25 23:26:46:666 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:46:670 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:46.671 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 2
+-- 15/06/25 23:26:46:671 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:46:672 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:46.672 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 3
+-- 15/06/25 23:26:46:672 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:46:673 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:46.673 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+23:26:49.871 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:26:49:873 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:49:877 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:49.877 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+23:26:51.804 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando zonas de votación
+-- 15/06/25 23:26:51:805 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 64
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetZonasVotacion
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:51:806 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 91
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:51.806 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 1
+-- 15/06/25 23:26:51:806 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 8
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:51:808 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 8
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:51.808 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 2
+-- 15/06/25 23:26:51:808 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 9
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:51:809 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 9
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:51.809 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 3
+-- 15/06/25 23:26:51:809 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 10
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:26:51:809 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 10
+   reply status = 0 (ok)
+   encoding = 1.1
+23:26:51.809 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+-- 15/06/25 23:28:09:301 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:28:09:324 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 23:28:09:324 Network: established tcp connection
+   local address = 127.0.0.1:63597
+   remote address = 127.0.0.1:10000
+-- 15/06/25 23:28:09:326 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:28:09:331 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+23:28:09.331 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+23:28:09.334 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+23:28:09.334 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+23:28:09.334 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+23:28:17.930 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando zonas de votación
+-- 15/06/25 23:28:17:932 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 64
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetZonasVotacion
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:28:17:960 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 91
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+23:28:17.961 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 1
+-- 15/06/25 23:28:17:962 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:28:17:965 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+23:28:17.966 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 2
+-- 15/06/25 23:28:17:966 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:28:17:967 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+23:28:17.967 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 3
+-- 15/06/25 23:28:17:967 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:28:17:968 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+23:28:17.968 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+23:28:35.797 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:28:35:798 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:28:35:802 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+23:28:35.802 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+23:28:56.981 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:28:56:984 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:28:56:986 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+23:28:56.986 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+-! 15/06/25 23:31:03:857 warning: Ice.ThreadPool.Client-0: connection exception:
+   local address = 127.0.0.1:63597
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionLostException
+       error = 0
+   	at com.zeroc.IceInternal.StreamSocket.read(StreamSocket.java:188)
+   	at com.zeroc.IceInternal.StreamSocket.read(StreamSocket.java:149)
+   	at com.zeroc.IceInternal.TcpTransceiver.read(TcpTransceiver.java:58)
+   	at com.zeroc.Ice.ConnectionI.read(ConnectionI.java:2997)
+   	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:990)
+   	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+   	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+   	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+   	at java.base/java.lang.Thread.run(Thread.java:1583)
+   
+-- 15/06/25 23:31:03:858 Network: closed tcp connection
+   local address = 127.0.0.1:63597
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionLostException
+       error = 0
+-- 15/06/25 23:34:26:960 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:34:26:988 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:26:988 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:26:988 Retry: retrying operation call because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:26:989 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:34:26:990 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:26:990 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:26:990 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:27:996 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:34:27:998 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:27:999 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:27:999 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:29:000 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:34:29:001 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:29:002 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:29:002 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:31:007 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:34:31:008 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:31:008 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:31:008 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:33:011 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:34:33:012 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:33:013 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:34:33:013 Retry: cannot retry operation call because retry limit has been exceeded
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+23:34:33.014 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al inicializar el proxy
+com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at com.zeroc.Ice._ObjectPrxI.ice_isA(_ObjectPrxI.java:31)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:949)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:868)
+	at VotingSystem.ProxyCacheDBCiudadPrx.checkedCast(ProxyCacheDBCiudadPrx.java:424)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:36)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:22)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2116)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+23:34:44.567 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando zonas de votación
+-- 15/06/25 23:34:44:572 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:34:44:582 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 23:34:44:582 Network: established tcp connection
+   local address = 127.0.0.1:63973
+   remote address = 127.0.0.1:10000
+-- 15/06/25 23:34:44:582 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 64
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetZonasVotacion
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:44:596 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 91
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+23:34:44.596 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 1
+-- 15/06/25 23:34:44:597 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:44:599 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+23:34:44.599 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 2
+-- 15/06/25 23:34:44:599 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:44:599 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+23:34:44.599 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando conteo de votos para mesa: 3
+-- 15/06/25 23:34:44:600 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 66
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:44:600 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+23:34:44.600 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+-- 15/06/25 23:34:55:318 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:34:55:344 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 23:34:55:344 Network: established tcp connection
+   local address = 127.0.0.1:63990
+   remote address = 127.0.0.1:10000
+-- 15/06/25 23:34:55:347 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:55:350 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+23:34:55.351 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+23:34:55.353 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+23:34:55.354 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+23:34:55.354 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+23:34:57.917 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:34:57:919 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:57:923 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:34:57:924 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:57:925 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:34:57:926 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:57:927 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:34:57:927 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:57:928 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:34:57:928 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:57:929 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:34:57:929 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:34:57:929 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+23:34:57.929 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+23:35:00.067 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:35:00:068 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 8
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:35:00:070 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 8
+   reply status = 0 (ok)
+   encoding = 1.1
+23:35:00.070 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+23:35:09.583 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+23:35:09.584 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando votante por cédula: 123456789
+-- 15/06/25 23:35:09:585 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 9
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarVotantePorCedula
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:35:09:590 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 63
+   request id = 9
+   reply status = 0 (ok)
+   encoding = 1.1
+23:35:09.590 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+-- 15/06/25 23:37:09:749 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:37:09:796 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 23:37:09:796 Network: established tcp connection
+   local address = 127.0.0.1:64070
+   remote address = 127.0.0.1:10000
+-- 15/06/25 23:37:09:799 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:37:09:802 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+23:37:09.804 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+23:37:09.806 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+23:37:09.806 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+23:37:09.806 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+23:37:11.917 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:37:11:918 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:37:11:920 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:37:11:921 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:37:11:922 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:37:11:922 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:37:11:923 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:37:11:923 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:37:11:923 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:37:11:923 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:37:11:924 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:37:11:924 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:37:11:924 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+23:37:11.924 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+23:37:17.751 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+23:37:17.753 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando votante por cédula: 123456789
+-- 15/06/25 23:37:17:754 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 8
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarVotantePorCedula
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:37:17:756 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 63
+   request id = 8
+   reply status = 0 (ok)
+   encoding = 1.1
+23:37:17.756 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+-! 15/06/25 23:40:03:995 warning: Ice.ThreadPool.Client-0: connection exception:
+   local address = 127.0.0.1:64070
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionLostException
+       error = 0
+   	at com.zeroc.IceInternal.StreamSocket.read(StreamSocket.java:188)
+   	at com.zeroc.IceInternal.StreamSocket.read(StreamSocket.java:149)
+   	at com.zeroc.IceInternal.TcpTransceiver.read(TcpTransceiver.java:58)
+   	at com.zeroc.Ice.ConnectionI.read(ConnectionI.java:2997)
+   	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:990)
+   	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+   	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+   	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+   	at java.base/java.lang.Thread.run(Thread.java:1583)
+   
+-- 15/06/25 23:40:03:996 Network: closed tcp connection
+   local address = 127.0.0.1:64070
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionLostException
+       error = 0
+-- 15/06/25 23:42:17:843 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:42:17:901 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 23:42:17:901 Network: established tcp connection
+   local address = 127.0.0.1:64399
+   remote address = 127.0.0.1:10000
+-- 15/06/25 23:42:17:906 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:42:17:916 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+23:42:17.917 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+23:42:17.920 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+23:42:17.921 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+23:42:17.921 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+23:42:24.606 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+23:42:24.609 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando votante por cédula: 123456789
+-- 15/06/25 23:42:24:611 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarVotantePorCedula
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:42:24:631 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 63
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+23:42:24.632 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+-- 15/06/25 23:43:20:667 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:20:712 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 23:43:20:712 Network: established tcp connection
+   local address = 127.0.0.1:64444
+   remote address = 127.0.0.1:10000
+-- 15/06/25 23:43:20:717 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:20:720 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:20.722 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+23:43:20.724 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+23:43:20.724 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+23:43:20.724 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+23:43:26.651 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+-- 15/06/25 23:43:26:652 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 82
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:26:659 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 182
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:26.659 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+23:43:28.487 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:43:28:491 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:28:508 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:28:513 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:28:526 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:28:536 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:28:537 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:28:537 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:28:538 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:28:539 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:28:539 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:28:539 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 8
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:28:540 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 8
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:28.540 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+23:43:29.484 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+-- 15/06/25 23:43:29:485 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 82
+   request id = 9
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:29:486 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 182
+   request id = 9
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:29.486 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+23:43:30.334 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:43:30:335 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 10
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:30:336 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 10
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:30:336 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 11
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:30:337 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 11
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:30:337 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 12
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:30:338 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 12
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:30:338 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 13
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:30:339 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 13
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:30:339 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 14
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:30:339 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 14
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:30:339 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 15
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:30:340 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 15
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:30.340 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+23:43:32.019 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:43:32:020 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 16
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:32:023 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 16
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:32.024 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+23:43:33.002 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:43:33:002 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 17
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:33:003 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 17
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:33:004 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 18
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:33:004 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 18
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:33:004 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 19
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:33:005 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 19
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:33:005 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 20
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:33:006 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 20
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:33:006 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 21
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:33:006 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 21
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 15/06/25 23:43:33:006 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 22
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:33:006 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 22
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:33.006 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+23:43:33.621 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:43:33:622 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 23
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:33:623 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 238
+   request id = 23
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:33.624 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+23:43:34.101 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+-- 15/06/25 23:43:34:102 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 82
+   request id = 24
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 15/06/25 23:43:34:103 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 182
+   request id = 24
+   reply status = 0 (ok)
+   encoding = 1.1
+23:43:34.103 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+-! 15/06/25 23:43:39:712 warning: Ice.ThreadPool.Client-0: connection exception:
+   local address = 127.0.0.1:64444
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionLostException
+       error = 0
+   	at com.zeroc.IceInternal.StreamSocket.read(StreamSocket.java:188)
+   	at com.zeroc.IceInternal.StreamSocket.read(StreamSocket.java:149)
+   	at com.zeroc.IceInternal.TcpTransceiver.read(TcpTransceiver.java:58)
+   	at com.zeroc.Ice.ConnectionI.read(ConnectionI.java:2997)
+   	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:990)
+   	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+   	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+   	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+   	at java.base/java.lang.Thread.run(Thread.java:1583)
+   
+-- 15/06/25 23:43:39:714 Network: closed tcp connection
+   local address = 127.0.0.1:64444
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionLostException
+       error = 0
+23:43:41.202 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:43:41:202 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:41:203 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:41:203 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:41:203 Retry: retrying operation call because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:41:204 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:41:204 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:41:204 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:41:204 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:42:210 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:42:211 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:42:211 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:42:211 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:43:214 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:43:214 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:43:215 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:43:215 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:45:216 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:45:217 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:45:217 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:45:217 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:47:221 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:47:222 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:47:223 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:47:223 Retry: cannot retry operation call because retry limit has been exceeded
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+23:43:47.223 [AWT-EventQueue-0] ERROR c.v.p.PortalWebConsultaI - Error al consultar los candidatos
+com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at VotingSystem.ProxyCacheDBCiudadPrx.ConsultarCandidatos(ProxyCacheDBCiudadPrx.java:67)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.ConsultarCandidatos(PortalWebConsultaI.java:63)
+	at com.votaciones.portalwebconsulta.service.ProxyCacheAdapter.consultVoteCount(ProxyCacheAdapter.java:65)
+	at com.votaciones.portalwebconsulta.service.ConsultoriaService.verConteoVotos(ConsultoriaService.java:56)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.consultarVotos(ConsultaController.java:72)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$new$2(ConsultaUI.java:122)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.AWTEventMulticaster.mouseReleased(AWTEventMulticaster.java:297)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2116)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+23:43:47.226 [AWT-EventQueue-0] ERROR c.v.p.service.ProxyCacheAdapter - Error al consultar conteo de votos
+java.lang.RuntimeException: Error al consultar los candidatos
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.ConsultarCandidatos(PortalWebConsultaI.java:66)
+	at com.votaciones.portalwebconsulta.service.ProxyCacheAdapter.consultVoteCount(ProxyCacheAdapter.java:65)
+	at com.votaciones.portalwebconsulta.service.ConsultoriaService.verConteoVotos(ConsultoriaService.java:56)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.consultarVotos(ConsultaController.java:72)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$new$2(ConsultaUI.java:122)
+	at java.desktop/javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1972)
+	at java.desktop/javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2314)
+	at java.desktop/javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:407)
+	at java.desktop/javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:262)
+	at java.desktop/javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:279)
+	at java.desktop/java.awt.AWTEventMulticaster.mouseReleased(AWTEventMulticaster.java:297)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6621)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3398)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6386)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2266)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:4996)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2324)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4948)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4575)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4516)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2310)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2780)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4828)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:775)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:98)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:747)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:744)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at VotingSystem.ProxyCacheDBCiudadPrx.ConsultarCandidatos(ProxyCacheDBCiudadPrx.java:67)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.ConsultarCandidatos(PortalWebConsultaI.java:63)
+	... 40 common frames omitted
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2116)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+23:43:47.228 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+23:43:47.230 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 15/06/25 23:43:47:232 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:47:235 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:47:235 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:47:236 Retry: retrying operation call because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:47:236 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:47:236 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:47:236 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:47:237 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:48:242 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:48:244 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:48:244 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:48:244 Retry: retrying operation call in 1000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:49:248 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:49:250 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:49:250 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:49:250 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:51:251 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 23:43:51:252 Network: failed to establish tcp connection
+   local address = <not available>
+   remote address = 127.0.0.1:10000
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:51:252 Network: connection to endpoint failed and no more endpoints to try
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0
+-- 15/06/25 23:43:51:252 Retry: retrying operation call in 2000ms because of exception
+   com.zeroc.Ice.ConnectionRefusedException
+       error = 0

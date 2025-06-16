@@ -37,4 +37,9 @@ processResources {
         include '**/*.properties'
         include '**/*.xml'
     }
+}
+
+// Configurar el directorio de trabajo para la aplicación
+run {
+    workingDir = project.projectDir
 } 

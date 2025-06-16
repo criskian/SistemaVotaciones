@@ -1,0 +1,26 @@
+-- 15/06/25 21:08:56:431 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 15/06/25 21:08:56:455 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 15/06/25 21:08:56:455 Network: established tcp connection
+   local address = 127.0.0.1:58206
+   remote address = 127.0.0.1:10000
+-- 15/06/25 21:08:56:458 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 84
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 15/06/25 21:08:56:462 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1

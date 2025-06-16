@@ -373,6 +373,86 @@ public interface ProxyCacheDBCiudadPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default int GetConteoVotosPorCandidato(int candidatoId)
+    {
+        return GetConteoVotosPorCandidato(candidatoId, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default int GetConteoVotosPorCandidato(int candidatoId, java.util.Map<String, String> context)
+    {
+        return _iceI_GetConteoVotosPorCandidatoAsync(candidatoId, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> GetConteoVotosPorCandidatoAsync(int candidatoId)
+    {
+        return _iceI_GetConteoVotosPorCandidatoAsync(candidatoId, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Integer> GetConteoVotosPorCandidatoAsync(int candidatoId, java.util.Map<String, String> context)
+    {
+        return _iceI_GetConteoVotosPorCandidatoAsync(candidatoId, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_candidatoId -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> _iceI_GetConteoVotosPorCandidatoAsync(int iceP_candidatoId, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Integer> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "GetConteoVotosPorCandidato", null, sync, null);
+        f.invoke(true, context, null, ostr -> {
+                     ostr.writeInt(iceP_candidatoId);
+                 }, istr -> {
+                     int ret;
+                     ret = istr.readInt();
+                     return ret;
+                 });
+        return f;
+    }
+
+    default String ConsultarMesaDescriptiva(String cedula)
+    {
+        return ConsultarMesaDescriptiva(cedula, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default String ConsultarMesaDescriptiva(String cedula, java.util.Map<String, String> context)
+    {
+        return _iceI_ConsultarMesaDescriptivaAsync(cedula, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.String> ConsultarMesaDescriptivaAsync(String cedula)
+    {
+        return _iceI_ConsultarMesaDescriptivaAsync(cedula, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.String> ConsultarMesaDescriptivaAsync(String cedula, java.util.Map<String, String> context)
+    {
+        return _iceI_ConsultarMesaDescriptivaAsync(cedula, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_cedula -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.String> _iceI_ConsultarMesaDescriptivaAsync(String iceP_cedula, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.String> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "ConsultarMesaDescriptiva", null, sync, null);
+        f.invoke(true, context, null, ostr -> {
+                     ostr.writeString(iceP_cedula);
+                 }, istr -> {
+                     String ret;
+                     ret = istr.readString();
+                     return ret;
+                 });
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

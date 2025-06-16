@@ -35,6 +35,10 @@ public interface ProxyCacheDBCiudad extends com.zeroc.Ice.Object
 
     boolean RegistrarLogs(LogEntry log, com.zeroc.Ice.Current current);
 
+    int GetConteoVotosPorCandidato(int candidatoId, com.zeroc.Ice.Current current);
+
+    String ConsultarMesaDescriptiva(String cedula, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -244,14 +248,58 @@ public interface ProxyCacheDBCiudad extends com.zeroc.Ice.Object
         return inS.setResult(ostr);
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_GetConteoVotosPorCandidato(ProxyCacheDBCiudad obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        int iceP_candidatoId;
+        iceP_candidatoId = istr.readInt();
+        inS.endReadParams();
+        int ret = obj.GetConteoVotosPorCandidato(iceP_candidatoId, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeInt(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_ConsultarMesaDescriptiva(ProxyCacheDBCiudad obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_cedula;
+        iceP_cedula = istr.readString();
+        inS.endReadParams();
+        String ret = obj.ConsultarMesaDescriptiva(iceP_cedula, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeString(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
         "AgregarSospechoso",
         "AgregarVoto",
         "ConsultarCandidatos",
+        "ConsultarMesaDescriptiva",
         "ConsultarVotantePorCedula",
         "GetConteoVotos",
+        "GetConteoVotosPorCandidato",
         "GetZonasVotacion",
         "IDZonaVotacion",
         "RegistrarLogs",
@@ -289,41 +337,49 @@ public interface ProxyCacheDBCiudad extends com.zeroc.Ice.Object
             }
             case 3:
             {
-                return _iceD_ConsultarVotantePorCedula(this, in, current);
+                return _iceD_ConsultarMesaDescriptiva(this, in, current);
             }
             case 4:
             {
-                return _iceD_GetConteoVotos(this, in, current);
+                return _iceD_ConsultarVotantePorCedula(this, in, current);
             }
             case 5:
             {
-                return _iceD_GetZonasVotacion(this, in, current);
+                return _iceD_GetConteoVotos(this, in, current);
             }
             case 6:
             {
-                return _iceD_IDZonaVotacion(this, in, current);
+                return _iceD_GetConteoVotosPorCandidato(this, in, current);
             }
             case 7:
             {
-                return _iceD_RegistrarLogs(this, in, current);
+                return _iceD_GetZonasVotacion(this, in, current);
             }
             case 8:
             {
-                return _iceD_ZonaMesaAsignada(this, in, current);
+                return _iceD_IDZonaVotacion(this, in, current);
             }
             case 9:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return _iceD_RegistrarLogs(this, in, current);
             }
             case 10:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return _iceD_ZonaMesaAsignada(this, in, current);
             }
             case 11:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 12:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+            }
+            case 13:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+            }
+            case 14:
             {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }

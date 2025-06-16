@@ -26,10 +26,10 @@ public class ProxyCacheDBCiudadI implements ProxyCacheDBCiudad {
             config.setJdbcUrl(props.getProperty("db.url"));
             config.setUsername(props.getProperty("db.user"));
             config.setPassword(props.getProperty("db.password"));
-            config.setMaximumPoolSize(Integer.parseInt(props.getProperty("maximumPoolSize", "10")));
-            config.setMinimumIdle(Integer.parseInt(props.getProperty("minimumIdle", "5")));
-            config.setIdleTimeout(Long.parseLong(props.getProperty("idleTimeout", "300000")));
-            config.setConnectionTimeout(Long.parseLong(props.getProperty("connectionTimeout", "20000")));
+            config.setMaximumPoolSize(Integer.parseInt(props.getProperty("db.maximumPoolSize", "10")));
+            config.setMinimumIdle(Integer.parseInt(props.getProperty("db.minimumIdle", "5")));
+            config.setIdleTimeout(Long.parseLong(props.getProperty("db.idleTimeout", "300000")));
+            config.setConnectionTimeout(Long.parseLong(props.getProperty("db.connectionTimeout", "20000")));
 
             HikariDataSource ds = new HikariDataSource(config);
             this.dataCacheProxy = new DataCacheProxy(ds);
@@ -40,12 +40,7 @@ public class ProxyCacheDBCiudadI implements ProxyCacheDBCiudad {
 
     @Override
     public Votante ConsultarVotantePorCedula(String cedula, Current current) {
-        Votante v = dataCacheProxy.consultarVotantePorCedula(cedula);
-        if (v == null) {
-            // Puedes lanzar una excepción o devolver un objeto vacío
-            return new Votante("", "No encontrado", "", 0, 0, 0);
-        }
-        return v;
+        return dataCacheProxy.consultarVotantePorCedula(cedula);
     }
 
     @Override
@@ -62,11 +57,7 @@ public class ProxyCacheDBCiudadI implements ProxyCacheDBCiudad {
 
     @Override
     public Zona ZonaMesaAsignada(String cedula, Current current) {
-        Zona z = dataCacheProxy.zonaMesaAsignada(cedula);
-        if (z == null) {
-            return new Zona(0, "No asignada", "");
-        }
-        return z;
+        return dataCacheProxy.zonaMesaAsignada(cedula);
     }
 
     @Override
@@ -92,5 +83,15 @@ public class ProxyCacheDBCiudadI implements ProxyCacheDBCiudad {
     @Override
     public boolean RegistrarLogs(LogEntry log, Current current) {
         return dataCacheProxy.registrarLogs(log);
+    }
+
+    @Override
+    public int GetConteoVotosPorCandidato(int candidatoId, Current current) {
+        return dataCacheProxy.getConteoVotosPorCandidato(candidatoId);
+    }
+
+    @Override
+    public String ConsultarMesaDescriptiva(String cedula, com.zeroc.Ice.Current current) {
+        return dataCacheProxy.consultarMesaDescriptiva(cedula);
     }
 } 

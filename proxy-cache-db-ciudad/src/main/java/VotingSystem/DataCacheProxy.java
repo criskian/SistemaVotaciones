@@ -129,47 +129,99 @@ public class DataCacheProxy {
         return 0;
     }
 
-    public boolean agregarVoto(Voto voto) {
-        String sql = "INSERT INTO votos (candidato_id, mesa_id, fecha_hora, estado) VALUES (?, ?, ?, 'ACTIVO')";
+    public int getConteoVotosPorCandidato(int candidatoId) {
+        String sql = "SELECT COUNT(*) as total FROM votos WHERE candidato_id = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, voto.candidatoId);
-            ps.setInt(2, voto.mesaId);
-            ps.setString(3, voto.fechaHora);
-            int rows = ps.executeUpdate();
-            return rows > 0;
+            ps.setInt(1, candidatoId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return 0;
+    }
+
+    public boolean agregarVoto(Voto voto) {
+        String sql = "INSERT INTO votos (documento_votante, candidato_id, mesa_id, fecha_hora) VALUES (?, ?, ?, ?)";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, voto.documentoVotante);
+            ps.setInt(2, voto.candidatoId);
+            ps.setInt(3, voto.mesaId);
+            ps.setString(4, voto.fechaHora);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean agregarSospechoso(String cedula, String motivo) {
-        String sql = "INSERT INTO sospechosos (cedula, motivo, fecha_hora) VALUES (?, ?, now())";
+        String sql = "INSERT INTO sospechosos (documento, motivo, fecha_registro) VALUES (?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
             ps.setString(2, motivo);
-            int rows = ps.executeUpdate();
-            return rows > 0;
+            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     public boolean registrarLogs(LogEntry log) {
-        String sql = "INSERT INTO auditorialogs (tipo, mensaje, fecha_hora) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO logs (tipo, mensaje, fecha_hora) VALUES (?, ?, ?)";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, log.tipo);
             ps.setString(2, log.mensaje);
             ps.setString(3, log.fechaHora);
-            int rows = ps.executeUpdate();
-            return rows > 0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
+    }
+
+    public String consultarMesaDescriptiva(String cedula) {
+        String sql = "SELECT ciu.nombres, ciu.apellidos, ciu.documento, m.numero AS numero_mesa, " +
+                "z.nombre AS nombre_zona, z.codigo AS codigo_zona, " +
+                "col.nombre AS nombre_colegio, col.direccion, " +
+                "c.nombre AS ciudad " +
+                "FROM ciudadanos ciu " +
+                "JOIN mesas_votacion m ON ciu.mesa_id = m.id " +
+                "JOIN colegios col ON m.colegio_id = col.id " +
+                "JOIN ciudades c ON col.ciudad_id = c.id " +
+                "JOIN zonas_electorales z ON ciu.zona_id = z.id " +
+                "WHERE ciu.documento = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, cedula);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return String.format(
+                        "Votante: %s %s\nCédula: %s\nMesa: %d\nZona: %s (Código: %s)\nColegio: %s\nCiudad: %s\nDirección: %s",
+                        rs.getString("nombres"),
+                        rs.getString("apellidos"),
+                        rs.getString("documento"),
+                        rs.getInt("numero_mesa"),
+                        rs.getString("nombre_zona"),
+                        rs.getString("codigo_zona"),
+                        rs.getString("nombre_colegio"),
+                        rs.getString("ciudad"),
+                        rs.getString("direccion")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Error al consultar la información de la mesa: " + e.getMessage();
+        }
+        return "No se encontró información para la cédula: " + cedula;
     }
 } 
