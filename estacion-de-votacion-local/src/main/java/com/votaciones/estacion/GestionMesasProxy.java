@@ -59,13 +59,6 @@ public class GestionMesasProxy {
     }
 
     /**
-     * Registra un voto en el sistema central.
-     */
-    public boolean registrarVoto(String idVotante, int idCandidato) {
-        return proxy.registrarVoto(idVotante, idCandidato);
-    }
-
-    /**
      * Verifica el estado de un votante (true = puede votar, false = no puede).
      */
     public boolean verificarEstado(String idVotante) {
@@ -73,12 +66,53 @@ public class GestionMesasProxy {
     }
 
     /**
-     * Envía un lote de votos al sistema central.
+     * Verifica si un votante puede votar en una zona específica.
      */
-    public boolean enviarLoteVotos(List<Voto> votos) {
-        LoteVotos lote = new LoteVotos();
-        lote.votos = votos.toArray(new Voto[0]);
-        return proxy.addLoteVotos(lote);
+    public boolean verificarEstadoZona(String idVotante, String zona) {
+        return proxy.verificarEstadoZona(idVotante, zona);
+    }
+
+    /**
+     * Registra un voto en el sistema central, pasando zona y mesa como contexto.
+     */
+    public boolean registrarVoto(String idVotante, int idCandidato, int mesaId, String zona) {
+        try {
+            java.util.Map<String, String> ctx = new java.util.HashMap<>();
+            ctx.put("mesaId", String.valueOf(mesaId));
+            ctx.put("zona", zona);
+            
+            // Verificar primero si puede votar
+            if (!proxy.verificarEstadoZona(idVotante, zona)) {
+                System.err.println("[GestionMesasProxy] El votante no puede votar en esta zona");
+                return false;
+            }
+            
+            // Intentar registrar el voto
+            boolean resultado = proxy.registrarVoto(idVotante, idCandidato, ctx);
+            if (!resultado) {
+                System.err.println("[GestionMesasProxy] Error al registrar el voto en el sistema central");
+                return false;
+            }
+            
+            return true;
+        } catch (Exception e) {
+            System.err.println("[GestionMesasProxy] Error al registrar voto: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Envía un lote de votos al sistema central, pasando zona y mesa como contexto para cada voto.
+     */
+    public boolean enviarLoteVotos(List<VotingSystem.Voto> votos, int mesaId, String zona) {
+        VotingSystem.LoteVotos lote = new VotingSystem.LoteVotos();
+        lote.votos = votos.toArray(new VotingSystem.Voto[0]);
+        // El contexto se pasa por cada voto al registrar individualmente en el backend
+        // Aquí solo se pasa el contexto general
+        java.util.Map<String, String> ctx = new java.util.HashMap<>();
+        ctx.put("mesaId", String.valueOf(mesaId));
+        ctx.put("zona", zona);
+        return proxy.addLoteVotos(lote, ctx);
     }
 
     public void close() {

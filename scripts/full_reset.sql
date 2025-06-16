@@ -42,7 +42,7 @@ CREATE TABLE mesas_votacion (
     UNIQUE(numero, colegio_id)
 );
 
--- Crear tabla de ciudadanos
+-- Crear tabla de ciudadanos (ahora solo relacionada con zona electoral)
 CREATE TABLE ciudadanos (
     id SERIAL PRIMARY KEY,
     documento VARCHAR(20) NOT NULL UNIQUE,
@@ -50,16 +50,14 @@ CREATE TABLE ciudadanos (
     apellidos VARCHAR(100) NOT NULL,
     ciudad_id INTEGER REFERENCES ciudades(id),
     zona_id INTEGER REFERENCES zonas_electorales(id),
-    mesa_id INTEGER REFERENCES mesas_votacion(id),
-    fecha_asignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Crear tabla de asignaciones_ciudadanos (historial de asignaciones)
+-- Crear tabla de asignaciones_ciudadanos (historial de asignaciones a zonas)
 CREATE TABLE asignaciones_ciudadanos (
     id SERIAL PRIMARY KEY,
     ciudadano_id INTEGER REFERENCES ciudadanos(id),
     zona_id INTEGER REFERENCES zonas_electorales(id),
-    mesa_id INTEGER REFERENCES mesas_votacion(id),
     fecha_asignacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     estado VARCHAR(20) DEFAULT 'ACTIVA',
     observaciones TEXT
@@ -74,9 +72,10 @@ CREATE TABLE candidatos (
     partido_politico VARCHAR(100) NOT NULL
 );
 
--- Crear tabla de votos
+-- Crear tabla de votos (ahora incluye la mesa donde se realizó el voto)
 CREATE TABLE votos (
     id SERIAL PRIMARY KEY,
+    ciudadano_id INTEGER REFERENCES ciudadanos(id),
     candidato_id INTEGER REFERENCES candidatos(id),
     mesa_id INTEGER REFERENCES mesas_votacion(id),
     fecha_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -115,19 +114,19 @@ INSERT INTO candidatos (documento, nombres, apellidos, partido_politico) VALUES
     ('444444444', 'Ana', 'Martínez', 'Partido Amarillo'),
     ('555555555', 'Voto', 'Blanco', 'Voto en Blanco');
 
--- Insertar ciudadanos de prueba
-INSERT INTO ciudadanos (documento, nombres, apellidos, ciudad_id, zona_id, mesa_id) VALUES
-    ('123456789', 'Pedro', 'González', 1, 1, 1),
-    ('234567890', 'Laura', 'Ramírez', 1, 2, 4),
-    ('345678901', 'Miguel', 'Sánchez', 2, 3, 6),
-    ('456789012', 'Carmen', 'Torres', 3, 1, 1);
+-- Insertar ciudadanos de prueba (ahora solo con zona electoral)
+INSERT INTO ciudadanos (documento, nombres, apellidos, ciudad_id, zona_id) VALUES
+    ('123456789', 'Pedro', 'González', 1, 1),
+    ('234567890', 'Laura', 'Ramírez', 1, 2),
+    ('345678901', 'Miguel', 'Sánchez', 2, 3),
+    ('456789012', 'Carmen', 'Torres', 3, 1);
 
--- Insertar asignaciones de ciudadanos
-INSERT INTO asignaciones_ciudadanos (ciudadano_id, zona_id, mesa_id) VALUES
-    (1, 1, 1),
-    (2, 2, 4),
-    (3, 3, 6),
-    (4, 1, 1);
+-- Insertar asignaciones de ciudadanos a zonas
+INSERT INTO asignaciones_ciudadanos (ciudadano_id, zona_id) VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 1);
 
 -- Reiniciar secuencias
 SELECT setval('ciudades_id_seq', 4, false);
@@ -138,19 +137,6 @@ SELECT setval('candidatos_id_seq', 6, false);
 SELECT setval('ciudadanos_id_seq', 5, false);
 SELECT setval('asignaciones_ciudadanos_id_seq', 5, false);
 
--- Ciudadano de prueba para votación local (si no existe)
-INSERT INTO ciudadanos (documento, nombres, apellidos, ciudad_id, zona_id, mesa_id)
-VALUES ('567890123', 'Juan', 'Pérez', 1, 1, 1);
-
--- Asignar el ciudadano a la mesa 1 (historial de asignaciones)
-INSERT INTO asignaciones_ciudadanos (ciudadano_id, zona_id, mesa_id)
-SELECT id, 1, 1 FROM ciudadanos WHERE documento = '567890123';
-
--- Eliminar cualquier voto previo de este ciudadano (para pruebas limpias)
-DELETE FROM votos
-WHERE mesa_id = 1
-  AND EXISTS (
-      SELECT 1 FROM ciudadanos WHERE documento = '567890123' AND id = (
-          SELECT id FROM ciudadanos WHERE documento = '567890123'
-      )
-  ); 
+-- Ejemplo de registro de voto (cuando un ciudadano vota)
+-- INSERT INTO votos (ciudadano_id, candidato_id, mesa_id) VALUES
+--     (1, 1, 1);  -- El ciudadano con ID 1 vota por el candidato 1 en la mesa 1 

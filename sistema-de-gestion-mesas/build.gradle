@@ -27,7 +27,7 @@ javafx {
 }
 
 application {
-    mainClass = 'com.votaciones.mainserver.MainServerIce'
+    mainClass = 'com.votaciones.mainserver.AdminMesaApp'
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -36,8 +36,7 @@ targetCompatibility = JavaVersion.VERSION_11
 jar {
     manifest {
         attributes(
-            'Main-Class': 'com.votaciones.mainserver.AdminMesaApp',
-            'Class-Path': configurations.runtimeClasspath.files.collect { it.name }.join(' ')
+            'Main-Class': 'com.votaciones.mainserver.AdminMesaApp'
         )
     }
     archiveBaseName = 'AdminMesa'
@@ -72,7 +71,7 @@ task runClientUI(type: JavaExec) {
 
 task runSistemaGestionMesasUI(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'com.votaciones.mainserver.SistemaGestionMesasUI'
+    mainClass = 'com.votaciones.mainserver.AdminMesaApp'
 }
 
 task generateIceStubs(type: Exec) {

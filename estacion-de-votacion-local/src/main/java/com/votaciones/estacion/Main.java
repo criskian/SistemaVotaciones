@@ -5,19 +5,34 @@ import com.votaciones.estacion.lotes.GestorLotes;
 
 public class Main {
     public static void main(String[] args) {
-        // Punto de entrada: inicializa CLI y servicios ICE
-        System.out.println("Estación de Votación Local iniciando...");
-        // Inicializar el proxy de gestión de mesas
-        GestionMesasProxy proxy = new GestionMesasProxy();
-        // Inicializar el gestor de lotes
-        GestorLotes gestorLotes = new GestorLotes();
-        // ID de la mesa (puedes pedirlo por consola o dejarlo fijo para pruebas)
-        int mesaId = 1;
-        // Inicializar el CLI
-        VotacionCLI cli = new VotacionCLI(proxy, gestorLotes, mesaId);
-        cli.iniciar();
-        // Al finalizar, intentar enviar lotes pendientes
-        gestorLotes.enviarLotesPendientes(proxy);
-        proxy.close();
+        String zona = "Zona por defecto";
+        int mesa = 1;
+        
+        if (args.length >= 2) {
+            zona = args[0];
+            try {
+                mesa = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                System.err.println("Número de mesa inválido, usando valor por defecto: 1");
+            }
+        }
+
+        try {
+            GestionMesasProxy proxy = new GestionMesasProxy();
+            GestorLotes gestorLotes = new GestorLotes();
+            
+            // Enviar lotes pendientes con zona y mesa
+            gestorLotes.enviarLotesPendientes(proxy, mesa, zona);
+            
+            // Punto de entrada: inicializa CLI y servicios ICE
+            System.out.println("Estación de Votación Local iniciando...");
+            // Inicializar el CLI
+            VotacionCLI cli = new VotacionCLI(proxy, gestorLotes, mesa);
+            cli.iniciar();
+            
+            proxy.close();
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 } 

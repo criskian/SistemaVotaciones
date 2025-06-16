@@ -63,10 +63,39 @@ public class MainServerI implements MainServer {
     @Override
     public boolean registrarVoto(String idVotante, int idCandidato, Current current) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "INSERT INTO votos (ciudadano_id, candidato_id, fecha_hora) VALUES (?, ?, NOW())";
+            // Obtener el id del ciudadano
+            String sql = "SELECT id FROM ciudadanos WHERE documento = ?";
+            int ciudadanoId = -1;
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, idVotante);
+                ResultSet rs = stmt.executeQuery();
+                if (!rs.next()) {
+                    return false; // No existe
+                }
+                ciudadanoId = rs.getInt("id");
+            }
+            // Obtener la mesa y zona desde el contexto (args de la estación)
+            // Suponiendo que la mesa y zona se pasan en el contexto ICE
+            int mesaId = -1;
+            String zona = null;
+            if (current != null && current.ctx != null) {
+                if (current.ctx.containsKey("mesaId")) {
+                    mesaId = Integer.parseInt(current.ctx.get("mesaId"));
+                }
+                if (current.ctx.containsKey("zona")) {
+                    zona = current.ctx.get("zona");
+                }
+            }
+            if (mesaId == -1 || zona == null) {
+                System.err.println("[MainServerI] Faltan parámetros de mesa o zona en el contexto");
+                return false;
+            }
+            // Registrar el voto
+            sql = "INSERT INTO votos (ciudadano_id, candidato_id, mesa_id, fecha_hora) VALUES (?, ?, ?, NOW())";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, ciudadanoId);
                 stmt.setInt(2, idCandidato);
+                stmt.setInt(3, mesaId);
                 return stmt.executeUpdate() > 0;
             }
         } catch (SQLException e) {
@@ -110,14 +139,14 @@ public class MainServerI implements MainServer {
     public Candidato[] listarCandidatos(Current current) {
         List<Candidato> candidatos = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "SELECT id, nombre, partido FROM candidatos";
+            String sql = "SELECT id, nombres, partido_politico FROM candidatos";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
                     Candidato candidato = new Candidato();
                     candidato.id = rs.getInt("id");
-                    candidato.nombre = rs.getString("nombre");
-                    candidato.partido = rs.getString("partido");
+                    candidato.nombre = rs.getString("nombres");
+                    candidato.partido = rs.getString("partido_politico");
                     candidatos.add(candidato);
                 }
             }
@@ -197,5 +226,43 @@ public class MainServerI implements MainServer {
             System.err.println("[MainServerI] Error al obtener estadísticas: " + e.getMessage());
         }
         return stats;
+    }
+
+    @Override
+    public boolean verificarEstadoZona(String idVotante, String zona, Current current) {
+        System.err.println("[DEBUG] verificarEstadoZona: idVotante=" + idVotante + ", zona=" + zona);
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            int zonaId = Integer.parseInt(zona);
+            System.err.println("[DEBUG] ZonaId parseado: " + zonaId);
+            String sql = "SELECT c.id FROM ciudadanos c JOIN asignaciones_ciudadanos a ON c.id = a.ciudadano_id WHERE c.documento = ? AND a.zona_id = ? AND a.estado = 'ACTIVA'";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, idVotante);
+                stmt.setInt(2, zonaId);
+                ResultSet rs = stmt.executeQuery();
+                boolean found = rs.next();
+                System.err.println("[DEBUG] Resultado consulta asignación: " + found);
+                if (!found) {
+                    System.err.println("[MainServerI] Ciudadano no asignado activamente a la zona: " + idVotante + ", zonaId: " + zonaId);
+                    return false;
+                }
+                int ciudadanoId = rs.getInt("id");
+                System.err.println("[MainServerI] Ciudadano asignado activamente a la zona: " + idVotante + ", ciudadanoId: " + ciudadanoId);
+                sql = "SELECT COUNT(*) FROM votos v JOIN mesas_votacion m ON v.mesa_id = m.id JOIN colegios col ON m.colegio_id = col.id WHERE v.ciudadano_id = ? AND col.zona_id = ? AND v.estado = 'VALIDO'";
+                try (PreparedStatement stmt2 = conn.prepareStatement(sql)) {
+                    stmt2.setInt(1, ciudadanoId);
+                    stmt2.setInt(2, zonaId);
+                    ResultSet rs2 = stmt2.executeQuery();
+                    if (rs2.next() && rs2.getInt(1) > 0) {
+                        System.err.println("[MainServerI] Ciudadano ya votó en la zona: " + idVotante + ", zonaId: " + zonaId);
+                        return false;
+                    }
+                }
+                System.err.println("[MainServerI] Ciudadano puede votar en la zona: " + idVotante + ", zonaId: " + zonaId);
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println("[MainServerI] Error en verificarEstadoZona: " + e.getMessage());
+        }
+        return false;
     }
 } 

@@ -35,6 +35,8 @@ public interface MainServer extends com.zeroc.Ice.Object
 
     Estadisticas obtenerEstadisticas(com.zeroc.Ice.Current current);
 
+    boolean verificarEstadoZona(String idVotante, String zona, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -235,6 +237,29 @@ public interface MainServer extends com.zeroc.Ice.Object
         return inS.setResult(ostr);
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_verificarEstadoZona(MainServer obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_idVotante;
+        String iceP_zona;
+        iceP_idVotante = istr.readString();
+        iceP_zona = istr.readString();
+        inS.endReadParams();
+        boolean ret = obj.verificarEstadoZona(iceP_idVotante, iceP_zona, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeBool(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
@@ -250,7 +275,8 @@ public interface MainServer extends com.zeroc.Ice.Object
         "registrarAlerta",
         "registrarVoto",
         "validarVoto",
-        "verificarEstado"
+        "verificarEstado",
+        "verificarEstadoZona"
     };
 
     /** @hidden */
@@ -317,6 +343,10 @@ public interface MainServer extends com.zeroc.Ice.Object
             case 12:
             {
                 return _iceD_verificarEstado(this, in, current);
+            }
+            case 13:
+            {
+                return _iceD_verificarEstadoZona(this, in, current);
             }
         }
 

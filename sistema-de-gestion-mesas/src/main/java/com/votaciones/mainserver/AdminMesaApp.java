@@ -237,7 +237,7 @@ public class AdminMesaApp extends JFrame {
         panel.setBorder(BorderFactory.createTitledBorder("Mesas de Votación - Datos PostgreSQL en Tiempo Real"));
         
         String[] columnas = {
-            "Mesa ID", "Ciudad", "Colegio", "Estado", "Votos", "Última Actualización"
+            "Mesa ID", "Número", "Colegio", "Zona", "Estado", "Votos", "Última Actualización"
         };
         
         tableModel = new DefaultTableModel(columnas, 0) {
@@ -303,34 +303,25 @@ public class AdminMesaApp extends JFrame {
     private void cargarMesasDesdeDB() {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(
-                 "SELECT m.id, m.numero, c.nombre as ciudad, col.nombre as colegio " +
+                 "SELECT m.id, m.numero, col.nombre as colegio, z.nombre as zona, m.estado, m.ultima_actualizacion " +
                  "FROM mesas_votacion m " +
                  "JOIN colegios col ON m.colegio_id = col.id " +
-                 "JOIN ciudades c ON col.ciudad_id = c.id " +
+                 "JOIN zonas_electorales z ON col.zona_id = z.id " +
                  "ORDER BY m.id")) {
-            
             ResultSet rs = stmt.executeQuery();
             tableModel.setRowCount(0); // Limpiar tabla
-            
             while (rs.next()) {
                 int mesaId = rs.getInt("id");
-                String ciudad = rs.getString("ciudad");
+                int numero = rs.getInt("numero");
                 String colegio = rs.getString("colegio");
-                
-                // Filtro por colegio
-                if (!"Todos los colegios".equals(colegioFiltroSeleccionado) && !colegioFiltroSeleccionado.equals(colegio)) {
-                    continue;
-                }
-                
+                String zona = rs.getString("zona");
+                String estado = rs.getString("estado");
                 int votos = obtenerVotosMesa(mesaId);
-                String estado = votos > 0 ? "ACTIVA" : "INACTIVA";
-                String ultimaActualizacion = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                
+                String ultimaActualizacion = rs.getString("ultima_actualizacion");
                 tableModel.addRow(new Object[]{
-                    mesaId, ciudad, colegio, estado, votos, ultimaActualizacion
+                    mesaId, numero, colegio, zona, estado, votos, ultimaActualizacion
                 });
             }
-            
         } catch (SQLException e) {
             System.err.println("Error al cargar mesas desde DB: " + e.getMessage());
             agregarError("Error al cargar mesas: " + e.getMessage());

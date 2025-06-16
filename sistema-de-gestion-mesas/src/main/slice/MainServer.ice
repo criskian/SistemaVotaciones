@@ -69,6 +69,9 @@ module VotingSystem {
         
         // Estadísticas
         Estadisticas obtenerEstadisticas();
+        
+        // Verificar estado de votación en una zona
+        bool verificarEstadoZona(string idVotante, string zona);
     };
 };
 

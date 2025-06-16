@@ -67,3 +67,75 @@ java.lang.RuntimeException: Failed to load driver class org.postgresql.Driver  i
 18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando mesa para cédula: 3333
 18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 3333
 18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona para cédula: 3333
+17:29:38.524 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+17:29:38.531 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:29:38.672 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@405cd144
+17:29:38.673 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:29:38.673 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+17:29:38.674 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+17:29:38.674 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+17:29:38.674 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+17:31:15.687 [main] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+17:31:15.693 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:31:15.780 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7dfd3c81
+17:31:15.781 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:31:15.782 [main] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+17:31:15.828 [main] INFO  c.v.p.PortalWebConsultaServer - Servidor iniciado en el puerto 10000
+17:31:42.465 [Ice.ThreadPool.Server-0] ERROR c.v.p.PortalWebConsultaI - Error al consultar el conteo de votos
+org.postgresql.util.PSQLException: ERROR: relation "candidates" does not exist
+  Position: 42
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2725)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2412)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:502)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:419)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.consultVoteCount(PortalWebConsultaI.java:102)
+	at VotingSystem.QueryStation._iceD_consultVoteCount(QueryStation.java:123)
+	at VotingSystem.QueryStation._iceDispatch(QueryStation.java:162)
+	at com.zeroc.IceInternal.Incoming.invoke(Incoming.java:222)
+	at com.zeroc.Ice.ConnectionI.invokeAll(ConnectionI.java:2723)
+	at com.zeroc.Ice.ConnectionI.dispatch(ConnectionI.java:1302)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1213)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+17:31:47.689 [Ice.ThreadPool.Server-0] ERROR c.v.p.PortalWebConsultaI - Error al consultar los candidatos
+org.postgresql.util.PSQLException: ERROR: relation "candidates" does not exist
+  Position: 18
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2725)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2412)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:371)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:502)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:419)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.consultCandidates(PortalWebConsultaI.java:82)
+	at VotingSystem.QueryStation._iceD_consultCandidates(QueryStation.java:105)
+	at VotingSystem.QueryStation._iceDispatch(QueryStation.java:158)
+	at com.zeroc.IceInternal.Incoming.invoke(Incoming.java:222)
+	at com.zeroc.Ice.ConnectionI.invokeAll(ConnectionI.java:2723)
+	at com.zeroc.Ice.ConnectionI.dispatch(ConnectionI.java:1302)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1213)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+17:35:04.220 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+17:35:04.226 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+17:35:04.354 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@405cd144
+17:35:04.355 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+17:35:04.355 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+17:35:04.356 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+17:35:04.356 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+17:35:04.356 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+17:35:07.792 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+17:35:08.959 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+17:35:18.962 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+17:35:20.225 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos

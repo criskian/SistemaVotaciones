@@ -363,6 +363,48 @@ public interface MainServerPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default boolean verificarEstadoZona(String idVotante, String zona)
+    {
+        return verificarEstadoZona(idVotante, zona, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default boolean verificarEstadoZona(String idVotante, String zona, java.util.Map<String, String> context)
+    {
+        return _iceI_verificarEstadoZonaAsync(idVotante, zona, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Boolean> verificarEstadoZonaAsync(String idVotante, String zona)
+    {
+        return _iceI_verificarEstadoZonaAsync(idVotante, zona, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Boolean> verificarEstadoZonaAsync(String idVotante, String zona, java.util.Map<String, String> context)
+    {
+        return _iceI_verificarEstadoZonaAsync(idVotante, zona, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_idVotante -
+     * @param iceP_zona -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_verificarEstadoZonaAsync(String iceP_idVotante, String iceP_zona, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "verificarEstadoZona", null, sync, null);
+        f.invoke(true, context, null, ostr -> {
+                     ostr.writeString(iceP_idVotante);
+                     ostr.writeString(iceP_zona);
+                 }, istr -> {
+                     boolean ret;
+                     ret = istr.readBool();
+                     return ret;
+                 });
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

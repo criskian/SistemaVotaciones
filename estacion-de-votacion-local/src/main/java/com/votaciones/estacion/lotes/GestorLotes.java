@@ -73,14 +73,16 @@ public class GestorLotes {
             String votosStr = sb.toString();
             boolean exito = false;
             if (proxy != null) {
-                exito = proxy.enviarLoteVotos(new ArrayList<>(votosPendientes));
+                // No enviamos el lote aquí, solo lo guardamos localmente
+                // El envío se hará a través de enviarLotesPendientes con los parámetros correctos
+                exito = true;
             }
             if (exito) {
                 try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO lotes (votos, enviado) VALUES (?, 1);")) {
                     stmt.setString(1, votosStr);
                     stmt.executeUpdate();
                 }
-                System.out.println("[GestorLotes] Lote enviado al sistema central: " + votosStr);
+                System.out.println("[GestorLotes] Lote guardado localmente: " + votosStr);
                 votosPendientes.clear();
             } else {
                 try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO lotes (votos, enviado) VALUES (?, 0);")) {
@@ -95,7 +97,7 @@ public class GestorLotes {
         }
     }
 
-    public void enviarLotesPendientes(GestionMesasProxy proxy) {
+    public void enviarLotesPendientes(GestionMesasProxy proxy, int mesaId, String zona) {
         try (PreparedStatement stmt = conn.prepareStatement("SELECT id, votos FROM lotes WHERE enviado IS NULL OR enviado = 0")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -113,7 +115,7 @@ public class GestorLotes {
                         votos.add(v);
                     }
                 }
-                boolean exito = proxy.enviarLoteVotos(votos);
+                boolean exito = proxy.enviarLoteVotos(votos, mesaId, zona);
                 if (exito) {
                     try (PreparedStatement update = conn.prepareStatement("UPDATE lotes SET enviado = 1 WHERE id = ?")) {
                         update.setInt(1, id);

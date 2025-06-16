@@ -1,20 +1,65 @@
 plugins {
+    id 'java'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+group = 'com.votaciones'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
     implementation project(':common')
-    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+    implementation 'org.postgresql:postgresql:42.7.2'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    implementation 'org.slf4j:slf4j-api:2.0.12'
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
     implementation 'com.zeroc:ice:3.7.6'
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+javafx {
+    version = '17.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 application {
+    mainClass = 'com.votaciones.estacion.ui.EstacionVotacionUI'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.votaciones.estacion.ui.EstacionVotacionUI'
+        )
+    }
+    
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// Tarea para ejecutar la versión CLI
+task runCLI(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
     mainClass = 'com.votaciones.estacion.Main'
+}
+
+// Tarea para ejecutar la versión GUI
+task runGUI(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.votaciones.estacion.ui.EstacionVotacionUI'
 }
 
 // Tarea para generar stubs de ICE
@@ -25,28 +70,6 @@ task generateIceStubs(type: Exec) {
 
 // Hacer que compileJava dependa de generateIceStubs
 compileJava.dependsOn generateIceStubs
-
-// Tarea para ejecutar el cliente
-task runClient(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'com.votaciones.votestation.VoteStationClient'
-}
-
-jar {
-    manifest {
-        attributes(
-            'Main-Class': 'com.votaciones.votestation.VoteStationServer',
-            'Class-Path': configurations.runtimeClasspath.files.collect { it.name }.join(' ')
-        )
-    }
-    
-    // Include dependencies in the JAR
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
 
 // Asegurarse de que el jar dependa de common:jar
 jar.dependsOn(':common:jar') 
