@@ -56,3 +56,95 @@
 18:53:04.240 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
 18:53:13.122 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 234567890
 18:53:13.124 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 234567890
+20:27:27.716 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+20:27:27.744 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20:27:29.687 [AWT-EventQueue-0] ERROR c.v.common.db.DatabaseConnection - Failed to initialize database connection pool
+com.zaxxer.hikari.pool.HikariPool$PoolInitializationException: Failed to initialize pool: FATAL: database "sistema_votaciones" does not exist
+	at com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:584)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:571)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98)
+	at com.zaxxer.hikari.HikariDataSource.<init>(HikariDataSource.java:80)
+	at com.votaciones.common.db.DatabaseConnection.<clinit>(DatabaseConnection.java:33)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaI.<init>(PortalWebConsultaI.java:20)
+	at com.votaciones.portalwebconsulta.controller.ConsultaController.<init>(ConsultaController.java:21)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.<init>(ConsultaUI.java:19)
+	at com.votaciones.portalwebconsulta.ui.ConsultaUI.lambda$main$4(ConsultaUI.java:174)
+	at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:720)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:714)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+Caused by: org.postgresql.util.PSQLException: FATAL: database "sistema_votaciones" does not exist
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2725)
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2837)
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:175)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:317)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:273)
+	at org.postgresql.Driver.makeConnection(Driver.java:446)
+	at org.postgresql.Driver.connect(Driver.java:298)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550)
+	... 20 common frames omitted
+20:29:08.654 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Loaded database properties from file
+20:29:08.677 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20:29:09.668 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1d4e79e9
+20:29:09.691 [AWT-EventQueue-0] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20:29:09.692 [AWT-EventQueue-0] INFO  c.v.common.db.DatabaseConnection - Database connection pool initialized successfully
+20:29:09.695 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+20:29:09.696 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+20:29:09.697 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+21:09:11.785 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:18.976 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:19.715 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:19.858 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:19.989 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:20.138 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:20.261 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:20.393 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:20.701 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:20.815 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:21.036 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:21.194 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:18.608 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:18.915 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:19.049 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:21.750 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:21.899 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:22.030 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:22.168 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:22.289 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:22.427 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:22.539 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:22.678 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:22.816 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:22.945 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:23.093 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:23.212 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:23.352 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:23.462 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:24.248 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:09:26.516 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:27.050 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:09:27.734 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:28.077 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:09:28.612 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:28.897 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:09:29.613 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:29.916 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:09:30.564 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:30.890 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:09:31.567 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+21:09:31.902 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+21:10:11.597 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos

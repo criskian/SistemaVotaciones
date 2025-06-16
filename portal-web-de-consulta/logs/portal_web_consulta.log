@@ -67,3 +67,25 @@ java.lang.RuntimeException: Failed to load driver class org.postgresql.Driver  i
 18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando mesa para cédula: 3333
 18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 3333
 18:40:46.152 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona para cédula: 3333
+20:24:59.706 [main] ERROR c.v.p.PortalWebConsultaClient - Error al iniciar el cliente
+com.zeroc.Ice.ConnectionRefusedException: java.net.ConnectException: Connection refused
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponseOrUserEx(OutgoingAsync.java:140)
+	at com.zeroc.IceInternal.OutgoingAsync.waitForResponse(OutgoingAsync.java:112)
+	at com.zeroc.Ice._ObjectPrxI.ice_isA(_ObjectPrxI.java:31)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:949)
+	at com.zeroc.Ice.ObjectPrx._checkedCast(ObjectPrx.java:868)
+	at VotingSystem.QueryStationPrx.checkedCast(QueryStationPrx.java:182)
+	at com.votaciones.portalwebconsulta.PortalWebConsultaClient.main(PortalWebConsultaClient.java:27)
+Caused by: java.net.ConnectException: Connection refused
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:946)
+	at com.zeroc.IceInternal.Network.doFinishConnect(Network.java:536)
+	at com.zeroc.IceInternal.StreamSocket.connect(StreamSocket.java:92)
+	at com.zeroc.IceInternal.TcpTransceiver.initialize(TcpTransceiver.java:25)
+	at com.zeroc.Ice.ConnectionI.initialize(ConnectionI.java:2131)
+	at com.zeroc.Ice.ConnectionI.message(ConnectionI.java:1098)
+	at com.zeroc.IceInternal.ThreadPool.run(ThreadPool.java:410)
+	at com.zeroc.IceInternal.ThreadPool.access$500(ThreadPool.java:7)
+	at com.zeroc.IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:784)
+	at java.base/java.lang.Thread.run(Thread.java:840)
