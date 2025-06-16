@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'com.votaciones'
@@ -12,6 +13,7 @@ repositories {
 
 dependencies {
     implementation project(':common')
+    implementation project(':proxy-cache-db-ciudad')
     implementation 'org.postgresql:postgresql:42.7.2'
     implementation 'com.zaxxer:HikariCP:5.1.0'
     implementation 'org.slf4j:slf4j-api:2.0.12'
@@ -25,47 +27,10 @@ application {
     mainClass = 'com.votaciones.portalwebconsulta.ui.ConsultaUI'
 }
 
-test {
-    useJUnitPlatform()
-}
-
-// Tarea para ejecutar el servidor
-task runServer(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'com.votaciones.portalwebconsulta.PortalWebConsultaServer'
-    args = ['--server']
-}
-
-// Tarea para ejecutar el cliente
-task runClient(type: JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'com.votaciones.portalwebconsulta.PortalWebConsultaClient'
-    args = ['--client']
-}
-
-run {
-    if (project.hasProperty('args')) {
-        args project.args.split('\\s+')
-    }
-    if (args.contains('--client')) {
-        mainClass = 'com.votaciones.portalwebconsulta.ui.ConsultaUI'
-    } else if (args.contains('--server')) {
-        mainClass = 'com.votaciones.portalwebconsulta.PortalWebConsultaServer'
-    }
-}
-
 jar {
     manifest {
         attributes(
-            'Main-Class': 'com.votaciones.portalwebconsulta.ui.ConsultaUI',
-            'Class-Path': configurations.runtimeClasspath.files.collect { it.name }.join(' ')
+            'Main-Class': 'com.votaciones.portalwebconsulta.ui.ConsultaUI'
         )
     }
-    
-    // Include dependencies in the JAR
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 } 

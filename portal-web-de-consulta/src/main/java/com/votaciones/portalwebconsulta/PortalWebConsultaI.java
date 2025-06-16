@@ -1,119 +1,166 @@
 package com.votaciones.portalwebconsulta;
 
-import VotingSystem.QueryStation;
-import com.votaciones.common.db.DatabaseConnection;
+import VotingSystem.ProxyCacheDBCiudad;
+import VotingSystem.ProxyCacheDBCiudadPrx;
+import VotingSystem.Votante;
+import VotingSystem.Candidato;
+import VotingSystem.Zona;
+import VotingSystem.Voto;
+import VotingSystem.LogEntry;
+import com.zeroc.Ice.Communicator;
 import com.zeroc.Ice.Current;
-
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.zeroc.Ice.ObjectPrx;
+import com.zeroc.Ice.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PortalWebConsultaI implements QueryStation {
+import java.util.Map;
+
+public class PortalWebConsultaI implements ProxyCacheDBCiudad {
     private static final Logger logger = LoggerFactory.getLogger(PortalWebConsultaI.class);
-    private final DataSource dataSource;
+    private final ProxyCacheDBCiudadPrx proxy;
 
     public PortalWebConsultaI() {
-        this.dataSource = DatabaseConnection.getDataSource();
-    }
-
-    @Override
-    public String consultVotingStation(String citizenId, Current current) {
-        try (Connection conn = dataSource.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(
-                        "SELECT c.nombres, c.apellidos, " +
-                                "m.numero as mesa_numero, " +
-                                "col.nombre as colegio_nombre, col.direccion as colegio_direccion, " +
-                                "ciu.nombre as ciudad_nombre " +
-                                "FROM ciudadanos c " +
-                                "JOIN mesas_votacion m ON c.mesa_id = m.id " +
-                                "JOIN colegios col ON m.colegio_id = col.id " +
-                                "JOIN ciudades ciu ON col.ciudad_id = ciu.id " +
-                                "WHERE c.documento = ?")) {
-
-            stmt.setString(1, citizenId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return String.format(
-                            "Información de votación para %s %s:\n" +
-                                    "Mesa: %d\n" +
-                                    "Colegio: %s\n" +
-                                    "Dirección: %s\n" +
-                                    "Ciudad: %s",
-                            rs.getString("nombres"),
-                            rs.getString("apellidos"),
-                            rs.getInt("mesa_numero"),
-                            rs.getString("colegio_nombre"),
-                            rs.getString("colegio_direccion"),
-                            rs.getString("ciudad_nombre"));
-                }
-                return "No se encontró información de votación para la cédula " + citizenId;
+        try {
+            // Inicializar el comunicador Ice con las propiedades del archivo
+            String[] args = new String[]{"--Ice.Config=portal_web_consulta.properties"};
+            Communicator communicator = Util.initialize(args);
+            
+            // Obtener el proxy del servidor proxy-cache-db-ciudad usando la configuración
+            String proxyStr = communicator.getProperties().getProperty("ProxyCacheDBCiudad.Proxy");
+            if (proxyStr == null || proxyStr.isEmpty()) {
+                throw new Error("Proxy configuration not found");
             }
-        } catch (SQLException e) {
-            logger.error("Error al consultar la información de votación", e);
-            return "Error al consultar la información de votación: " + e.getMessage();
+            
+            ObjectPrx base = communicator.stringToProxy(proxyStr);
+            proxy = ProxyCacheDBCiudadPrx.checkedCast(base);
+            
+            if (proxy == null) {
+                throw new Error("Invalid proxy");
+            }
+            logger.info("Conexión exitosa con el proxy en el puerto 10000");
+        } catch (Exception e) {
+            logger.error("Error al inicializar el proxy", e);
+            throw new RuntimeException("Error al inicializar el proxy", e);
         }
     }
 
     @Override
-    public String consultZone(String citizenId, Current current) {
-        try (Connection conn = dataSource.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT zone_name FROM zones WHERE citizen_id = ?")) {
-            stmt.setString(1, citizenId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("zone_name");
-                }
-                return "No se encontró información de la zona para el ciudadano " + citizenId;
-            }
-        } catch (SQLException e) {
-            logger.error("Error al consultar la zona", e);
-            return "Error al consultar la zona: " + e.getMessage();
+    public Votante ConsultarVotantePorCedula(String cedula, Current current) {
+        try {
+            logger.info("Consultando votante por cédula: {}", cedula);
+            return proxy.ConsultarVotantePorCedula(cedula, null);
+        } catch (Exception e) {
+            logger.error("Error al consultar el votante", e);
+            throw new RuntimeException("Error al consultar el votante", e);
         }
     }
 
     @Override
-    public String consultCandidates(Current current) {
-        try (Connection conn = dataSource.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT name FROM candidates ORDER BY name");
-                ResultSet rs = stmt.executeQuery()) {
-            StringBuilder result = new StringBuilder();
-            while (rs.next()) {
-                if (result.length() > 0) {
-                    result.append("\n");
-                }
-                result.append(rs.getString("name"));
-            }
-            return result.length() > 0 ? result.toString() : "No hay candidatos registrados";
-        } catch (SQLException e) {
+    public Candidato[] ConsultarCandidatos(Current current) {
+        try {
+            logger.info("Consultando lista de candidatos");
+            return proxy.ConsultarCandidatos(null);
+        } catch (Exception e) {
             logger.error("Error al consultar los candidatos", e);
-            return "Error al consultar los candidatos: " + e.getMessage();
+            throw new RuntimeException("Error al consultar los candidatos", e);
         }
     }
 
     @Override
-    public String consultVoteCount(Current current) {
-        try (Connection conn = dataSource.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(
-                        "SELECT c.name, COUNT(v.id) as votes FROM candidates c LEFT JOIN votes v ON c.id = v.candidate_id GROUP BY c.id, c.name ORDER BY votes DESC");
-                ResultSet rs = stmt.executeQuery()) {
-            StringBuilder result = new StringBuilder();
-            while (rs.next()) {
-                if (result.length() > 0) {
-                    result.append("\n");
-                }
-                result.append(rs.getString("name"))
-                        .append(": ")
-                        .append(rs.getInt("votes"))
-                        .append(" votos");
-            }
-            return result.length() > 0 ? result.toString() : "No hay votos registrados";
-        } catch (SQLException e) {
+    public Zona[] GetZonasVotacion(Current current) {
+        try {
+            logger.info("Consultando zonas de votación");
+            return proxy.GetZonasVotacion(null);
+        } catch (Exception e) {
+            logger.error("Error al consultar las zonas de votación", e);
+            throw new RuntimeException("Error al consultar las zonas de votación", e);
+        }
+    }
+
+    @Override
+    public Zona ZonaMesaAsignada(String cedula, Current current) {
+        try {
+            logger.info("Consultando zona y mesa asignada para cédula: {}", cedula);
+            return proxy.ZonaMesaAsignada(cedula, null);
+        } catch (Exception e) {
+            logger.error("Error al consultar la zona y mesa asignada", e);
+            throw new RuntimeException("Error al consultar la zona y mesa asignada", e);
+        }
+    }
+
+    @Override
+    public int IDZonaVotacion(String cedula, Current current) {
+        try {
+            logger.info("Consultando ID de zona de votación para cédula: {}", cedula);
+            return proxy.IDZonaVotacion(cedula, null);
+        } catch (Exception e) {
+            logger.error("Error al consultar el ID de zona de votación", e);
+            throw new RuntimeException("Error al consultar el ID de zona de votación", e);
+        }
+    }
+
+    @Override
+    public int GetConteoVotos(int mesaId, Current current) {
+        try {
+            logger.info("Consultando conteo de votos para mesa: {}", mesaId);
+            return proxy.GetConteoVotos(mesaId, null);
+        } catch (Exception e) {
             logger.error("Error al consultar el conteo de votos", e);
-            return "Error al consultar el conteo de votos: " + e.getMessage();
+            throw new RuntimeException("Error al consultar el conteo de votos", e);
+        }
+    }
+
+    @Override
+    public boolean AgregarVoto(Voto voto, Current current) {
+        try {
+            logger.info("Agregando voto");
+            return proxy.AgregarVoto(voto, null);
+        } catch (Exception e) {
+            logger.error("Error al agregar el voto", e);
+            throw new RuntimeException("Error al agregar el voto", e);
+        }
+    }
+
+    @Override
+    public boolean AgregarSospechoso(String cedula, String motivo, Current current) {
+        try {
+            logger.info("Agregando sospechoso: {}", cedula);
+            return proxy.AgregarSospechoso(cedula, motivo, null);
+        } catch (Exception e) {
+            logger.error("Error al agregar el sospechoso", e);
+            throw new RuntimeException("Error al agregar el sospechoso", e);
+        }
+    }
+
+    @Override
+    public boolean RegistrarLogs(LogEntry log, Current current) {
+        try {
+            logger.info("Registrando log");
+            return proxy.RegistrarLogs(log, null);
+        } catch (Exception e) {
+            logger.error("Error al registrar el log", e);
+            throw new RuntimeException("Error al registrar el log", e);
+        }
+    }
+
+    @Override
+    public int GetConteoVotosPorCandidato(int candidatoId, Current current) {
+        try {
+            return proxy.GetConteoVotosPorCandidato(candidatoId, null);
+        } catch (Exception e) {
+            logger.error("Error al consultar el conteo de votos por candidato", e);
+            throw new RuntimeException("Error al consultar el conteo de votos por candidato", e);
+        }
+    }
+
+    @Override
+    public String ConsultarMesaDescriptiva(String cedula, com.zeroc.Ice.Current current) {
+        try {
+            return proxy.ConsultarMesaDescriptiva(cedula);
+        } catch (Exception e) {
+            logger.error("Error al consultar la mesa descriptiva", e);
+            return "Error al consultar la mesa descriptiva: " + e.getMessage();
         }
     }
 }

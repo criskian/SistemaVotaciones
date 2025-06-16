@@ -1,7 +1,87 @@
-// plugins {
-//     id 'com.zeroc.gradle.ice-builder.slice' version '1.4.5'
-// }
-// slice {
-//     // configuración slice eliminada temporalmente
-// }
-// ... resto del archivo ... 
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+// Configurar codificación UTF-8
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    // ICE dependencies
+    implementation 'com.zeroc:ice:3.7.6'
+    
+    // Database dependencies
+    implementation 'org.postgresql:postgresql:42.6.0'
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+    
+    // Logging dependencies
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'ch.qos.logback:logback-classic:1.4.8'
+    
+    // Test dependencies
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.4.0'
+}
+
+// Tarea para generar stubs de ICE
+task generateIceStubs(type: Exec) {
+    workingDir projectDir
+    commandLine 'slice2java', '-I', 'src/main/slice', '--output-dir', 'src/main/java', 'src/main/slice/SecurityModule.ice'
+}
+
+// Hacer que compileJava dependa de generateIceStubs
+compileJava.dependsOn generateIceStubs
+
+application {
+    mainClass = 'com.votaciones.seguridad.SecurityServer'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.votaciones.seguridad.SecurityServer'
+        )
+    }
+    
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// Tarea para ejecutar el cliente de pruebas
+task runClient(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.votaciones.seguridad.SecurityTestClient'
+}
+
+run {
+    standardInput = System.in
+    if (project.hasProperty('mode')) {
+        args = [project.property('mode')]
+    }
+}
+
+// Configuración para pruebas
+test {
+    useJUnit()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+} 

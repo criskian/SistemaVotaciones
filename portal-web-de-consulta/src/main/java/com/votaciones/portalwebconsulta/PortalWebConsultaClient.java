@@ -116,8 +116,8 @@ public class PortalWebConsultaClient {
 
         listCandidatesButton.addActionListener(e -> {
             try {
-                String candidates = queryStation.consultCandidates();
-                resultArea.setText("Lista de Candidatos:\n" + candidates);
+                String candidatos = queryStation.consultCandidates();
+                resultArea.setText("Lista de Candidatos:\n" + candidatos);
             } catch (Exception ex) {
                 logger.error("Error al listar candidatos", ex);
                 JOptionPane.showMessageDialog(frame,
