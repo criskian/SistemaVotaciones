@@ -1,0 +1,28 @@
+// plugins {
+//     id 'com.zeroc.gradle.ice-builder.slice' version '1.4.5'
+// }
+
+group = 'com.votaciones'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+// slice {
+//     java {
+//         files = [file("src/main/slice/VotingSystem.ice")]
+//     }
+// }
+
+dependencies {
+    implementation 'com.zeroc:ice:3.7.9'
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+} 
