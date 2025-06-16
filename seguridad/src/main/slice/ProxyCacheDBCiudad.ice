@@ -44,5 +44,7 @@ module VotingSystem {
         bool RegistrarLogs(LogEntry log);
         int GetConteoVotosPorCandidato(int candidatoId);
         string ConsultarMesaDescriptiva(string cedula);
+        bool YaVoto(string cedula);
+        bool EsSospechoso(string cedula);
     };
 };

@@ -224,4 +224,36 @@ public class DataCacheProxy {
         }
         return "No se encontró información para la cédula: " + cedula;
     }
+
+    public boolean yaVoto(String cedula) {
+        String sql = "SELECT COUNT(*) as total FROM votos WHERE documento_votante = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, cedula);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total") > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean esSospechoso(String cedula) {
+        String sql = "SELECT COUNT(*) as total FROM sospechosos WHERE documento = ? AND (estado = 'ACTIVO' OR estado IS NULL)";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, cedula);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total") > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 } 

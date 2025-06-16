@@ -5,6 +5,7 @@ module SecurityModule {
     interface SecurityService {
         bool validateSecurity(string document);
         bool checkVotingStatus(string document);
+        bool validateMesaZonaAsignada(string document, int mesaId, int zonaId);
     };
 };
 

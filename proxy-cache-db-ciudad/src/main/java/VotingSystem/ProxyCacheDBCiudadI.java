@@ -94,4 +94,14 @@ public class ProxyCacheDBCiudadI implements ProxyCacheDBCiudad {
     public String ConsultarMesaDescriptiva(String cedula, com.zeroc.Ice.Current current) {
         return dataCacheProxy.consultarMesaDescriptiva(cedula);
     }
+
+    @Override
+    public boolean YaVoto(String cedula, Current current) {
+        return dataCacheProxy.yaVoto(cedula);
+    }
+
+    @Override
+    public boolean EsSospechoso(String cedula, Current current) {
+        return dataCacheProxy.esSospechoso(cedula);
+    }
 } 

@@ -1,185 +1,118 @@
 package com.votaciones.seguridad.service;
 
+import VotingSystem.ProxyCacheDBCiudadPrx;
+import VotingSystem.Votante;
 import com.votaciones.seguridad.model.CiudadanoInfo;
-import com.votaciones.seguridad.db.SecurityDatabaseConnection;
+import com.zeroc.Ice.Communicator;
+import com.zeroc.Ice.ObjectPrx;
+import com.zeroc.Ice.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.sql.DataSource;
-import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 public class ControladorDatos {
     private static final Logger logger = LoggerFactory.getLogger(ControladorDatos.class);
-    
-    private final DataSource dataSource;
+
     private final Map<String, CiudadanoInfo> cacheCiudadanos;
     private final Map<String, String> sospechosos;
-    
+    private final ProxyCacheDBCiudadPrx proxyCache;
+    private final Communicator communicator;
+
     public ControladorDatos() {
-        this.dataSource = SecurityDatabaseConnection.getDataSource();
         this.cacheCiudadanos = new ConcurrentHashMap<>();
         this.sospechosos = new ConcurrentHashMap<>();
-        logger.info("ControladorDatos inicializado");
+        // Configura la conexión ICE al proxy-cache-db-ciudad
+        this.communicator = Util.initialize();
+        String proxyStr = "ProxyCacheDBCiudad:tcp -h 127.0.0.1 -p 10000"; // Ajusta host/puerto si es necesario
+        ObjectPrx base = communicator.stringToProxy(proxyStr);
+        this.proxyCache = ProxyCacheDBCiudadPrx.checkedCast(base);
+        if (this.proxyCache == null) {
+            throw new RuntimeException("No se pudo conectar al ProxyCacheDBCiudad en " + proxyStr);
+        }
+        logger.info("ControladorDatos inicializado y conectado a ProxyCacheDBCiudad");
     }
-    
+
     public CiudadanoInfo getCiudadano(String documento) {
+        // Primero verificar en cache
+        CiudadanoInfo enCache = cacheCiudadanos.get(documento);
+        if (enCache != null) {
+            logger.debug("Ciudadano {} encontrado en cache", documento);
+            return enCache;
+        }
         try {
-            // Primero verificar en cache
-            CiudadanoInfo enCache = cacheCiudadanos.get(documento);
-            if (enCache != null) {
-                logger.debug("Ciudadano {} encontrado en cache", documento);
-                return enCache;
+            Votante votante = proxyCache.ConsultarVotantePorCedula(documento);
+            if (votante == null || votante.documento == null || votante.documento.isEmpty()) {
+                logger.warn("Ciudadano no encontrado: {}", documento);
+                return null;
             }
-            
-            // Si no está en cache, consultar base de datos
-            String sql = "SELECT c.documento, c.nombres, c.apellidos, c.ciudad_id, c.zona_id, c.mesa_id, " +
-                        "EXISTS(SELECT 1 FROM votos v WHERE v.ciudadano_id = c.id) as ya_voto " +
-                        "FROM ciudadanos c WHERE c.documento = ?";
-            
-            try (Connection conn = dataSource.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-                
-                stmt.setString(1, documento);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        CiudadanoInfo ciudadano = new CiudadanoInfo(
-                            rs.getString("documento"),
-                            rs.getString("nombres"),
-                            rs.getString("apellidos"),
-                            rs.getInt("ciudad_id"),
-                            rs.getInt("zona_id"),
-                            rs.getInt("mesa_id")
-                        );
-                        ciudadano.setYaVoto(rs.getBoolean("ya_voto"));
-                        ciudadano.setEsSospechoso(sospechosos.containsKey(documento));
-                        
-                        // Guardar en cache
-                        cacheCiudadanos.put(documento, ciudadano);
-                        
-                        logger.debug("Ciudadano {} cargado desde BD: {}", documento, ciudadano);
-                        return ciudadano;
-                    }
-                }
-            }
-            
-            logger.warn("Ciudadano no encontrado: {}", documento);
-            return null;
-            
-        } catch (SQLException e) {
-            logger.error("Error consultando ciudadano: " + documento, e);
+            CiudadanoInfo ciudadano = new CiudadanoInfo(
+                votante.documento,
+                votante.nombres,
+                votante.apellidos,
+                votante.ciudadId,
+                votante.zonaId,
+                votante.mesaId
+            );
+            // No hay campo yaVoto ni esSospechoso en Votante, se pueden consultar aparte si es necesario
+            ciudadano.setYaVoto(verificarSiYaVoto(documento));
+            ciudadano.setEsSospechoso(esSospechoso(documento));
+            cacheCiudadanos.put(documento, ciudadano);
+            logger.debug("Ciudadano {} cargado desde ProxyCacheDBCiudad: {}", documento, ciudadano);
+            return ciudadano;
+        } catch (Exception e) {
+            logger.error("Error consultando ciudadano en ProxyCacheDBCiudad: " + documento, e);
             return null;
         }
     }
-    
+
     public boolean verificarSiYaVoto(String documento) {
         try {
-            String sql = "SELECT COUNT(*) as count FROM votos v " +
-                        "JOIN ciudadanos c ON v.ciudadano_id = c.id WHERE c.documento = ?";
-            
-            try (Connection conn = dataSource.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-                
-                stmt.setString(1, documento);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        boolean yaVoto = rs.getInt("count") > 0;
-                        logger.debug("Verificación de voto para {}: {}", documento, yaVoto);
-                        
-                        // Actualizar cache si existe
-                        CiudadanoInfo enCache = cacheCiudadanos.get(documento);
-                        if (enCache != null) {
-                            enCache.setYaVoto(yaVoto);
-                        }
-                        
-                        return yaVoto;
-                    }
-                }
-            }
-            
-        } catch (SQLException e) {
+            return proxyCache.YaVoto(documento);
+        } catch (Exception e) {
             logger.error("Error verificando estado de voto para: " + documento, e);
+            return false;
         }
-        
-        return false;
     }
-    
+
     public void agregarSospechoso(String documento, String motivo) {
         try {
             sospechosos.put(documento, motivo);
-            
-            // Registrar en base de datos
-            String sql = "INSERT INTO sospechosos (documento, motivo, fecha_registro, estado) " +
-                        "VALUES (?, ?, ?, 'ACTIVO') " +
-                        "ON CONFLICT (documento) DO UPDATE SET motivo = ?, fecha_registro = ?, estado = 'ACTIVO'";
-            
-            try (Connection conn = dataSource.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-                
-                Timestamp ahora = Timestamp.valueOf(LocalDateTime.now());
-                stmt.setString(1, documento);
-                stmt.setString(2, motivo);
-                stmt.setTimestamp(3, ahora);
-                stmt.setString(4, motivo);
-                stmt.setTimestamp(5, ahora);
-                
-                stmt.executeUpdate();
-                
-                // Actualizar cache si existe
+            // Llamar al método remoto para agregar sospechoso
+            boolean ok = proxyCache.AgregarSospechoso(documento, motivo);
+            if (ok) {
                 CiudadanoInfo enCache = cacheCiudadanos.get(documento);
                 if (enCache != null) {
                     enCache.setEsSospechoso(true);
                 }
-                
-                logger.info("Ciudadano {} agregado como sospechoso por: {}", documento, motivo);
-                
+                logger.info("Ciudadano {} agregado como sospechoso por: {} (ProxyCacheDBCiudad)", documento, motivo);
+            } else {
+                logger.warn("No se pudo agregar sospechoso en ProxyCacheDBCiudad para: {}", documento);
             }
-        } catch (SQLException e) {
-            logger.error("Error agregando sospechoso: " + documento, e);
+        } catch (Exception e) {
+            logger.error("Error agregando sospechoso en ProxyCacheDBCiudad: " + documento, e);
         }
     }
-    
+
     public boolean esSospechoso(String documento) {
-        boolean enMemoria = sospechosos.containsKey(documento);
-        if (enMemoria) {
-            return true;
-        }
-        
         try {
-            String sql = "SELECT COUNT(*) as count FROM sospechosos WHERE documento = ? AND estado = 'ACTIVO'";
-            
-            try (Connection conn = dataSource.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-                
-                stmt.setString(1, documento);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        boolean esSospechoso = rs.getInt("count") > 0;
-                        if (esSospechoso) {
-                            sospechosos.put(documento, "CARGADO_BD");
-                        }
-                        return esSospechoso;
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            logger.error("Error verificando si es sospechoso: " + documento, e);
+            return proxyCache.EsSospechoso(documento);
+        } catch (Exception e) {
+            logger.error("Error verificando si es sospechoso en ProxyCacheDBCiudad: " + documento, e);
+            return false;
         }
-        
-        return false;
     }
-    
+
     public void limpiarCache() {
         cacheCiudadanos.clear();
         logger.info("Cache de ciudadanos limpiado");
     }
-    
+
     public int getTamanioCache() {
         return cacheCiudadanos.size();
     }
-    
+
     public int getCantidadSospechosos() {
         return sospechosos.size();
     }
