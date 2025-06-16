@@ -78,14 +78,14 @@ public class PortalWebConsultaI implements QueryStation {
     @Override
     public String consultCandidates(Current current) {
         try (Connection conn = dataSource.getConnection();
-                PreparedStatement stmt = conn.prepareStatement("SELECT name FROM candidates ORDER BY name");
+                PreparedStatement stmt = conn.prepareStatement("SELECT nombres FROM candidatos ORDER BY nombres");
                 ResultSet rs = stmt.executeQuery()) {
             StringBuilder result = new StringBuilder();
             while (rs.next()) {
                 if (result.length() > 0) {
                     result.append("\n");
                 }
-                result.append(rs.getString("name"));
+                result.append(rs.getString("nombres"));
             }
             return result.length() > 0 ? result.toString() : "No hay candidatos registrados";
         } catch (SQLException e) {
@@ -98,14 +98,14 @@ public class PortalWebConsultaI implements QueryStation {
     public String consultVoteCount(Current current) {
         try (Connection conn = dataSource.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(
-                        "SELECT c.name, COUNT(v.id) as votes FROM candidates c LEFT JOIN votes v ON c.id = v.candidate_id GROUP BY c.id, c.name ORDER BY votes DESC");
+                        "SELECT c.nombres, COUNT(v.id) as votes FROM candidatos c LEFT JOIN votos v ON c.id = v.candidato_id GROUP BY c.id, c.nombres ORDER BY votes DESC");
                 ResultSet rs = stmt.executeQuery()) {
             StringBuilder result = new StringBuilder();
             while (rs.next()) {
                 if (result.length() > 0) {
                     result.append("\n");
                 }
-                result.append(rs.getString("name"))
+                result.append(rs.getString("nombres"))
                         .append(": ")
                         .append(rs.getInt("votes"))
                         .append(" votos");

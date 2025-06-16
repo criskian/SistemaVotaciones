@@ -30,21 +30,36 @@ public class ConsultoriaService {
     }
 
     public String consultarZonaVotacion(String cedula) {
-        // TODO: Implementar llamada al servicio de consultoría
-        logger.info("Consultando zona para cédula: {}", cedula);
-        return "Zona: Norte";
+        try {
+            String resultado = queryStation.consultZone(cedula, null);
+            logger.info("Consultando zona para cédula: {}", cedula);
+            return resultado;
+        } catch (Exception e) {
+            logger.error("Error al consultar zona", e);
+            return "Error al consultar zona: " + e.getMessage();
+        }
     }
 
     public String consultarCandidatos() {
-        // TODO: Implementar llamada al servicio de consultoría
-        logger.info("Consultando lista de candidatos");
-        return "Lista de Candidatos:\nJuan Pérez - Partido A\nMaría López - Partido B";
+        try {
+            String resultado = queryStation.consultCandidates(null);
+            logger.info("Consultando lista de candidatos");
+            return resultado;
+        } catch (Exception e) {
+            logger.error("Error al consultar candidatos", e);
+            return "Error al consultar candidatos: " + e.getMessage();
+        }
     }
 
     public String verConteoVotos() {
-        // TODO: Implementar llamada al servicio de consultoría
-        logger.info("Consultando conteo de votos");
-        return "Conteo de Votos:\nJuan Pérez: 100 votos\nMaría López: 80 votos";
+        try {
+            String resultado = queryStation.consultVoteCount(null);
+            logger.info("Consultando conteo de votos");
+            return resultado;
+        } catch (Exception e) {
+            logger.error("Error al consultar conteo de votos", e);
+            return "Error al consultar conteo de votos: " + e.getMessage();
+        }
     }
 
     public void cerrar() {
