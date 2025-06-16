@@ -158,5 +158,5 @@ public class Estadisticas implements java.lang.Cloneable,
     private static final Estadisticas _nullMarshalValue = new Estadisticas();
 
     /** @hidden */
-    public static final long serialVersionUID = -528886127417105857L;
+    public static final long serialVersionUID = -2002001345L;
 }

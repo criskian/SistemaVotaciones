@@ -2,8 +2,6 @@ package com.votaciones.estacion.lotes;
 
 import com.votaciones.estacion.GestionMesasProxy;
 import VotingSystem.Voto;
-import java.io.File;
-import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +10,26 @@ import java.util.TimerTask;
 
 /**
  * Gestor de lotes: agrupa votos validados en lotes de 20 o cada 15 minutos.
- * Almacena los lotes en la base de datos local y los envía cuando corresponde.
+ * Almacena los lotes en memoria temporal hasta que se envían al sistema central.
  */
 public class GestorLotes {
-    private static final String DB_PATH = "db/ColaVotosLocal.db";
     private static final int TAMANO_LOTE = 20;
     private static final long TIEMPO_MAXIMO = 15 * 60 * 1000; // 15 minutos en milisegundos
+    
     private List<Voto> votosPendientes;
-    private final Connection conn;
+    private List<Voto> votosPendientesEnvio; // Votos que no se pudieron enviar
     private final Timer timer;
     private long ultimoEnvio;
 
     public GestorLotes() {
         this.votosPendientes = new ArrayList<>();
-        this.conn = crearConexion();
+        this.votosPendientesEnvio = new ArrayList<>();
         this.timer = new Timer(true);
         this.ultimoEnvio = System.currentTimeMillis();
-        crearTablaSiNoExiste();
+        
+        System.out.println("[GestorLotes] Inicializado con almacenamiento en memoria");
+        
+        // Timer para envío automático cada 15 minutos
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -37,94 +38,82 @@ public class GestorLotes {
         }, TIEMPO_MAXIMO, TIEMPO_MAXIMO);
     }
 
-    private Connection crearConexion() {
-        try {
-            File dbDir = new File("db");
-            if (!dbDir.exists()) dbDir.mkdirs();
-            return DriverManager.getConnection("jdbc:sqlite:" + DB_PATH);
-        } catch (SQLException e) {
-            throw new RuntimeException("No se pudo conectar a la base de datos local", e);
-        }
-    }
-
-    private void crearTablaSiNoExiste() {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS lotes (id INTEGER PRIMARY KEY AUTOINCREMENT, votos TEXT, enviado INTEGER)");
-        } catch (SQLException e) {
-            throw new RuntimeException("No se pudo crear la tabla de lotes", e);
-        }
-    }
-
     public synchronized void agregarVoto(Voto voto) {
         votosPendientes.add(voto);
+        System.out.println("[GestorLotes] Voto agregado. Total pendientes: " + votosPendientes.size());
         enviarLoteSiCorresponde(false, null);
     }
 
     public synchronized void enviarLoteSiCorresponde(boolean forzadoPorTiempo, GestionMesasProxy proxy) {
-        if (votosPendientes.isEmpty()) return;
-        if (!forzadoPorTiempo && votosPendientes.size() < TAMANO_LOTE) return;
-        try {
-            String fecha = LocalDateTime.now().toString();
-            // Serializar votos a texto para almacenamiento local
-            StringBuilder sb = new StringBuilder();
-            for (Voto v : votosPendientes) {
-                sb.append(v.idVotante).append(",").append(v.idCandidato).append(";");
-            }
-            String votosStr = sb.toString();
-            boolean exito = false;
-            if (proxy != null) {
-                // No enviamos el lote aquí, solo lo guardamos localmente
-                // El envío se hará a través de enviarLotesPendientes con los parámetros correctos
-                exito = true;
-            }
-            if (exito) {
-                try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO lotes (votos, enviado) VALUES (?, 1);")) {
-                    stmt.setString(1, votosStr);
-                    stmt.executeUpdate();
-                }
-                System.out.println("[GestorLotes] Lote guardado localmente: " + votosStr);
+        if (votosPendientes.isEmpty() && votosPendientesEnvio.isEmpty()) {
+            return;
+        }
+        
+        // Si es forzado por tiempo o se alcanzó el tamaño del lote
+        if (forzadoPorTiempo || votosPendientes.size() >= TAMANO_LOTE) {
+            
+            if (!votosPendientes.isEmpty()) {
+                System.out.println("[GestorLotes] Creando lote con " + votosPendientes.size() + " votos");
+                
+                // Mover votos pendientes a la cola de envío
+                votosPendientesEnvio.addAll(votosPendientes);
                 votosPendientes.clear();
-            } else {
-                try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO lotes (votos, enviado) VALUES (?, 0);")) {
-                    stmt.setString(1, votosStr);
-                    stmt.executeUpdate();
-                }
-                System.out.println("[GestorLotes] Lote guardado localmente (no enviado): " + votosStr);
-                votosPendientes.clear();
+                
+                System.out.println("[GestorLotes] Lote creado y guardado en memoria. Total en cola de envío: " + 
+                                 votosPendientesEnvio.size());
             }
-        } catch (SQLException e) {
-            System.err.println("[GestorLotes] Error al guardar/enviar lote: " + e.getMessage());
         }
     }
 
     public void enviarLotesPendientes(GestionMesasProxy proxy, int mesaId, String zona) {
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT id, votos FROM lotes WHERE enviado IS NULL OR enviado = 0")) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String votosStr = rs.getString("votos");
-                // Deserializar votosStr a List<Voto>
-                List<Voto> votos = new ArrayList<>();
-                for (String votoStr : votosStr.split(";")) {
-                    if (votoStr.trim().isEmpty()) continue;
-                    String[] partes = votoStr.split(",");
-                    if (partes.length == 2) {
-                        Voto v = new Voto();
-                        v.idVotante = partes[0];
-                        v.idCandidato = Integer.parseInt(partes[1]);
-                        votos.add(v);
-                    }
-                }
-                boolean exito = proxy.enviarLoteVotos(votos, mesaId, zona);
-                if (exito) {
-                    try (PreparedStatement update = conn.prepareStatement("UPDATE lotes SET enviado = 1 WHERE id = ?")) {
-                        update.setInt(1, id);
-                        update.executeUpdate();
-                    }
-                }
+        if (votosPendientesEnvio.isEmpty()) {
+            System.out.println("[GestorLotes] No hay votos pendientes para enviar");
+            return;
+        }
+        
+        System.out.println("[GestorLotes] Enviando " + votosPendientesEnvio.size() + " votos pendientes");
+        
+        try {
+            // Intentar enviar todos los votos pendientes
+            boolean exito = proxy.enviarLoteVotos(votosPendientesEnvio, mesaId, zona);
+            
+            if (exito) {
+                System.out.println("[GestorLotes] Lote enviado exitosamente. Limpiando cola.");
+                votosPendientesEnvio.clear();
+                ultimoEnvio = System.currentTimeMillis();
+            } else {
+                System.err.println("[GestorLotes] Error al enviar lote. Los votos permanecen en cola.");
             }
-        } catch (SQLException e) {
+            
+        } catch (Exception e) {
             System.err.println("[GestorLotes] Error al enviar lotes pendientes: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Obtener estadísticas del gestor
+     */
+    public String getEstadisticas() {
+        return String.format("Votos pendientes: %d, Votos en cola de envío: %d", 
+                           votosPendientes.size(), votosPendientesEnvio.size());
+    }
+    
+    /**
+     * Limpiar todas las colas (útil para testing)
+     */
+    public synchronized void limpiar() {
+        votosPendientes.clear();
+        votosPendientesEnvio.clear();
+        System.out.println("[GestorLotes] Todas las colas limpiadas");
+    }
+    
+    /**
+     * Cerrar el gestor y el timer
+     */
+    public void close() {
+        if (timer != null) {
+            timer.cancel();
+            System.out.println("[GestorLotes] Timer cancelado");
         }
     }
 } 

@@ -137,22 +137,32 @@ public class MainServerI implements MainServer {
 
     @Override
     public Candidato[] listarCandidatos(Current current) {
+        System.out.println("[MainServerI] Iniciando listarCandidatos()");
         List<Candidato> candidatos = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            System.out.println("[MainServerI] Conexión a BD exitosa");
             String sql = "SELECT id, nombres, partido_politico FROM candidatos";
+            System.out.println("[MainServerI] Ejecutando consulta: " + sql);
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 ResultSet rs = stmt.executeQuery();
+                int count = 0;
                 while (rs.next()) {
+                    count++;
                     Candidato candidato = new Candidato();
                     candidato.id = rs.getInt("id");
                     candidato.nombre = rs.getString("nombres");
                     candidato.partido = rs.getString("partido_politico");
                     candidatos.add(candidato);
+                    System.out.println("[MainServerI] Candidato " + count + ": ID=" + candidato.id + 
+                                     ", Nombre=" + candidato.nombre + ", Partido=" + candidato.partido);
                 }
+                System.out.println("[MainServerI] Total candidatos encontrados: " + count);
             }
         } catch (SQLException e) {
             System.err.println("[MainServerI] Error al listar candidatos: " + e.getMessage());
+            e.printStackTrace();
         }
+        System.out.println("[MainServerI] Devolviendo array de " + candidatos.size() + " candidatos");
         return candidatos.toArray(new Candidato[0]);
     }
 

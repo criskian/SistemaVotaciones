@@ -167,5 +167,5 @@ public class Candidato implements java.lang.Cloneable,
     private static final Candidato _nullMarshalValue = new Candidato();
 
     /** @hidden */
-    public static final long serialVersionUID = 3961311269011805018L;
+    public static final long serialVersionUID = 2050184026L;
 }

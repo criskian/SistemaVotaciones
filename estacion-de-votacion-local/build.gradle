@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     implementation project(':common')
+    implementation project(':seguridad')
     implementation 'org.postgresql:postgresql:42.7.2'
     implementation 'com.zaxxer:HikariCP:5.1.0'
     implementation 'org.slf4j:slf4j-api:2.0.12'
@@ -50,6 +51,34 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
+// JAR específico para CLI
+task cliJar(type: Jar) {
+    dependsOn(':common:jar', ':seguridad:jar')
+    archiveClassifier = 'cli'
+    manifest {
+        attributes(
+            'Main-Class': 'com.votaciones.estacion.Main'
+        )
+    }
+    
+    from sourceSets.main.output
+    
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    // Incluir explícitamente los JARs de los módulos dependientes
+    from {
+        project(':common').sourceSets.main.output
+    }
+    
+    from {
+        project(':seguridad').sourceSets.main.output
+    }
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 // Tarea para ejecutar la versión CLI
 task runCLI(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
@@ -68,8 +97,14 @@ task generateIceStubs(type: Exec) {
     commandLine 'slice2java', '-I', '../sistema-de-gestion-mesas/src/main/slice', '--output-dir', 'src/main/java', '../sistema-de-gestion-mesas/src/main/slice/MainServer.ice'
 }
 
+// Tarea para generar stubs de SecurityModule
+task generateSecurityStubs(type: Exec) {
+    workingDir projectDir
+    commandLine 'slice2java', '-I', '../seguridad/src/main/slice', '--output-dir', 'src/main/java', '../seguridad/src/main/slice/SecurityModule.ice'
+}
+
 // Hacer que compileJava dependa de generateIceStubs
-compileJava.dependsOn generateIceStubs
+compileJava.dependsOn generateIceStubs, generateSecurityStubs
 
 // Asegurarse de que el jar dependa de common:jar
 jar.dependsOn(':common:jar') 

@@ -3,6 +3,7 @@ package com.votaciones.estacion.ui;
 import com.votaciones.estacion.GestionMesasProxy;
 import com.votaciones.estacion.lotes.GestorLotes;
 import com.votaciones.estacion.MesaVotacion;
+import com.votaciones.estacion.SecurityServiceHelper;
 import VotingSystem.Voto;
 import VotingSystem.Candidato;
 
@@ -40,12 +41,16 @@ public class EstacionVotacionUI extends JFrame {
     private JButton enviarLotesBtn;
     private JButton mostrarEstadisticasBtn;
     
-    // Control de aplicación
+    // Componentes principales del sistema
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
-    private final GestionMesasProxy proxy;
-    private final GestorLotes gestorLotes;
-    private final MesaVotacion mesaVotacion;
+    private GestionMesasProxy proxy;
+    private GestorLotes gestorLotes;
+    private MesaVotacion mesaVotacion;
+    private SecurityServiceHelper securityHelper;
     private boolean sistemaActivo = false;
+    
+    // Buffer para logs antes de que la UI esté lista
+    private final java.util.List<String> logBuffer = new java.util.ArrayList<>();
 
     private static String zonaVotacion = "";
     private static int numeroMesa = 1;
@@ -61,67 +66,50 @@ public class EstacionVotacionUI extends JFrame {
     private static int numeroMesaConfig = 1;
 
     static {
-        try (InputStream input = EstacionVotacionUI.class.getClassLoader().getResourceAsStream("mesa.properties")) {
+        // Cargar configuración siguiendo el patrón de otros nodos
+        try (InputStream input = EstacionVotacionUI.class.getClassLoader().getResourceAsStream("estacion.properties")) {
             Properties prop = new Properties();
             if (input != null) {
                 prop.load(input);
-                puerto = Integer.parseInt(prop.getProperty("puerto", "10010"));
-                idMesaConfig = Integer.parseInt(prop.getProperty("id_mesa", "1"));
-                idZonaConfig = Integer.parseInt(prop.getProperty("id_zona", "1"));
+                puerto = Integer.parseInt(prop.getProperty("mesa.puerto.default", "10010"));
+                idMesaConfig = Integer.parseInt(prop.getProperty("mesa.id.default", "1"));
+                idZonaConfig = Integer.parseInt(prop.getProperty("mesa.zona.default", "1"));
+                System.out.println("[DEBUG] Configuración cargada desde estacion.properties");
+            } else {
+                System.out.println("[DEBUG] No se encontró estacion.properties, usando valores por defecto");
             }
         } catch (Exception e) {
-            System.err.println("No se pudo leer mesa.properties: " + e.getMessage());
+            System.err.println("[WARN] Error leyendo estacion.properties: " + e.getMessage());
         }
     }
 
     public static void main(String[] args) {
         System.out.println("[DEBUG] Argumentos recibidos: " + java.util.Arrays.toString(args));
+        
+        // Validar argumentos (siguiendo el patrón de otros nodos)
         if (args.length < 2) {
-            JOptionPane.showMessageDialog(null, "Debes indicar el nombre del colegio y el número de mesa como argumentos.\nEjemplo: \"Colegio San José\" 101", "Faltan argumentos", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, 
+                "Argumentos requeridos: [colegio] [numero_mesa]\n" +
+                "Ejemplo: \"Colegio San José\" 101", 
+                "Faltan argumentos", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
+        
         colegioConfig = args[0];
         try {
             numeroMesaConfig = Integer.parseInt(args[1].trim());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El número de mesa debe ser un número entero.\nArgumento recibido: '" + args[1] + "'", "Argumento inválido", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, 
+                "El número de mesa debe ser un entero.\nRecibido: '" + args[1] + "'", 
+                "Argumento inválido", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
-        // Leer mesas.properties
-        Properties prop = new Properties();
-        String key = colegioConfig + "|" + numeroMesaConfig;
-        try {
-            // Solo buscar en el directorio de trabajo
-            java.io.File f = new java.io.File("mesas.properties");
-            if (!f.exists()) {
-                JOptionPane.showMessageDialog(null, "No se encontró el archivo mesas.properties en el directorio de trabajo: " + f.getAbsolutePath(), "Archivo no encontrado", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
-            }
-            System.out.println("[DEBUG] Leyendo mesas.properties desde: " + f.getAbsolutePath());
-            try (InputStream input = new FileInputStream(f)) {
-                prop.load(input);
-            }
-            String value = prop.getProperty(key);
-            if (value == null) {
-                System.out.println("[DEBUG] Claves disponibles en mesas.properties:");
-                for (Object k : prop.keySet()) {
-                    System.out.println("  - '" + k + "'");
-                }
-                JOptionPane.showMessageDialog(null, "No se encontró configuración para: " + key + "\nRevisa la consola para ver las claves disponibles.", "Configuración no encontrada", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
-            }
-            String[] parts = value.split(",");
-            if (parts.length != 3) {
-                JOptionPane.showMessageDialog(null, "Configuración inválida para: " + key, "Error de configuración", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
-            }
-            idMesaConfig = Integer.parseInt(parts[0].trim());
-            puerto = Integer.parseInt(parts[1].trim());
-            idZonaConfig = Integer.parseInt(parts[2].trim());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error leyendo mesas.properties: " + e.getMessage(), "Error de configuración", JOptionPane.ERROR_MESSAGE);
+        
+        // Validar mesa directamente contra BD (patrón de otros nodos exitosos)
+        if (!validarMesaEnBaseDatos(colegioConfig, numeroMesaConfig)) {
             System.exit(1);
         }
+        
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -143,32 +131,60 @@ public class EstacionVotacionUI extends JFrame {
 
     public EstacionVotacionUI() {
         super("Estación de Votación Local - Mesa: " + idMesaConfig + " | Zona: " + idZonaConfig + " | Colegio: " + colegioConfig + " | Número: " + numeroMesaConfig);
-        if (!validarColegioYMesaPorId(idMesaConfig, idZonaConfig)) {
+        
+        try {
+            System.out.println("[DEBUG] Iniciando constructor EstacionVotacionUI...");
+            
+            if (!validarColegioYMesaPorId(idMesaConfig, idZonaConfig)) {
+                JOptionPane.showMessageDialog(null,
+                    "La mesa o la zona no existen o no están relacionadas correctamente en la base de datos central.",
+                    "Error de configuración",
+                    JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
+            }
+            
+            System.out.println("[DEBUG] Activando mesa en BD...");
+            activarMesaEnBD();
+            
+            // Inicializar componentes
+            System.out.println("[DEBUG] Inicializando GestionMesasProxy...");
+            proxy = new GestionMesasProxy();
+            
+            System.out.println("[DEBUG] Inicializando GestorLotes...");
+            gestorLotes = new GestorLotes();
+            
+            System.out.println("[DEBUG] Inicializando MesaVotacion...");
+            mesaVotacion = new MesaVotacion(numeroMesaConfig, CANDIDATOS);
+            
+            System.out.println("[DEBUG] Inicializando SecurityServiceHelper...");
+            securityHelper = new SecurityServiceHelper();
+            
+            System.out.println("[DEBUG] Inicializando UI...");
+            initializeUI();
+            
+            System.out.println("[DEBUG] Iniciando servicios...");
+            startServices();
+            
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    desactivarMesaEnBD();
+                    shutdown();
+                }
+            });
+            
+            System.out.println("[DEBUG] Constructor completado exitosamente");
+            mostrarMensajeInicio();
+            
+        } catch (Exception e) {
+            System.err.println("[ERROR] Error en constructor EstacionVotacionUI: " + e.getMessage());
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null,
-                "La mesa o la zona no existen o no están relacionadas correctamente en la base de datos central.",
-                "Error de configuración",
+                "Error durante la inicialización:\n" + e.getClass().getSimpleName() + ": " + e.getMessage(),
+                "Error de Inicialización",
                 JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
-        activarMesaEnBD();
-        
-        // Inicializar componentes
-        proxy = new GestionMesasProxy();
-        gestorLotes = new GestorLotes();
-        mesaVotacion = new MesaVotacion(numeroMesaConfig, CANDIDATOS);
-        
-        initializeUI();
-        startServices();
-        
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                desactivarMesaEnBD();
-                shutdown();
-            }
-        });
-        
-        mostrarMensajeInicio();
     }
 
     private void initializeUI() {
@@ -202,7 +218,7 @@ public class EstacionVotacionUI extends JFrame {
         JPanel statusPanel = new JPanel(new GridLayout(4, 1, 5, 5));
         statusPanel.setBorder(BorderFactory.createTitledBorder("Estado del Sistema"));
         
-        mesaIdLabel = new JLabel("Mesa ID: " + numeroMesaConfig);
+        mesaIdLabel = new JLabel("Mesa ID: " + idMesaConfig);
         JLabel zonaLabel = new JLabel("Zona: " + colegioConfig);
         estadoLabel = new JLabel("Estado: CONECTADO");
         horaLabel = new JLabel("Hora: --:--:--");
@@ -285,6 +301,17 @@ public class EstacionVotacionUI extends JFrame {
         logArea.setEditable(false);
         logArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         
+        // Volcar logs acumulados en el buffer
+        for (String logMessage : logBuffer) {
+            logArea.append(logMessage);
+        }
+        logBuffer.clear(); // Limpiar el buffer
+        
+        // Mover el cursor al final
+        if (logArea.getDocument().getLength() > 0) {
+            logArea.setCaretPosition(logArea.getDocument().getLength());
+        }
+        
         JScrollPane scrollPane = new JScrollPane(logArea);
         scrollPane.setPreferredSize(new Dimension(800, 150));
         
@@ -296,74 +323,172 @@ public class EstacionVotacionUI extends JFrame {
     private void registrarVoto() {
         String cedula = JOptionPane.showInputDialog(this, "Ingrese la cédula del votante:");
         if (cedula == null || cedula.trim().isEmpty()) {
+            agregarLog("[DEBUG] Votación cancelada: cédula vacía o nula");
             return;
         }
 
-        // Validar que la cédula esté asignada a la zona del colegio
-        if (!validarCiudadanoEnZona(cedula, zonaIdColegio)) {
-            JOptionPane.showMessageDialog(this,
-                "El ciudadano no está habilitado para votar en la zona de este colegio.",
-                "Advertencia",
-                JOptionPane.WARNING_MESSAGE);
+        agregarLog("Iniciando proceso de votación para cédula: " + cedula);
+
+        // ==== VALIDACIONES COMPLETAS DE SEGURIDAD (E8, E12, E13) ====
+        // Usar el nodo de seguridad para todas las validaciones según diagrama de deployment
+        agregarLog("[DEBUG] Iniciando validaciones de seguridad...");
+        
+        boolean validacionSeguridad = securityHelper.validarSeguridadCompleta(cedula, idMesaConfig, zonaIdColegio);
+        agregarLog("[DEBUG] Resultado validación seguridad: " + validacionSeguridad);
+        
+        if (!validacionSeguridad) {
+            String mensaje = "VOTO DENEGADO: El ciudadano no pasó las validaciones de seguridad.\n" +
+                           "Motivos posibles:\n" +
+                           "- Antecedentes criminales (E12)\n" +
+                           "- Ya votó anteriormente (E13)\n" +
+                           "- Mesa/zona incorrecta (E8)";
+            JOptionPane.showMessageDialog(this, mensaje, "Acceso Denegado", JOptionPane.ERROR_MESSAGE);
+            agregarLog("VOTO DENEGADO por validaciones de seguridad: " + cedula);
             return;
         }
 
-        // Validar contra el sistema central (por si ya votó)
-        boolean puedeVotar = proxy.verificarEstadoZona(cedula, String.valueOf(zonaIdColegio));
-        if (!puedeVotar) {
-            JOptionPane.showMessageDialog(this,
-                "El votante no puede votar (ya votó o no está habilitado)",
-                "Advertencia",
-                JOptionPane.WARNING_MESSAGE);
-            return;
+        agregarLog("Validaciones de seguridad exitosas para: " + cedula);
+
+        // ==== VALIDACIÓN ADICIONAL CON SISTEMA CENTRAL (OPCIONAL) ====
+        // Verificar también contra el sistema central como respaldo
+        agregarLog("[DEBUG] Iniciando validación con sistema central...");
+        
+        boolean validacionCentralExitosa = false;
+        try {
+            boolean puedeVotarCentral = proxy.verificarEstadoZona(cedula, String.valueOf(zonaIdColegio));
+            agregarLog("[DEBUG] Resultado validación central: " + puedeVotarCentral);
+            
+            if (!puedeVotarCentral) {
+                JOptionPane.showMessageDialog(this,
+                    "El sistema central indica que el votante no puede votar en esta zona.",
+                    "Validación Central Fallida",
+                    JOptionPane.WARNING_MESSAGE);
+                agregarLog("VOTO DENEGADO por sistema central: " + cedula);
+                return;
+            }
+            validacionCentralExitosa = true;
+        } catch (Exception e) {
+            // Si la validación central falla, continuar con validación básica
+            agregarLog("[WARNING] Error en validación central: " + e.getClass().getSimpleName());
+            agregarLog("[INFO] Continuando con validación básica...");
+            
+            try {
+                boolean validacionBasica = proxy.validarVotante(cedula);
+                agregarLog("[DEBUG] Resultado validación básica: " + validacionBasica);
+                
+                if (!validacionBasica) {
+                    // En vez de denegar, mostrar advertencia pero continuar
+                    agregarLog("[WARNING] Validación básica falló, pero continuando por validaciones de seguridad exitosas");
+                    int respuesta = JOptionPane.showConfirmDialog(this,
+                        "Las validaciones centrales no están disponibles, pero las validaciones de seguridad locales pasaron.\n" +
+                        "¿Desea continuar con el registro del voto?",
+                        "Modo Failsafe",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+                    
+                    if (respuesta != JOptionPane.YES_OPTION) {
+                        agregarLog("VOTO CANCELADO por el usuario en modo failsafe: " + cedula);
+                        return;
+                    }
+                    agregarLog("[INFO] Usuario autoriza voto en modo failsafe para: " + cedula);
+                } else {
+                    validacionCentralExitosa = true;
+                }
+            } catch (Exception e2) {
+                // Si todas las validaciones centrales fallan, modo failsafe automático
+                agregarLog("[WARNING] Todas las validaciones centrales fallaron. Modo failsafe automático activado.");
+                agregarLog("[INFO] Permitiendo voto basado en validaciones de seguridad locales exitosas.");
+                
+                int respuesta = JOptionPane.showConfirmDialog(this,
+                    "El sistema central no está disponible, pero las validaciones de seguridad locales pasaron.\n" +
+                    "¿Desea continuar con el registro del voto en modo offline?",
+                    "Modo Failsafe - Sistema Central Offline",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+                
+                if (respuesta != JOptionPane.YES_OPTION) {
+                    agregarLog("VOTO CANCELADO por el usuario en modo offline: " + cedula);
+                    return;
+                }
+                agregarLog("[INFO] Usuario autoriza voto en modo offline para: " + cedula);
+            }
         }
 
-        // Registrar el voto en el lote local, incluyendo zona y mesa
+        agregarLog("[DEBUG] Todas las validaciones pasaron. Procediendo a selección de candidato...");
+
+        // ==== SELECCIÓN DE CANDIDATO ====
         String candidato = seleccionarCandidato();
-        if (candidato == null) return;
+        agregarLog("[DEBUG] Candidato seleccionado: " + candidato);
+        
+        if (candidato == null) {
+            agregarLog("Votación cancelada para: " + cedula);
+            return;
+        }
 
+        agregarLog("[DEBUG] Creando objeto voto...");
         Voto voto = new Voto();
         voto.idVotante = cedula;
         voto.idCandidato = Integer.parseInt(candidato);
         
-        // Registrar el voto en el sistema central primero
-        boolean registroExitoso = proxy.registrarVoto(cedula, voto.idCandidato, idMesaConfig, String.valueOf(zonaIdColegio));
-        if (!registroExitoso) {
-            JOptionPane.showMessageDialog(this,
-                "Error al registrar el voto en el sistema central.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Si el registro fue exitoso, agregar al lote local
-        gestorLotes.agregarVoto(voto);
-        actualizarTablaVotos();
-        JOptionPane.showMessageDialog(this, "Voto registrado correctamente.");
-    }
-
-    private boolean validarCiudadanoEnZona(String cedula, int zonaId) {
+        // ==== REGISTRO EN SISTEMA CENTRAL ====
+        agregarLog("Registrando voto en sistema central para: " + cedula);
+        
+        boolean registroExitoso = false;
         try {
-            System.out.println("[DEBUG] Validando ciudadano: cédula=" + cedula + ", zona_id=" + zonaId);
-            String url = "jdbc:postgresql://localhost:5432/sistema_votaciones";
-            String user = "postgres";
-            String pass = "postgres";
-            try (java.sql.Connection conn = java.sql.DriverManager.getConnection(url, user, pass)) {
-                String sql = "SELECT c.id FROM ciudadanos c JOIN asignaciones_ciudadanos a ON c.id = a.ciudadano_id WHERE c.documento = ? AND a.zona_id = ? AND a.estado = 'ACTIVA'";
-                try (java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
-                    stmt.setString(1, cedula);
-                    stmt.setInt(2, zonaId);
-                    java.sql.ResultSet rs = stmt.executeQuery();
-                    boolean found = rs.next();
-                    System.out.println("[DEBUG] Resultado validación: " + found);
-                    return found;
+            registroExitoso = proxy.registrarVoto(cedula, voto.idCandidato, idMesaConfig, String.valueOf(zonaIdColegio));
+            agregarLog("[DEBUG] Resultado registro central: " + registroExitoso);
+            
+            if (!registroExitoso) {
+                // Si el registro central falla, continuar con registro local únicamente
+                agregarLog("[WARNING] Error al registrar en sistema central, continuando con registro local");
+                int respuesta = JOptionPane.showConfirmDialog(this,
+                    "No se pudo registrar el voto en el sistema central.\n" +
+                    "¿Desea continuar con el registro local? (Se sincronizará cuando esté disponible)",
+                    "Registro Local",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+                
+                if (respuesta != JOptionPane.YES_OPTION) {
+                    agregarLog("VOTO CANCELADO por el usuario - registro central falló: " + cedula);
+                    return;
                 }
+                agregarLog("[INFO] Continuando con registro local para: " + cedula);
             }
         } catch (Exception e) {
-            System.err.println("Error validando ciudadano en zona: " + e.getMessage());
-            return false;
+            // Error de comunicación con sistema central
+            agregarLog("[WARNING] Error de comunicación con sistema central: " + e.getClass().getSimpleName());
+            int respuesta = JOptionPane.showConfirmDialog(this,
+                "No se puede conectar con el sistema central.\n" +
+                "¿Desea registrar el voto localmente? (Se sincronizará cuando esté disponible)",
+                "Sistema Central No Disponible",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+            
+            if (respuesta != JOptionPane.YES_OPTION) {
+                agregarLog("VOTO CANCELADO por el usuario - sistema central no disponible: " + cedula);
+                return;
+            }
+            agregarLog("[INFO] Usuario autoriza registro local para: " + cedula);
         }
+
+        // ==== REGISTRO EN LOTE LOCAL ====
+        agregarLog("[DEBUG] Agregando voto al lote local...");
+        gestorLotes.agregarVoto(voto);
+        actualizarTablaVotos();
+        
+        // ==== CONFIRMACIÓN EXITOSA ====
+        JOptionPane.showMessageDialog(this, 
+            "¡Voto registrado correctamente!\n" +
+            "Cédula: " + cedula + "\n" +
+            "Candidato: " + candidato + "\n" +
+            "Mesa: " + idMesaConfig + " | Zona: " + zonaIdColegio,
+            "Voto Exitoso", 
+            JOptionPane.INFORMATION_MESSAGE);
+        
+        agregarLog("VOTO EXITOSO registrado para: " + cedula + " (Candidato: " + candidato + ")");
     }
+
+    // Método eliminado: validarCiudadanoEnZona - ahora se usa el nodo de seguridad
 
     private void enviarLotesPendientes() {
         try {
@@ -398,13 +523,38 @@ public class EstacionVotacionUI extends JFrame {
 
     private void agregarLog(String mensaje) {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-        logArea.append(String.format("[%s] %s%n", timestamp, mensaje));
-        logArea.setCaretPosition(logArea.getDocument().getLength());
+        String logMessage = String.format("[%s] %s%n", timestamp, mensaje);
+        
+        if (logArea != null) {
+            // UI está lista, escribir directamente
+            logArea.append(logMessage);
+            logArea.setCaretPosition(logArea.getDocument().getLength());
+        } else {
+            // UI no está lista, acumular en buffer
+            logBuffer.add(logMessage);
+            // También imprimir en consola para debug
+            System.out.print("[LOG] " + logMessage);
+        }
     }
 
     private void mostrarMensajeInicio() {
-        agregarLog("Sistema iniciado - Zona: " + colegioConfig + " | Mesa: " + numeroMesaConfig);
-        agregarLog("Conectado al servidor de gestión de mesas");
+        agregarLog("=== SISTEMA DE ESTACIÓN DE VOTACIÓN LOCAL ===");
+        agregarLog("Colegio: " + colegioConfig + " | Mesa: " + numeroMesaConfig);
+        agregarLog("ID Mesa: " + idMesaConfig + " | ID Zona: " + zonaIdColegio);
+        agregarLog("Puerto: " + puerto);
+        agregarLog("===================================");
+        
+        // Estado de conexiones
+        agregarLog("Conectado al servidor de gestión de mesas (puerto 10004)");
+        if (securityHelper.isConnected()) {
+            agregarLog("[OK] Conectado al nodo de seguridad (puerto 10005)");
+            agregarLog("[OK] Validaciones E8, E12, E13 habilitadas");
+        } else {
+            agregarLog("[WARNING] Sin conexión al nodo de seguridad");
+            agregarLog("[WARNING] Modo failsafe: validaciones básicas únicamente");
+        }
+        
+        agregarLog("Sistema listo para recibir votantes");
     }
 
     private void startServices() {
@@ -428,11 +578,22 @@ public class EstacionVotacionUI extends JFrame {
 
     private void shutdown() {
         try {
+            agregarLog("Cerrando sistema de estación de votación...");
+            
+            // Cerrar conexiones
+            if (securityHelper != null) {
+                securityHelper.close();
+            }
+            if (proxy != null) {
+                proxy.close();
+            }
+            
+            // Cerrar scheduler
             scheduler.shutdown();
             if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
                 scheduler.shutdownNow();
             }
-            proxy.close();
+            
             agregarLog("Sistema cerrado correctamente");
         } catch (Exception e) {
             agregarLog("Error al cerrar el sistema: " + e.getMessage());
@@ -513,22 +674,39 @@ public class EstacionVotacionUI extends JFrame {
 
     private String seleccionarCandidato() {
         try {
+            agregarLog("[DEBUG] Obteniendo lista de candidatos del sistema central...");
             java.util.List<Candidato> candidatos = proxy.listarCandidatos();
+            agregarLog("[DEBUG] Candidatos obtenidos: " + candidatos.size());
+            
             if (candidatos.isEmpty()) {
+                agregarLog("[DEBUG] No hay candidatos disponibles");
                 JOptionPane.showMessageDialog(this, "No hay candidatos disponibles.", "Error", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
+            
             String[] nombres = candidatos.stream().map(c -> c.nombre + " (" + c.partido + ")").toArray(String[]::new);
+            agregarLog("[DEBUG] Mostrando diálogo de selección con " + nombres.length + " opciones");
+            
             String seleccion = (String) JOptionPane.showInputDialog(this, "Seleccione el candidato:", "Registro de Voto", JOptionPane.QUESTION_MESSAGE, null, nombres, nombres[0]);
-            if (seleccion == null) return null;
+            agregarLog("[DEBUG] Usuario seleccionó: " + seleccion);
+            
+            if (seleccion == null) {
+                agregarLog("[DEBUG] Usuario canceló la selección");
+                return null;
+            }
+            
             // Buscar el candidato seleccionado
             for (Candidato c : candidatos) {
                 if (seleccion.startsWith(c.nombre)) {
+                    agregarLog("[DEBUG] Candidato encontrado - ID: " + c.id + ", Nombre: " + c.nombre);
                     return String.valueOf(c.id);
                 }
             }
+            
+            agregarLog("[DEBUG] ERROR: No se pudo encontrar el candidato seleccionado");
             return null;
         } catch (Exception e) {
+            agregarLog("[DEBUG] ERROR obteniendo candidatos: " + e.getMessage());
             JOptionPane.showMessageDialog(this, "Error al obtener candidatos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
@@ -536,6 +714,7 @@ public class EstacionVotacionUI extends JFrame {
 
     private void activarMesaEnBD() {
         try {
+            agregarLog("[DEBUG] Intentando activar mesa en BD - ID: " + idMesaConfig);
             String url = "jdbc:postgresql://localhost:5432/sistema_votaciones";
             String user = "postgres";
             String pass = "postgres";
@@ -544,11 +723,80 @@ public class EstacionVotacionUI extends JFrame {
                 try (java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
                     stmt.setInt(1, idMesaConfig);
                     int updated = stmt.executeUpdate();
-                    System.out.println("[DEBUG] Mesa " + idMesaConfig + " activada. Filas actualizadas: " + updated);
+                    agregarLog("[DEBUG] Mesa " + idMesaConfig + " activada. Filas actualizadas: " + updated);
+                    if (updated > 0) {
+                        agregarLog("[OK] Mesa activada exitosamente en la base de datos");
+                    } else {
+                        agregarLog("[WARNING] No se pudo activar la mesa - ID no encontrado: " + idMesaConfig);
+                    }
                 }
             }
         } catch (Exception e) {
+            agregarLog("[ERROR] Error activando mesa en BD: " + e.getMessage());
             System.err.println("Error activando mesa en BD: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Validar mesa directamente contra BD siguiendo el patrón de otros nodos exitosos
+     * Similar a como lo hace el sistema de gestión de mesas
+     */
+    private static boolean validarMesaEnBaseDatos(String colegio, int numeroMesa) {
+        try {
+            // Cargar configuración BD desde properties interno
+            Properties prop = new Properties();
+            try (InputStream input = EstacionVotacionUI.class.getClassLoader().getResourceAsStream("estacion.properties")) {
+                if (input != null) {
+                    prop.load(input);
+                }
+            }
+            
+            String dbUrl = prop.getProperty("db.url", "jdbc:postgresql://localhost:5432/sistema_votaciones");
+            String dbUser = prop.getProperty("db.user", "postgres");
+            String dbPassword = prop.getProperty("db.password", "postgres");
+            
+            try (java.sql.Connection conn = java.sql.DriverManager.getConnection(dbUrl, dbUser, dbPassword)) {
+                // Buscar mesa por nombre de colegio y número (patrón de validación directo)
+                String sql = "SELECT m.id, m.numero, c.id as colegio_id, c.zona_id " +
+                            "FROM mesas_votacion m " +
+                            "INNER JOIN colegios c ON m.colegio_id = c.id " +
+                            "WHERE LOWER(c.nombre) = LOWER(?) AND m.numero = ?";
+                
+                try (java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    stmt.setString(1, colegio);
+                    stmt.setInt(2, numeroMesa);
+                    java.sql.ResultSet rs = stmt.executeQuery();
+                    
+                    if (!rs.next()) {
+                        JOptionPane.showMessageDialog(null,
+                            "No se encontró la mesa en la base de datos:\n" +
+                            "Colegio: '" + colegio + "'\n" +
+                            "Mesa: " + numeroMesa + "\n\n" +
+                            "Verifica que la mesa esté registrada en el sistema central.",
+                            "Mesa no encontrada", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    }
+                    
+                    // Configurar variables globales
+                    idMesaConfig = rs.getInt("id");
+                    idZonaConfig = rs.getInt("zona_id");
+                    puerto = puerto; // Usar valor por defecto de properties
+                    
+                    System.out.println("[DEBUG] Mesa validada exitosamente:");
+                    System.out.println("  - ID Mesa: " + idMesaConfig);
+                    System.out.println("  - ID Zona: " + idZonaConfig);
+                    System.out.println("  - Puerto: " + puerto);
+                    
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                "Error conectando a la base de datos:\n" + e.getMessage() + "\n\n" +
+                "Verifica que PostgreSQL esté ejecutándose y que la base de datos exista.",
+                "Error de conexión", JOptionPane.ERROR_MESSAGE);
+            System.err.println("[ERROR] Error validando mesa: " + e.getMessage());
+            return false;
         }
     }
 

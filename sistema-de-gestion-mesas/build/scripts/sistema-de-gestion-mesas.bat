@@ -68,11 +68,11 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\sistema-de-gestion-mesas-1.0-SNAPSHOT.jar;%APP_HOME%\lib\common-1.0-SNAPSHOT.jar;%APP_HOME%\lib\ice-3.7.6.jar;%APP_HOME%\lib\HikariCP-5.1.0.jar;%APP_HOME%\lib\logback-classic-1.4.14.jar;%APP_HOME%\lib\slf4j-api-2.0.12.jar;%APP_HOME%\lib\postgresql-42.7.2.jar;%APP_HOME%\lib\logback-core-1.4.14.jar;%APP_HOME%\lib\checker-qual-3.42.0.jar
+set CLASSPATH=%APP_HOME%\lib\AdminMesa-1.0-SNAPSHOT.jar;%APP_HOME%\lib\common-1.0-SNAPSHOT.jar;%APP_HOME%\lib\ice-3.7.6.jar;%APP_HOME%\lib\postgresql-42.7.2.jar;%APP_HOME%\lib\HikariCP-5.1.0.jar;%APP_HOME%\lib\logback-classic-1.4.14.jar;%APP_HOME%\lib\slf4j-api-2.0.12.jar;%APP_HOME%\lib\javafx-fxml-17.0.2-win.jar;%APP_HOME%\lib\javafx-controls-17.0.2-win.jar;%APP_HOME%\lib\javafx-controls-17.0.2.jar;%APP_HOME%\lib\javafx-graphics-17.0.2-win.jar;%APP_HOME%\lib\javafx-graphics-17.0.2.jar;%APP_HOME%\lib\javafx-base-17.0.2-win.jar;%APP_HOME%\lib\javafx-base-17.0.2.jar;%APP_HOME%\lib\checker-qual-3.42.0.jar;%APP_HOME%\lib\logback-core-1.4.14.jar
 
 
 @rem Execute sistema-de-gestion-mesas
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %SISTEMA_DE_GESTION_MESAS_OPTS%  -classpath "%CLASSPATH%" com.votaciones.mainserver.MainServer %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %SISTEMA_DE_GESTION_MESAS_OPTS%  -classpath "%CLASSPATH%" com.votaciones.mainserver.AdminMesaApp %*
 
 :end
 @rem End local scope for the variables with windows NT shell

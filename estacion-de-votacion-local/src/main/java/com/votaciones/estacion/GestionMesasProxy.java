@@ -81,13 +81,7 @@ public class GestionMesasProxy {
             ctx.put("mesaId", String.valueOf(mesaId));
             ctx.put("zona", zona);
             
-            // Verificar primero si puede votar
-            if (!proxy.verificarEstadoZona(idVotante, zona)) {
-                System.err.println("[GestionMesasProxy] El votante no puede votar en esta zona");
-                return false;
-            }
-            
-            // Intentar registrar el voto
+            // Intentar registrar el voto directamente (la validación ya se hizo en la UI)
             boolean resultado = proxy.registrarVoto(idVotante, idCandidato, ctx);
             if (!resultado) {
                 System.err.println("[GestionMesasProxy] Error al registrar el voto en el sistema central");
