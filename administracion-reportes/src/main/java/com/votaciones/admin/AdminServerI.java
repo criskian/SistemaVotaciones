@@ -18,42 +18,47 @@ public class AdminServerI implements Admin.AdminServer {
     private static final String RESULTADOS_FILE = "Resultados.csv";
 
     @Override
-    public void agregarCandidato(String nombre, String partido, String cargo, Current current) {
+    public void agregarCandidato(String nombre, String partido, String propuestas, Current current) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new RuntimeException("El nombre del candidato es requerido");
+        }
+        
         try (Connection conn = AdminServerMain.getDBConnection()) {
-            String sql = "INSERT INTO candidatos (documento, nombres, apellidos, partido_politico) VALUES (?, ?, ?, ?)";
+            // Primero verificar si ya existe un candidato con el mismo nombre
+            String checkSql = "SELECT COUNT(*) FROM candidatos WHERE nombre = ?";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setString(1, nombre);
+                try (ResultSet rs = checkStmt.executeQuery()) {
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        throw new RuntimeException("Ya existe un candidato con el nombre: " + nombre);
+                    }
+                }
+            }
+
+            // Si no existe, proceder con la inserción
+            String sql = "INSERT INTO candidatos (nombre, partido, propuestas) VALUES (?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                // Generar un documento único para el candidato
-                String documento = "CAND" + System.currentTimeMillis();
-                String[] nombres = nombre.split(" ", 2);
-                String nombresStr = nombres[0];
-                String apellidosStr = nombres.length > 1 ? nombres[1] : "";
-                
-                pstmt.setString(1, documento);
-                pstmt.setString(2, nombresStr);
-                pstmt.setString(3, apellidosStr);
-                pstmt.setString(4, partido);
+                pstmt.setString(1, nombre);
+                pstmt.setString(2, partido);
+                pstmt.setString(3, propuestas);
                 pstmt.executeUpdate();
             }
             logger.info("Candidato agregado: {}", nombre);
         } catch (SQLException e) {
             logger.error("Error al agregar candidato: {}", e.getMessage());
-            throw new RuntimeException("Error al agregar candidato", e);
+            throw new RuntimeException("Error al agregar candidato: " + e.getMessage());
         }
     }
 
     @Override
-    public void modificarCandidato(String id, String nombre, String partido, String cargo, Current current) {
+    public void modificarCandidato(String id, String nombre, String partido, String propuestas, Current current) {
         try (Connection conn = AdminServerMain.getDBConnection()) {
-            String sql = "UPDATE candidatos SET nombres = ?, apellidos = ?, partido_politico = ? WHERE id = ?";
+            String sql = "UPDATE candidatos SET nombre = ?, partido = ?, propuestas = ? WHERE id = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                String[] nombres = nombre.split(" ", 2);
-                String nombresStr = nombres[0];
-                String apellidosStr = nombres.length > 1 ? nombres[1] : "";
-                
-                pstmt.setString(1, nombresStr);
-                pstmt.setString(2, apellidosStr);
-                pstmt.setString(3, partido);
-                pstmt.setString(4, id);
+                pstmt.setString(1, nombre);
+                pstmt.setString(2, partido);
+                pstmt.setString(3, propuestas);
+                pstmt.setInt(4, Integer.parseInt(id));
                 pstmt.executeUpdate();
             }
             logger.info("Candidato modificado: {}", nombre);
@@ -68,10 +73,10 @@ public class AdminServerI implements Admin.AdminServer {
         try (Connection conn = AdminServerMain.getDBConnection()) {
             String sql = "DELETE FROM candidatos WHERE id = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, id);
+                pstmt.setInt(1, Integer.parseInt(id));
                 pstmt.executeUpdate();
             }
-            logger.info("Candidato eliminado: {}", id);
+            logger.info("Candidato eliminado con ID: {}", id);
         } catch (SQLException e) {
             logger.error("Error al eliminar candidato: {}", e.getMessage());
             throw new RuntimeException("Error al eliminar candidato", e);
@@ -82,15 +87,15 @@ public class AdminServerI implements Admin.AdminServer {
     public String[] listarCandidatos(Current current) {
         List<String> candidatos = new ArrayList<>();
         try (Connection conn = AdminServerMain.getDBConnection()) {
-            String sql = "SELECT id, nombres, apellidos, partido_politico FROM candidatos";
+            String sql = "SELECT id, nombre, partido, propuestas FROM candidatos";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
                 while (rs.next()) {
-                    candidatos.add(String.format("%s,%s %s,%s",
-                        rs.getString("id"),
-                        rs.getString("nombres"),
-                        rs.getString("apellidos"),
-                        rs.getString("partido_politico")));
+                    candidatos.add(String.format("%d,%s,%s,%s",
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("partido"),
+                        rs.getString("propuestas")));
                 }
             }
         } catch (SQLException e) {
@@ -103,19 +108,20 @@ public class AdminServerI implements Admin.AdminServer {
     @Override
     public void procesarVotos(String zona, Current current) {
         try (Connection conn = AdminServerMain.getDBConnection()) {
-            String sql = "SELECT c.nombres, c.apellidos, c.partido_politico, COUNT(v.id) as votos " +
+            String sql = "SELECT c.nombre, c.partido, COUNT(v.id) as votos " +
                         "FROM votos v " +
                         "JOIN candidatos c ON v.candidato_id = c.id " +
                         "JOIN mesas_votacion m ON v.mesa_id = m.id " +
-                        "WHERE m.zona = ? " +
-                        "GROUP BY c.nombres, c.apellidos, c.partido_politico";
+                        "JOIN colegios co ON m.colegio_id = co.id " +
+                        "JOIN zonas_electorales z ON co.zona_id = z.id " +
+                        "WHERE z.codigo = ? " +
+                        "GROUP BY c.nombre, c.partido";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, zona);
                 try (ResultSet rs = pstmt.executeQuery()) {
-                    // Procesar resultados
                     while (rs.next()) {
-                        logger.info("Resultados para zona {}: {} {} - {} votos",
-                            zona, rs.getString("nombres"), rs.getString("apellidos"), rs.getInt("votos"));
+                        logger.info("Resultados para zona {}: {} - {} votos",
+                            zona, rs.getString("nombre"), rs.getInt("votos"));
                     }
                 }
             }
@@ -129,20 +135,21 @@ public class AdminServerI implements Admin.AdminServer {
     public String obtenerResultadosZona(String zona, Current current) {
         StringBuilder resultados = new StringBuilder();
         try (Connection conn = AdminServerMain.getDBConnection()) {
-            String sql = "SELECT c.nombres, c.apellidos, c.partido_politico, COUNT(v.id) as votos " +
+            String sql = "SELECT c.nombre, c.partido, COUNT(v.id) as votos " +
                         "FROM votos v " +
                         "JOIN candidatos c ON v.candidato_id = c.id " +
                         "JOIN mesas_votacion m ON v.mesa_id = m.id " +
-                        "WHERE m.zona = ? " +
-                        "GROUP BY c.nombres, c.apellidos, c.partido_politico";
+                        "JOIN colegios co ON m.colegio_id = co.id " +
+                        "JOIN zonas_electorales z ON co.zona_id = z.id " +
+                        "WHERE z.codigo = ? " +
+                        "GROUP BY c.nombre, c.partido";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, zona);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
-                        resultados.append(String.format("%s %s,%s,%d\n",
-                            rs.getString("nombres"),
-                            rs.getString("apellidos"),
-                            rs.getString("partido_politico"),
+                        resultados.append(String.format("%s,%s,%d\n",
+                            rs.getString("nombre"),
+                            rs.getString("partido"),
                             rs.getInt("votos")));
                     }
                 }
@@ -158,17 +165,16 @@ public class AdminServerI implements Admin.AdminServer {
     public String obtenerResultadosGlobales(Current current) {
         StringBuilder resultados = new StringBuilder();
         try (Connection conn = AdminServerMain.getDBConnection()) {
-            String sql = "SELECT c.nombres, c.apellidos, c.partido_politico, COUNT(v.id) as votos " +
+            String sql = "SELECT c.nombre, c.partido, COUNT(v.id) as votos " +
                         "FROM votos v " +
                         "JOIN candidatos c ON v.candidato_id = c.id " +
-                        "GROUP BY c.nombres, c.apellidos, c.partido_politico";
+                        "GROUP BY c.nombre, c.partido";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
                 while (rs.next()) {
-                    resultados.append(String.format("%s %s,%s,%d\n",
-                        rs.getString("nombres"),
-                        rs.getString("apellidos"),
-                        rs.getString("partido_politico"),
+                    resultados.append(String.format("%s,%s,%d\n",
+                        rs.getString("nombre"),
+                        rs.getString("partido"),
                         rs.getInt("votos")));
                 }
             }
@@ -219,7 +225,7 @@ public class AdminServerI implements Admin.AdminServer {
             for (String candidato : candidatos) {
                 String[] datos = candidato.split(",");
                 Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue(datos[1]); // nombre completo
+                row.createCell(0).setCellValue(datos[1]); // nombre
                 row.createCell(1).setCellValue(datos[2]); // partido
                 // Agregar votos y porcentaje
             }
@@ -236,15 +242,15 @@ public class AdminServerI implements Admin.AdminServer {
     }
 
     @Override
-    public void registrarLog(String evento, String detalle, Current current) {
+    public void registrarLog(String tipo, String mensaje, Current current) {
         try (Connection conn = AdminServerMain.getDBConnection()) {
-            String sql = "INSERT INTO logs (evento, detalle, fecha) VALUES (?, ?, CURRENT_TIMESTAMP)";
+            String sql = "INSERT INTO logs (tipo, mensaje, fecha_hora) VALUES (?, ?, CURRENT_TIMESTAMP)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, evento);
-                pstmt.setString(2, detalle);
+                pstmt.setString(1, tipo);
+                pstmt.setString(2, mensaje);
                 pstmt.executeUpdate();
             }
-            logger.info("Log registrado: {} - {}", evento, detalle);
+            logger.info("Log registrado: {} - {}", tipo, mensaje);
         } catch (SQLException e) {
             logger.error("Error al registrar log: {}", e.getMessage());
             throw new RuntimeException("Error al registrar log", e);
@@ -255,15 +261,15 @@ public class AdminServerI implements Admin.AdminServer {
     public String[] obtenerLogs(String fecha, Current current) {
         List<String> logs = new ArrayList<>();
         try (Connection conn = AdminServerMain.getDBConnection()) {
-            String sql = "SELECT * FROM logs WHERE DATE(fecha) = ? ORDER BY fecha DESC";
+            String sql = "SELECT * FROM logs WHERE DATE(fecha_hora) = ? ORDER BY fecha_hora DESC";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, fecha);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     while (rs.next()) {
                         logs.add(String.format("%s,%s,%s",
-                            rs.getString("evento"),
-                            rs.getString("detalle"),
-                            rs.getTimestamp("fecha")));
+                            rs.getString("tipo"),
+                            rs.getString("mensaje"),
+                            rs.getTimestamp("fecha_hora")));
                     }
                 }
             }
@@ -276,7 +282,6 @@ public class AdminServerI implements Admin.AdminServer {
 
     @Override
     public boolean validarFormatoDatos(String datos, Current current) {
-        // Implementar validación de formato según requerimientos
         return datos != null && !datos.trim().isEmpty();
     }
 
@@ -284,54 +289,35 @@ public class AdminServerI implements Admin.AdminServer {
     public boolean validarIntegridadResultados(Current current) {
         try (Connection conn = AdminServerMain.getDBConnection()) {
             // Verificar que no haya votos duplicados
-            String sql = "SELECT COUNT(*) as total, COUNT(DISTINCT id) as unicos FROM votos";
+            String sql = "SELECT ciudadano_id, COUNT(*) as total " +
+                        "FROM votos " +
+                        "GROUP BY ciudadano_id " +
+                        "HAVING COUNT(*) > 1";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
                 if (rs.next()) {
-                    return rs.getInt("total") == rs.getInt("unicos");
+                    logger.error("Se encontraron votos duplicados");
+                    return false;
                 }
             }
-        } catch (SQLException e) {
-            logger.error("Error al validar integridad de resultados: {}", e.getMessage());
-            throw new RuntimeException("Error al validar integridad de resultados", e);
-        }
-        return false;
-    }
 
-    // Método adicional para cargar candidatos desde Excel
-    public void cargarCandidatosDesdeExcel(String rutaArchivo) {
-        try (FileInputStream fis = new FileInputStream(rutaArchivo);
-             Workbook workbook = new XSSFWorkbook(fis)) {
-            
-            Sheet sheet = workbook.getSheetAt(0);
-            
-            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-                Row row = sheet.getRow(i);
-                if (row != null) {
-                    String nombres = getCellValueAsString(row.getCell(0));
-                    String apellidos = getCellValueAsString(row.getCell(1));
-                    String partido = getCellValueAsString(row.getCell(2));
-                    String documento = getCellValueAsString(row.getCell(3));
-                    
-                    if (!nombres.isEmpty() && !partido.isEmpty()) {
-                        try (Connection conn = AdminServerMain.getDBConnection()) {
-                            String sql = "INSERT INTO candidatos (documento, nombres, apellidos, partido_politico) VALUES (?, ?, ?, ?)";
-                            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                                pstmt.setString(1, documento.isEmpty() ? "CAND" + System.currentTimeMillis() + i : documento);
-                                pstmt.setString(2, nombres);
-                                pstmt.setString(3, apellidos);
-                                pstmt.setString(4, partido);
-                                pstmt.executeUpdate();
-                            }
-                        }
-                        logger.info("Candidato cargado desde Excel: {} {}", nombres, apellidos);
-                    }
+            // Verificar que todos los votos correspondan a mesas activas
+            sql = "SELECT COUNT(*) as total " +
+                  "FROM votos v " +
+                  "JOIN mesas_votacion m ON v.mesa_id = m.id " +
+                  "WHERE m.activa = false";
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                if (rs.next() && rs.getInt("total") > 0) {
+                    logger.error("Se encontraron votos en mesas inactivas");
+                    return false;
                 }
             }
-            logger.info("Carga de candidatos desde Excel completada");
-        } catch (Exception e) {
-            logger.error("Error al cargar candidatos desde Excel: {}", e.getMessage());
-            throw new RuntimeException("Error al cargar candidatos desde Excel", e);
+
+            return true;
+        } catch (SQLException e) {
+            logger.error("Error al validar integridad: {}", e.getMessage());
+            throw new RuntimeException("Error al validar integridad", e);
         }
     }
 

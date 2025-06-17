@@ -16,7 +16,7 @@ public class AdminUI extends Application {
     private static final Logger logger = LoggerFactory.getLogger(AdminUI.class);
     private AdminServerI adminServer;
     private TextArea logArea;
-    private TextField nombreField, partidoField, cargoField, idField, zonaField;
+    private TextField nombreField, partidoField, propuestasField, idField, zonaField;
 
     @Override
     public void start(Stage primaryStage) {
@@ -80,15 +80,15 @@ public class AdminUI extends Application {
         
         nombreField = new TextField();
         partidoField = new TextField();
-        cargoField = new TextField();
+        propuestasField = new TextField();
         idField = new TextField();
         
         grid.add(new Label("Nombre:"), 0, 0);
         grid.add(nombreField, 1, 0);
         grid.add(new Label("Partido:"), 0, 1);
         grid.add(partidoField, 1, 1);
-        grid.add(new Label("Cargo:"), 0, 2);
-        grid.add(cargoField, 1, 2);
+        grid.add(new Label("Propuestas:"), 0, 2);
+        grid.add(propuestasField, 1, 2);
         grid.add(new Label("ID (para modificar/eliminar):"), 0, 3);
         grid.add(idField, 1, 3);
         
@@ -109,7 +109,7 @@ public class AdminUI extends Application {
         // Eventos
         agregarBtn.setOnAction(e -> {
             try {
-                adminServer.agregarCandidato(nombreField.getText(), partidoField.getText(), cargoField.getText(), null);
+                adminServer.agregarCandidato(nombreField.getText(), partidoField.getText(), propuestasField.getText(), null);
                 logMessage("Candidato agregado: " + nombreField.getText());
                 limpiarCampos();
             } catch (Exception ex) {
@@ -119,7 +119,7 @@ public class AdminUI extends Application {
         
         modificarBtn.setOnAction(e -> {
             try {
-                adminServer.modificarCandidato(idField.getText(), nombreField.getText(), partidoField.getText(), cargoField.getText(), null);
+                adminServer.modificarCandidato(idField.getText(), nombreField.getText(), partidoField.getText(), propuestasField.getText(), null);
                 logMessage("Candidato modificado: " + nombreField.getText());
                 limpiarCampos();
             } catch (Exception ex) {
@@ -145,7 +145,7 @@ public class AdminUI extends Application {
                     sb.append(candidato).append("\n");
                 }
                 resultadosArea.setText(sb.toString());
-                logMessage("Candidatos listados: " + candidatos.length + " encontrados");
+                logMessage("Lista de candidatos actualizada");
             } catch (Exception ex) {
                 logMessage("Error al listar candidatos: " + ex.getMessage());
             }
@@ -167,7 +167,7 @@ public class AdminUI extends Application {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.add(new Label("Zona:"), 0, 0);
+        grid.add(new Label("Código de Zona:"), 0, 0);
         grid.add(zonaField, 1, 0);
         
         // Botones
@@ -289,7 +289,7 @@ public class AdminUI extends Application {
     private void limpiarCampos() {
         nombreField.clear();
         partidoField.clear();
-        cargoField.clear();
+        propuestasField.clear();
         idField.clear();
         zonaField.clear();
     }

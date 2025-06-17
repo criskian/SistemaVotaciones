@@ -14,7 +14,7 @@ public class AdminSwingUI extends JFrame {
     private static final Logger logger = LoggerFactory.getLogger(AdminSwingUI.class);
     private AdminServerI adminServer;
     private JTextArea logArea;
-    private JTextField nombreField, partidoField, cargoField, idField, zonaField;
+    private JTextField nombreField, partidoField, propuestasField, idField, zonaField;
     private JTextArea resultadosArea;
 
     public AdminSwingUI() {
@@ -49,36 +49,21 @@ public class AdminSwingUI extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createTitledBorder("Gestión de Candidatos"));
 
-        // Panel de entrada de datos
-        JPanel inputPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.anchor = GridBagConstraints.WEST;
-
+        // Panel de entrada
+        JPanel inputPanel = new JPanel(new GridLayout(4, 2, 5, 5));
         nombreField = new JTextField(20);
         partidoField = new JTextField(20);
-        cargoField = new JTextField(20);
+        propuestasField = new JTextField(20);
         idField = new JTextField(20);
 
-        gbc.gridx = 0; gbc.gridy = 0;
-        inputPanel.add(new JLabel("Nombre:"), gbc);
-        gbc.gridx = 1;
-        inputPanel.add(nombreField, gbc);
-
-        gbc.gridx = 0; gbc.gridy = 1;
-        inputPanel.add(new JLabel("Partido:"), gbc);
-        gbc.gridx = 1;
-        inputPanel.add(partidoField, gbc);
-
-        gbc.gridx = 0; gbc.gridy = 2;
-        inputPanel.add(new JLabel("Cargo:"), gbc);
-        gbc.gridx = 1;
-        inputPanel.add(cargoField, gbc);
-
-        gbc.gridx = 0; gbc.gridy = 3;
-        inputPanel.add(new JLabel("ID (para modificar/eliminar):"), gbc);
-        gbc.gridx = 1;
-        inputPanel.add(idField, gbc);
+        inputPanel.add(new JLabel("Nombre:"));
+        inputPanel.add(nombreField);
+        inputPanel.add(new JLabel("Partido:"));
+        inputPanel.add(partidoField);
+        inputPanel.add(new JLabel("Propuestas:"));
+        inputPanel.add(propuestasField);
+        inputPanel.add(new JLabel("ID (para modificar/eliminar):"));
+        inputPanel.add(idField);
 
         // Panel de botones
         JPanel buttonPanel = new JPanel(new FlowLayout());
@@ -86,16 +71,14 @@ public class AdminSwingUI extends JFrame {
         JButton modificarBtn = new JButton("Modificar Candidato");
         JButton eliminarBtn = new JButton("Eliminar Candidato");
         JButton listarBtn = new JButton("Listar Candidatos");
-        JButton cargarExcelBtn = new JButton("Cargar desde Excel");
 
         buttonPanel.add(agregarBtn);
         buttonPanel.add(modificarBtn);
         buttonPanel.add(eliminarBtn);
         buttonPanel.add(listarBtn);
-        buttonPanel.add(cargarExcelBtn);
 
         // Área de resultados
-        resultadosArea = new JTextArea(15, 50);
+        resultadosArea = new JTextArea(10, 50);
         resultadosArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultadosArea);
 
@@ -104,7 +87,7 @@ public class AdminSwingUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    adminServer.agregarCandidato(nombreField.getText(), partidoField.getText(), cargoField.getText(), null);
+                    adminServer.agregarCandidato(nombreField.getText(), partidoField.getText(), propuestasField.getText(), null);
                     logMessage("Candidato agregado: " + nombreField.getText());
                     limpiarCampos();
                 } catch (Exception ex) {
@@ -117,7 +100,7 @@ public class AdminSwingUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    adminServer.modificarCandidato(idField.getText(), nombreField.getText(), partidoField.getText(), cargoField.getText(), null);
+                    adminServer.modificarCandidato(idField.getText(), nombreField.getText(), partidoField.getText(), propuestasField.getText(), null);
                     logMessage("Candidato modificado: " + nombreField.getText());
                     limpiarCampos();
                 } catch (Exception ex) {
@@ -149,39 +132,9 @@ public class AdminSwingUI extends JFrame {
                         sb.append(candidato).append("\n");
                     }
                     resultadosArea.setText(sb.toString());
-                    logMessage("Candidatos listados: " + candidatos.length + " encontrados");
+                    logMessage("Lista de candidatos actualizada");
                 } catch (Exception ex) {
                     logMessage("Error al listar candidatos: " + ex.getMessage());
-                }
-            }
-        });
-
-        cargarExcelBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos Excel", "xlsx", "xls"));
-                fileChooser.setDialogTitle("Seleccionar archivo Excel de candidatos");
-                
-                int result = fileChooser.showOpenDialog(AdminSwingUI.this);
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    try {
-                        adminServer.cargarCandidatosDesdeExcel(selectedFile.getAbsolutePath());
-                        logMessage("Candidatos cargados desde Excel: " + selectedFile.getName());
-                        // Actualizar la lista después de cargar
-                        String[] candidatos = adminServer.listarCandidatos(null);
-                        StringBuilder sb = new StringBuilder();
-                        for (String candidato : candidatos) {
-                            sb.append(candidato).append("\n");
-                        }
-                        resultadosArea.setText(sb.toString());
-                    } catch (Exception ex) {
-                        logMessage("Error al cargar desde Excel: " + ex.getMessage());
-                        JOptionPane.showMessageDialog(AdminSwingUI.this, 
-                            "Error al cargar archivo Excel: " + ex.getMessage(), 
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                    }
                 }
             }
         });
@@ -204,7 +157,7 @@ public class AdminSwingUI extends JFrame {
         // Panel de entrada
         JPanel inputPanel = new JPanel(new FlowLayout());
         zonaField = new JTextField(20);
-        inputPanel.add(new JLabel("Zona:"));
+        inputPanel.add(new JLabel("Código de Zona:"));
         inputPanel.add(zonaField);
 
         // Panel de botones
@@ -358,7 +311,7 @@ public class AdminSwingUI extends JFrame {
     private void limpiarCampos() {
         nombreField.setText("");
         partidoField.setText("");
-        cargoField.setText("");
+        propuestasField.setText("");
         idField.setText("");
         zonaField.setText("");
     }
