@@ -48,6 +48,8 @@ CREATE TABLE IF NOT EXISTS mesas_votacion (
     numero INTEGER NOT NULL,
     colegio_id INTEGER REFERENCES colegios(id),
     activa BOOLEAN DEFAULT false,
+    estado VARCHAR(20) DEFAULT 'INACTIVA',
+    ultima_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE(numero, colegio_id)
 );
 
@@ -138,6 +140,9 @@ INSERT INTO mesas_votacion (id, numero, colegio_id, activa) VALUES
 (4, 2, 2, false),
 (5, 1, 3, false),
 (6, 2, 3, false);
+
+-- Actualizar el estado de las mesas basado en el campo activa
+UPDATE mesas_votacion SET estado = CASE WHEN activa THEN 'ACTIVA' ELSE 'INACTIVA' END;
 
 -- =====================================================
 -- SECCIÓN 6: DATOS DE CIUDADANOS
