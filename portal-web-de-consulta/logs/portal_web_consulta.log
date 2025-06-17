@@ -412,3 +412,365 @@ Caused by: java.net.ConnectException: Connection refused
 05:29:18.052 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
 05:29:18.052 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
 05:29:18.052 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+-- 17/6/25 05:54:01:899 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 17/6/25 05:54:01:936 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 17/6/25 05:54:01:936 Network: established tcp connection
+   local address = 127.0.0.1:50612
+   remote address = 127.0.0.1:10000
+-- 17/6/25 05:54:01:939 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 17/6/25 05:54:01:942 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+05:54:01.944 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+05:54:01.957 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+05:54:01.958 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+05:54:01.958 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+05:54:05.061 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 17/6/25 05:54:05:064 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 05:54:05:524 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+05:54:05.525 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+05:54:09.178 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 17/6/25 05:54:09:181 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 05:54:09:196 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+05:54:09.196 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+-- 17/6/25 05:59:13:809 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 17/6/25 05:59:13:839 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 17/6/25 05:59:13:839 Network: established tcp connection
+   local address = 127.0.0.1:50854
+   remote address = 127.0.0.1:10000
+-- 17/6/25 05:59:13:842 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 17/6/25 05:59:13:844 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+05:59:13.846 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+05:59:13.858 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+05:59:13.859 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+05:59:13.860 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+05:59:17.620 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 17/6/25 05:59:17:624 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 05:59:17:671 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+05:59:17.672 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+05:59:19.186 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 17/6/25 05:59:19:194 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 05:59:19:209 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+05:59:19.209 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+-- 17/6/25 06:02:37:219 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 17/6/25 06:02:37:390 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 17/6/25 06:02:37:391 Network: established tcp connection
+   local address = 127.0.0.1:50982
+   remote address = 127.0.0.1:10000
+-- 17/6/25 06:02:37:408 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:02:37:446 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+06:02:37.451 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+06:02:37.467 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+06:02:37.467 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+06:02:37.467 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+06:02:54.299 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 17/6/25 06:02:54:304 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:02:54:372 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 181
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+06:02:54.375 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+06:02:56.429 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 17/6/25 06:02:56:431 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:02:56:444 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 181
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 17/6/25 06:02:56:449 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:02:56:458 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 17/6/25 06:02:56:459 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:02:56:460 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 17/6/25 06:02:56:460 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:02:56:461 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 17/6/25 06:02:56:461 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = GetConteoVotosPorCandidato
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:02:56:462 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 29
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+06:02:56.462 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando conteo de votos
+06:02:57.964 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando lista de candidatos
+-- 17/6/25 06:02:57:964 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 67
+   request id = 8
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarCandidatos
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:02:57:966 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 181
+   request id = 8
+   reply status = 0 (ok)
+   encoding = 1.1
+06:02:57.967 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando lista de candidatos
+06:03:11.397 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1234567
+-- 17/6/25 06:03:11:416 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 80
+   request id = 9
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:03:11:451 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 79
+   request id = 9
+   reply status = 0 (ok)
+   encoding = 1.1
+06:03:11.452 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1234567
+06:03:15.345 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 12345678
+-- 17/6/25 06:03:15:346 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 81
+   request id = 10
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:03:15:351 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 80
+   request id = 10
+   reply status = 0 (ok)
+   encoding = 1.1
+06:03:15.352 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 12345678
+06:03:17.712 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 123456789
+-- 17/6/25 06:03:17:713 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 82
+   request id = 11
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 06:03:17:720 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 11
+   reply status = 0 (ok)
+   encoding = 1.1
+06:03:17.721 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789

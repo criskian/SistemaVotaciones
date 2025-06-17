@@ -14,17 +14,17 @@ public class DataCacheProxy {
 
     public List<Candidato> consultarCandidatos() {
         List<Candidato> candidatos = new ArrayList<>();
-        String sql = "SELECT id, documento, nombres, apellidos, partido_politico FROM candidatos";
+        String sql = "SELECT id, nombre, partido, propuestas FROM candidatos";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Candidato c = new Candidato(
                     rs.getInt("id"),
-                    rs.getString("documento"),
-                    rs.getString("nombres"),
-                    rs.getString("apellidos"),
-                    rs.getString("partido_politico")
+                    "", // documento
+                    rs.getString("nombre"), // nombres
+                    "", // apellidos
+                    rs.getString("partido")
                 );
                 candidatos.add(c);
             }
@@ -35,8 +35,10 @@ public class DataCacheProxy {
     }
 
     public Votante consultarVotantePorCedula(String cedula) {
-        String sql = "SELECT c.documento, c.nombre, ac.zona_id, c.id as ciudadano_id FROM ciudadanos c " +
+        String sql = "SELECT c.id, c.documento, c.nombre, c.ciudad_id, ac.zona_id, mv.id as mesa_id " +
+                    "FROM ciudadanos c " +
                     "LEFT JOIN asignaciones_ciudadanos ac ON c.id = ac.ciudadano_id " +
+                    "LEFT JOIN mesas_votacion mv ON c.id = mv.id " +
                     "WHERE c.documento = ? AND ac.activo = true";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -47,9 +49,9 @@ public class DataCacheProxy {
                         rs.getString("documento"),
                         rs.getString("nombre"),
                         "", // apellidos no existe en la tabla
-                        rs.getInt("ciudadano_id"), // ciudad_id
+                        rs.getInt("ciudad_id"),
                         rs.getInt("zona_id"),
-                        rs.getInt("ciudadano_id") // mesa_id - usando ciudadano_id como mesa_id
+                        rs.getInt("mesa_id")
                     );
                 }
             }
@@ -80,9 +82,10 @@ public class DataCacheProxy {
     }
 
     public Zona zonaMesaAsignada(String cedula) {
-        String sql = "SELECT z.id, z.nombre, z.codigo FROM ciudadanos c " +
-                    "JOIN asignaciones_ciudadanos ac ON c.id = ac.ciudadano_id " +
-                    "JOIN zonas_electorales z ON ac.zona_id = z.id " +
+        String sql = "SELECT z.id, z.nombre, z.codigo " +
+                    "FROM zonas_electorales z " +
+                    "JOIN asignaciones_ciudadanos ac ON z.id = ac.zona_id " +
+                    "JOIN ciudadanos c ON ac.ciudadano_id = c.id " +
                     "WHERE c.documento = ? AND ac.activo = true";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -103,15 +106,16 @@ public class DataCacheProxy {
     }
 
     public int idZonaVotacion(String cedula) {
-        String sql = "SELECT ac.zona_id FROM ciudadanos c " +
-                    "JOIN asignaciones_ciudadanos ac ON c.id = ac.ciudadano_id " +
+        String sql = "SELECT z.id FROM zonas_electorales z " +
+                    "JOIN asignaciones_ciudadanos ac ON z.id = ac.zona_id " +
+                    "JOIN ciudadanos c ON ac.ciudadano_id = c.id " +
                     "WHERE c.documento = ? AND ac.activo = true";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("zona_id");
+                    return rs.getInt("id");
                 }
             }
         } catch (SQLException e) {
@@ -153,32 +157,33 @@ public class DataCacheProxy {
     }
 
     public boolean agregarVoto(Voto voto) {
-        String sql = "INSERT INTO votos (documento_votante, candidato_id, mesa_id, fecha_hora) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO votos (ciudadano_id, candidato_id, mesa_id, fecha_hora) " +
+                    "SELECT c.id, ?, ?, ? FROM ciudadanos c WHERE c.documento = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, voto.documentoVotante);
-            ps.setInt(2, voto.candidatoId);
-            ps.setInt(3, voto.mesaId);
-            ps.setString(4, voto.fechaHora);
+            ps.setInt(1, voto.candidatoId);
+            ps.setInt(2, voto.mesaId);
+            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            ps.setString(4, voto.documentoVotante);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     public boolean agregarSospechoso(String cedula, String motivo) {
-        String sql = "INSERT INTO sospechosos (documento, motivo, fecha_registro) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO sospechosos (ciudadano_id, motivo, fecha_registro) " +
+                    "SELECT c.id, ?, CURRENT_TIMESTAMP FROM ciudadanos c WHERE c.documento = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, cedula);
-            ps.setString(2, motivo);
-            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
+            ps.setString(1, motivo);
+            ps.setString(2, cedula);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     public boolean registrarLogs(LogEntry log) {
@@ -187,47 +192,43 @@ public class DataCacheProxy {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, log.tipo);
             ps.setString(2, log.mensaje);
-            ps.setString(3, log.fechaHora);
+            ps.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     public String consultarMesaDescriptiva(String cedula) {
-        String sql = "SELECT c.nombre, c.documento, " +
-                "z.nombre AS nombre_zona, z.codigo AS codigo_zona, " +
-                "ci.nombre AS ciudad " +
-                "FROM ciudadanos c " +
-                "JOIN asignaciones_ciudadanos ac ON c.id = ac.ciudadano_id " +
-                "JOIN zonas_electorales z ON ac.zona_id = z.id " +
-                "JOIN ciudades ci ON c.ciudad_id = ci.id " +
-                "WHERE c.documento = ? AND ac.activo = true";
+        String sql = "SELECT m.numero, c.nombre as colegio, z.nombre as zona " +
+                    "FROM mesas_votacion m " +
+                    "JOIN colegios c ON m.colegio_id = c.id " +
+                    "JOIN zonas_electorales z ON c.zona_id = z.id " +
+                    "JOIN asignaciones_ciudadanos ac ON z.id = ac.zona_id " +
+                    "JOIN ciudadanos ci ON ac.ciudadano_id = ci.id " +
+                    "WHERE ci.documento = ? AND ac.activo = true";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return String.format(
-                        "Votante: %s\nCédula: %s\nZona: %s (Código: %s)\nCiudad: %s",
-                        rs.getString("nombre"),
-                        rs.getString("documento"),
-                        rs.getString("nombre_zona"),
-                        rs.getString("codigo_zona"),
-                        rs.getString("ciudad")
-                    );
+                    return String.format("Mesa %d - %s - Zona %s",
+                        rs.getInt("numero"),
+                        rs.getString("colegio"),
+                        rs.getString("zona"));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return "Error al consultar la información de la mesa: " + e.getMessage();
         }
         return "No se encontró información para la cédula: " + cedula;
     }
 
     public boolean yaVoto(String cedula) {
-        String sql = "SELECT COUNT(*) as total FROM votos WHERE documento_votante = ?";
+        String sql = "SELECT COUNT(*) as total FROM votos v " +
+                    "JOIN ciudadanos c ON v.ciudadano_id = c.id " +
+                    "WHERE c.documento = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
@@ -243,7 +244,9 @@ public class DataCacheProxy {
     }
 
     public boolean esSospechoso(String cedula) {
-        String sql = "SELECT COUNT(*) as total FROM sospechosos WHERE documento = ? AND (estado = 'ACTIVO' OR estado IS NULL)";
+        String sql = "SELECT COUNT(*) as total FROM sospechosos s " +
+                    "JOIN ciudadanos c ON s.ciudadano_id = c.id " +
+                    "WHERE c.documento = ?";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
