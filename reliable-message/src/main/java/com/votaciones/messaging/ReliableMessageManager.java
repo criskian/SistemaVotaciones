@@ -7,6 +7,7 @@ import com.zeroc.Ice.ObjectPrx;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 
 public class ReliableMessageManager extends Thread {
     private static final int MAX_RETRIES = 3;
@@ -18,14 +19,16 @@ public class ReliableMessageManager extends Thread {
     private final Object lock;
     private volatile boolean running;
     private final ObjectPrx destination;
+    private final Function<VotingMessage, Boolean> messageSender;
     
-    public ReliableMessageManager(ObjectPrx destination) {
+    public ReliableMessageManager(ObjectPrx destination, Function<VotingMessage, Boolean> messageSender) {
         this.pendingMessages = new ConcurrentHashMap<>();
         this.sentMessages = new ConcurrentHashMap<>();
         this.sequenceNumber = new AtomicLong(0);
         this.lock = new Object();
         this.running = true;
         this.destination = destination;
+        this.messageSender = messageSender;
     }
     
     public void sendMessage(VotingMessage message) {
@@ -62,11 +65,12 @@ public class ReliableMessageManager extends Thread {
     private void processPendingMessages() {
         pendingMessages.forEach((id, message) -> {
             try {
-                // Aquí iría la lógica específica para enviar el mensaje usando ICE
-                // destination.sendMessage(message);
-                message.setState(ReliableVotingMessage.SENT);
-                pendingMessages.remove(id);
-                sentMessages.put(id, message);
+                boolean sent = messageSender.apply(message.getMessage());
+                if (sent) {
+                    message.setState(ReliableVotingMessage.SENT);
+                    pendingMessages.remove(id);
+                    sentMessages.put(id, message);
+                }
             } catch (Exception e) {
                 System.err.println("Failed to send message " + id + ": " + e.getMessage());
             }
@@ -81,8 +85,11 @@ public class ReliableMessageManager extends Thread {
                     message.incrementRetryCount();
                     message.setTimestamp(currentTime);
                     try {
-                        // Reintento del envío
-                        // destination.sendMessage(message);
+                        boolean sent = messageSender.apply(message.getMessage());
+                        if (sent) {
+                            message.setState(ReliableVotingMessage.SENT);
+                            sentMessages.remove(id);
+                        }
                     } catch (Exception e) {
                         System.err.println("Failed to retry message " + id + ": " + e.getMessage());
                     }

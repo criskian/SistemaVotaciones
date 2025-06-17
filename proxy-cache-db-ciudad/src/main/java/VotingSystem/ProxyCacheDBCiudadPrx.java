@@ -533,6 +533,46 @@ public interface ProxyCacheDBCiudadPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default boolean AgregarLoteVotos(Voto[] lote)
+    {
+        return AgregarLoteVotos(lote, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default boolean AgregarLoteVotos(Voto[] lote, java.util.Map<String, String> context)
+    {
+        return _iceI_AgregarLoteVotosAsync(lote, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Boolean> AgregarLoteVotosAsync(Voto[] lote)
+    {
+        return _iceI_AgregarLoteVotosAsync(lote, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Boolean> AgregarLoteVotosAsync(Voto[] lote, java.util.Map<String, String> context)
+    {
+        return _iceI_AgregarLoteVotosAsync(lote, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_lote -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_AgregarLoteVotosAsync(Voto[] iceP_lote, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "AgregarLoteVotos", null, sync, null);
+        f.invoke(true, context, null, ostr -> {
+                     VotoSeqHelper.write(ostr, iceP_lote);
+                 }, istr -> {
+                     boolean ret;
+                     ret = istr.readBool();
+                     return ret;
+                 });
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.

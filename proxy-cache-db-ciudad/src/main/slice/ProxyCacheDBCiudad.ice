@@ -32,6 +32,7 @@ module VotingSystem {
     };
     sequence<Candidato> CandidatoSeq;
     sequence<Zona> ZonaSeq;
+    sequence<Voto> VotoSeq;
     interface ProxyCacheDBCiudad {
         Votante ConsultarVotantePorCedula(string cedula);
         CandidatoSeq ConsultarCandidatos();
@@ -46,5 +47,6 @@ module VotingSystem {
         string ConsultarMesaDescriptiva(string cedula);
         bool YaVoto(string cedula);
         bool EsSospechoso(string cedula);
+        bool AgregarLoteVotos(VotoSeq lote);
     };
 };

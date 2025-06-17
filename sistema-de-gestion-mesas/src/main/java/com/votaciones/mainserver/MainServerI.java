@@ -4,11 +4,44 @@ import VotingSystem.*;
 import com.zeroc.Ice.Current;
 import java.sql.*;
 import java.util.*;
+import com.votaciones.messaging.ReliableMessageManager;
+import com.votaciones.messaging.model.VotingMessage;
+import com.zeroc.Ice.Communicator;
+import com.zeroc.Ice.ObjectPrx;
+import VotingSystem.ProxyCacheDBCiudadPrx;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MainServerI implements MainServer {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/sistema_votaciones";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "postgres";
+    private ReliableMessageManager reliableMessageManager;
+    private ProxyCacheDBCiudadPrx proxyCachePrx;
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    public MainServerI() {
+        try {
+            Communicator communicator = com.zeroc.Ice.Util.initialize();
+            String proxyStr = "ProxyCacheDBCiudad:default -h 127.0.0.1 -p 10030";
+            ObjectPrx base = communicator.stringToProxy(proxyStr);
+            proxyCachePrx = ProxyCacheDBCiudadPrx.checkedCast(base);
+            if (proxyCachePrx == null) {
+                throw new RuntimeException("No se pudo obtener el proxy de ProxyCacheDBCiudad");
+            }
+            reliableMessageManager = new ReliableMessageManager(base, votingMsg -> {
+                try {
+                    Voto[] votos = objectMapper.readValue(votingMsg.getContent(), Voto[].class);
+                    return proxyCachePrx.AgregarLoteVotos(votos);
+                } catch (Exception e) {
+                    System.err.println("[ReliableMessage] Error al enviar lote: " + e.getMessage());
+                    return false;
+                }
+            });
+            reliableMessageManager.start();
+        } catch (Exception e) {
+            System.err.println("[MainServerI] Error inicializando ReliableMessageManager: " + e.getMessage());
+        }
+    }
 
     @Override
     public MesaInfo[] listarMesas(Current current) {
@@ -111,28 +144,15 @@ public class MainServerI implements MainServer {
 
     @Override
     public boolean addLoteVotos(LoteVotos lote, Current current) {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            conn.setAutoCommit(false);
-            try {
-                String sql = "INSERT INTO votos (ciudadano_id, candidato_id, fecha_hora) VALUES (?, ?, NOW())";
-                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                    for (Voto voto : lote.votos) {
-                        stmt.setString(1, voto.idVotante);
-                        stmt.setInt(2, voto.idCandidato);
-                        stmt.addBatch();
-                    }
-                    stmt.executeBatch();
-                }
-                conn.commit();
-                return true;
-            } catch (SQLException e) {
-                conn.rollback();
-                System.err.println("[MainServerI] Error al agregar lote de votos: " + e.getMessage());
-            }
-        } catch (SQLException e) {
-            System.err.println("[MainServerI] Error al conectar con la base de datos: " + e.getMessage());
+        try {
+            String jsonLote = objectMapper.writeValueAsString(lote.votos);
+            VotingMessage msg = new VotingMessage(jsonLote, "LOTE_VOTOS", "MainServer");
+            reliableMessageManager.sendMessage(msg);
+            return true;
+        } catch (Exception e) {
+            System.err.println("[MainServerI] Error enviando lote con ReliableMessage: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     @Override

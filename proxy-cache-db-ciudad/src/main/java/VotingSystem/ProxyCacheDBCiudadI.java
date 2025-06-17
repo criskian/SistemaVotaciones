@@ -104,4 +104,14 @@ public class ProxyCacheDBCiudadI implements ProxyCacheDBCiudad {
     public boolean EsSospechoso(String cedula, Current current) {
         return dataCacheProxy.esSospechoso(cedula);
     }
+
+    @Override
+    public boolean AgregarLoteVotos(Voto[] lote, Current current) {
+        boolean allOk = true;
+        for (Voto voto : lote) {
+            boolean ok = dataCacheProxy.agregarVoto(voto);
+            if (!ok) allOk = false;
+        }
+        return allOk;
+    }
 } 
