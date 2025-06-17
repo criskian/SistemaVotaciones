@@ -22,7 +22,7 @@ public class Main {
             GestorLotes gestorLotes = new GestorLotes();
             
             // Enviar lotes pendientes con zona y mesa
-            gestorLotes.enviarLotesPendientes(proxy, mesa, zona);
+            gestorLotes.enviarLotesPendientes(proxy, null, mesa, zona);
             
             // Punto de entrada: inicializa CLI y servicios ICE
             System.out.println("Estación de Votación Local iniciando...");
