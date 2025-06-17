@@ -35,6 +35,11 @@ public class SecurityServiceI implements SecurityService {
             CiudadanoInfo ciudadano = controladorDatos.getCiudadano(document);
             if (ciudadano == null) {
                 logger.warn("Ciudadano no encontrado: {}", document);
+                sistemaAlertas.enviarAlerta(new AlertaSeguridad(
+                    "NO_EXISTE",
+                    "Intento de voto con cédula no registrada: " + document,
+                    "ALTA"
+                ));
                 return false;
             }
             
@@ -68,6 +73,11 @@ public class SecurityServiceI implements SecurityService {
             
         } catch (Exception e) {
             logger.error("Error en validación de seguridad para documento: " + document, e);
+            sistemaAlertas.enviarAlerta(new AlertaSeguridad(
+                "ERROR_VALIDACION",
+                "Error en validación para documento: " + document + " - " + e.getMessage(),
+                "CRITICA"
+            ));
             return false;
         }
     }
@@ -103,6 +113,11 @@ public class SecurityServiceI implements SecurityService {
             boolean asignadoAZona = controladorDatos.verificarAsignacionZona(document, zonaId);
             if (!asignadoAZona) {
                 logger.warn("Ciudadano no asignado a la zona: {} - zonaId: {}", document, zonaId);
+                sistemaAlertas.enviarAlerta(new AlertaSeguridad(
+                    "MESA_ZONA_INCORRECTA",
+                    "Intento de voto en zona/mesa incorrecta: " + document,
+                    "ALTA"
+                ));
                 return false;
             }
             
@@ -110,6 +125,11 @@ public class SecurityServiceI implements SecurityService {
             boolean yaVotoEnZona = controladorDatos.verificarSiYaVotoEnZona(document, zonaId);
             if (yaVotoEnZona) {
                 logger.warn("Ciudadano ya votó en la zona: {} - zonaId: {}", document, zonaId);
+                sistemaAlertas.enviarAlerta(new AlertaSeguridad(
+                    "VOTO_REPETIDO_ZONA",
+                    "Intento de voto repetido en zona: " + document,
+                    "CRITICA"
+                ));
                 return false;
             }
             
@@ -118,6 +138,11 @@ public class SecurityServiceI implements SecurityService {
             
         } catch (Exception e) {
             logger.error("Error en validación de zona para documento: " + document, e);
+            sistemaAlertas.enviarAlerta(new AlertaSeguridad(
+                "ERROR_VALIDACION",
+                "Error en validación de zona para documento: " + document + " - " + e.getMessage(),
+                "CRITICA"
+            ));
             return false;
         }
     }
