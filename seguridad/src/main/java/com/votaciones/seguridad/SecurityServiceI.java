@@ -97,33 +97,27 @@ public class SecurityServiceI implements SecurityService {
     @Override
     public boolean validateMesaZonaAsignada(String document, int mesaId, int zonaId, Current current) {
         try {
-            logger.info("Validando mesa/zona asignada para {}: mesa={}, zona={}", 
-                       document, mesaId, zonaId);
+            logger.info("Validando zona para documento: {} en zona: {}", document, zonaId);
             
-            CiudadanoInfo ciudadano = controladorDatos.getCiudadano(document);
-            if (ciudadano == null) {
+            // Verificar que el ciudadano esté asignado a la zona (no a una mesa específica)
+            boolean asignadoAZona = controladorDatos.verificarAsignacionZona(document, zonaId);
+            if (!asignadoAZona) {
+                logger.warn("Ciudadano no asignado a la zona: {} - zonaId: {}", document, zonaId);
                 return false;
             }
             
-            boolean mesaCorrecta = ciudadano.getMesaId() == mesaId;
-            boolean zonaCorrecta = ciudadano.getZonaId() == zonaId;
-            
-            if (!mesaCorrecta || !zonaCorrecta) {
-                logger.warn("Mesa/Zona incorrecta para {}: esperado mesa={}, zona={}, actual mesa={}, zona={}", 
-                           document, ciudadano.getMesaId(), ciudadano.getZonaId(), mesaId, zonaId);
-                
-                sistemaAlertas.enviarAlerta(new AlertaSeguridad(
-                    "MESA_INCORRECTA",
-                    "Intento de voto en mesa incorrecta: " + document,
-                    "MEDIA"
-                ));
+            // Verificar que no haya votado ya en esta zona
+            boolean yaVotoEnZona = controladorDatos.verificarSiYaVotoEnZona(document, zonaId);
+            if (yaVotoEnZona) {
+                logger.warn("Ciudadano ya votó en la zona: {} - zonaId: {}", document, zonaId);
                 return false;
             }
             
+            logger.info("Validación de zona exitosa para: {} en zona: {}", document, zonaId);
             return true;
             
         } catch (Exception e) {
-            logger.error("Error validando mesa/zona para: " + document, e);
+            logger.error("Error en validación de zona para documento: " + document, e);
             return false;
         }
     }

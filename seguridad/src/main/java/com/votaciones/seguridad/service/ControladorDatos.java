@@ -116,4 +116,60 @@ public class ControladorDatos {
     public int getCantidadSospechosos() {
         return sospechosos.size();
     }
+
+    /**
+     * Verifica si un ciudadano está asignado a una zona específica
+     */
+    public boolean verificarAsignacionZona(String documento, int zonaId) {
+        try {
+            // Usar conexión directa a la base de datos para verificar asignación a zona
+            String sql = "SELECT COUNT(*) FROM asignaciones_ciudadanos ac " +
+                        "JOIN ciudadanos c ON ac.ciudadano_id = c.id " +
+                        "WHERE c.documento = ? AND ac.zona_id = ? AND ac.activo = true";
+            
+            try (var connection = com.votaciones.seguridad.db.SecurityDatabaseConnection.getDataSource().getConnection();
+                 var stmt = connection.prepareStatement(sql)) {
+                stmt.setString(1, documento);
+                stmt.setInt(2, zonaId);
+                var rs = stmt.executeQuery();
+                if (rs.next()) {
+                    boolean asignado = rs.getInt(1) > 0;
+                    logger.debug("Verificación de asignación a zona: {} en zona {} = {}", documento, zonaId, asignado);
+                    return asignado;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error verificando asignación a zona para: " + documento, e);
+        }
+        return false;
+    }
+    
+    /**
+     * Verifica si un ciudadano ya votó en una zona específica
+     */
+    public boolean verificarSiYaVotoEnZona(String documento, int zonaId) {
+        try {
+            // Usar conexión directa a la base de datos para verificar votos en zona
+            String sql = "SELECT COUNT(*) FROM votos v " +
+                        "JOIN ciudadanos c ON v.ciudadano_id = c.id " +
+                        "JOIN mesas_votacion m ON v.mesa_id = m.id " +
+                        "JOIN colegios col ON m.colegio_id = col.id " +
+                        "WHERE c.documento = ? AND col.zona_id = ?";
+            
+            try (var connection = com.votaciones.seguridad.db.SecurityDatabaseConnection.getDataSource().getConnection();
+                 var stmt = connection.prepareStatement(sql)) {
+                stmt.setString(1, documento);
+                stmt.setInt(2, zonaId);
+                var rs = stmt.executeQuery();
+                if (rs.next()) {
+                    boolean yaVoto = rs.getInt(1) > 0;
+                    logger.debug("Verificación de voto en zona: {} en zona {} = {}", documento, zonaId, yaVoto);
+                    return yaVoto;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error verificando voto en zona para: " + documento, e);
+        }
+        return false;
+    }
 } 

@@ -464,8 +464,9 @@ public class AdminMesaApp extends JFrame {
             
             // Verificar votos duplicados
             try (PreparedStatement stmt = conn.prepareStatement(
-                "SELECT documento_ciudadano, COUNT(*) as votos " +
-                "FROM votos GROUP BY documento_ciudadano HAVING COUNT(*) > 1")) {
+                "SELECT c.documento, COUNT(*) as votos " +
+                "FROM votos v JOIN ciudadanos c ON v.ciudadano_id = c.id " +
+                "GROUP BY c.documento HAVING COUNT(*) > 1")) {
                 
                 ResultSet rs = stmt.executeQuery();
                 boolean hayDuplicados = false;
@@ -475,7 +476,7 @@ public class AdminMesaApp extends JFrame {
                         alarmas.append("[ALERTA] VOTOS DUPLICADOS DETECTADOS:\n");
                         hayDuplicados = true;
                     }
-                    alarmas.append("- Documento: ").append(rs.getString("documento_ciudadano"))
+                    alarmas.append("- Documento: ").append(rs.getString("documento"))
                            .append(" (").append(rs.getInt("votos")).append(" votos)\n");
                 }
                 
@@ -561,17 +562,17 @@ public class AdminMesaApp extends JFrame {
             // Por candidato
             votos.append("Distribución por Candidato:\n");
             try (PreparedStatement stmt = conn.prepareStatement(
-                "SELECT c.nombres, c.apellidos, COUNT(v.id) as votos " +
+                "SELECT c.nombre, c.partido, COUNT(v.id) as votos " +
                 "FROM candidatos c " +
                 "LEFT JOIN votos v ON c.id = v.candidato_id " +
-                "GROUP BY c.id, c.nombres, c.apellidos " +
+                "GROUP BY c.id, c.nombre, c.partido " +
                 "ORDER BY votos DESC")) {
                 
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
-                    votos.append("- ").append(rs.getString("nombres"))
-                         .append(" ").append(rs.getString("apellidos"))
-                         .append(": ").append(rs.getInt("votos")).append(" votos\n");
+                    votos.append("- ").append(rs.getString("nombre"))
+                         .append(" (").append(rs.getString("partido"))
+                         .append("): ").append(rs.getInt("votos")).append(" votos\n");
                 }
             }
             
@@ -630,19 +631,19 @@ public class AdminMesaApp extends JFrame {
             // Votos por candidato en esta mesa
             detalles.append("VOTOS POR CANDIDATO:\n");
             try (PreparedStatement stmt = conn.prepareStatement(
-                "SELECT c.nombres, c.apellidos, COUNT(v.id) as votos " +
+                "SELECT c.nombre, c.partido, COUNT(v.id) as votos " +
                 "FROM candidatos c " +
                 "LEFT JOIN votos v ON c.id = v.candidato_id AND v.mesa_id = ? " +
-                "GROUP BY c.id, c.nombres, c.apellidos " +
+                "GROUP BY c.id, c.nombre, c.partido " +
                 "ORDER BY votos DESC")) {
                 
                 stmt.setInt(1, mesaId);
                 ResultSet rs = stmt.executeQuery();
                 
                 while (rs.next()) {
-                    detalles.append("- ").append(rs.getString("nombres"))
-                           .append(" ").append(rs.getString("apellidos"))
-                           .append(": ").append(rs.getInt("votos")).append(" votos\n");
+                    detalles.append("- ").append(rs.getString("nombre"))
+                           .append(" (").append(rs.getString("partido"))
+                           .append("): ").append(rs.getInt("votos")).append(" votos\n");
                 }
             }
             

@@ -44,8 +44,7 @@ public class ConexionSistemaFiscal {
             
             if (simulacionActivada) {
                 // Modo simulación: algunos documentos predefinidos + probabilidad aleatoria
-                tieneAntecedentes = documentosConAntecedentes.contains(documento) || 
-                                   (random.nextDouble() < 0.05); // 5% de probabilidad aleatoria
+                tieneAntecedentes = false; // documentosConAntecedentes.contains(documento) || (random.nextDouble() < 0.05);
             } else {
                 // Aquí iría la llamada real a la API de fiscalía
                 tieneAntecedentes = consultarApiFiscalia(documento);
@@ -112,10 +111,10 @@ public class ConexionSistemaFiscal {
     }
     
     private void cargarDatosPrueba() {
-        // Documentos con antecedentes para pruebas
-        documentosConAntecedentes.add("111111111");
-        documentosConAntecedentes.add("222222222");
-        documentosConAntecedentes.add("999999999");
+        // Documentos con antecedentes para pruebas - VACÍO para permitir que todos voten
+        // documentosConAntecedentes.add("111111111");
+        // documentosConAntecedentes.add("222222222");
+        // documentosConAntecedentes.add("999999999");
         
         logger.debug("Cargados {} documentos con antecedentes para pruebas", 
                     documentosConAntecedentes.size());

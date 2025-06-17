@@ -1,6 +1,12 @@
 package com.votaciones.mainserver;
 
-import VotingSystem.*;
+import VotingSystem.MainServer;
+import VotingSystem.MesaInfo;
+import VotingSystem.Candidato;
+import VotingSystem.Voto;
+import VotingSystem.LoteVotos;
+import VotingSystem.AlertaInfo;
+import VotingSystem.Estadisticas;
 import com.zeroc.Ice.Current;
 import java.sql.*;
 import java.util.*;
@@ -161,7 +167,7 @@ public class MainServerI implements MainServer {
         List<Candidato> candidatos = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             System.out.println("[MainServerI] Conexión a BD exitosa");
-            String sql = "SELECT id, nombres, partido_politico FROM candidatos";
+            String sql = "SELECT id, nombre, partido FROM candidatos";
             System.out.println("[MainServerI] Ejecutando consulta: " + sql);
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 ResultSet rs = stmt.executeQuery();
@@ -170,8 +176,8 @@ public class MainServerI implements MainServer {
                     count++;
                     Candidato candidato = new Candidato();
                     candidato.id = rs.getInt("id");
-                    candidato.nombre = rs.getString("nombres");
-                    candidato.partido = rs.getString("partido_politico");
+                    candidato.nombre = rs.getString("nombre");
+                    candidato.partido = rs.getString("partido");
                     candidatos.add(candidato);
                     System.out.println("[MainServerI] Candidato " + count + ": ID=" + candidato.id + 
                                      ", Nombre=" + candidato.nombre + ", Partido=" + candidato.partido);
@@ -264,20 +270,24 @@ public class MainServerI implements MainServer {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             int zonaId = Integer.parseInt(zona);
             System.err.println("[DEBUG] ZonaId parseado: " + zonaId);
-            String sql = "SELECT c.id FROM ciudadanos c JOIN asignaciones_ciudadanos a ON c.id = a.ciudadano_id WHERE c.documento = ? AND a.zona_id = ? AND a.estado = 'ACTIVA'";
+            
+            // Verificar que el ciudadano esté asignado a la zona (no a una mesa específica)
+            String sql = "SELECT c.id FROM ciudadanos c JOIN asignaciones_ciudadanos a ON c.id = a.ciudadano_id WHERE c.documento = ? AND a.zona_id = ? AND a.activo = true";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, idVotante);
                 stmt.setInt(2, zonaId);
                 ResultSet rs = stmt.executeQuery();
                 boolean found = rs.next();
-                System.err.println("[DEBUG] Resultado consulta asignación: " + found);
+                System.err.println("[DEBUG] Resultado consulta asignación a zona: " + found);
                 if (!found) {
                     System.err.println("[MainServerI] Ciudadano no asignado activamente a la zona: " + idVotante + ", zonaId: " + zonaId);
                     return false;
                 }
                 int ciudadanoId = rs.getInt("id");
                 System.err.println("[MainServerI] Ciudadano asignado activamente a la zona: " + idVotante + ", ciudadanoId: " + ciudadanoId);
-                sql = "SELECT COUNT(*) FROM votos v JOIN mesas_votacion m ON v.mesa_id = m.id JOIN colegios col ON m.colegio_id = col.id WHERE v.ciudadano_id = ? AND col.zona_id = ? AND v.estado = 'VALIDO'";
+                
+                // Verificar que no haya votado ya en esta zona
+                sql = "SELECT COUNT(*) FROM votos v JOIN mesas_votacion m ON v.mesa_id = m.id JOIN colegios col ON m.colegio_id = col.id WHERE v.ciudadano_id = ? AND col.zona_id = ?";
                 try (PreparedStatement stmt2 = conn.prepareStatement(sql)) {
                     stmt2.setInt(1, ciudadanoId);
                     stmt2.setInt(2, zonaId);

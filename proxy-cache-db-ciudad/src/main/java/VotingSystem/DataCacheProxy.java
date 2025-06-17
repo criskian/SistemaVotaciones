@@ -35,7 +35,9 @@ public class DataCacheProxy {
     }
 
     public Votante consultarVotantePorCedula(String cedula) {
-        String sql = "SELECT documento, nombres, apellidos, ciudad_id, zona_id, mesa_id FROM ciudadanos WHERE documento = ?";
+        String sql = "SELECT c.documento, c.nombre, ac.zona_id, c.id as ciudadano_id FROM ciudadanos c " +
+                    "LEFT JOIN asignaciones_ciudadanos ac ON c.id = ac.ciudadano_id " +
+                    "WHERE c.documento = ? AND ac.activo = true";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
@@ -43,11 +45,11 @@ public class DataCacheProxy {
                 if (rs.next()) {
                     return new Votante(
                         rs.getString("documento"),
-                        rs.getString("nombres"),
-                        rs.getString("apellidos"),
-                        rs.getInt("ciudad_id"),
+                        rs.getString("nombre"),
+                        "", // apellidos no existe en la tabla
+                        rs.getInt("ciudadano_id"), // ciudad_id
                         rs.getInt("zona_id"),
-                        rs.getInt("mesa_id")
+                        rs.getInt("ciudadano_id") // mesa_id - usando ciudadano_id como mesa_id
                     );
                 }
             }
@@ -78,7 +80,10 @@ public class DataCacheProxy {
     }
 
     public Zona zonaMesaAsignada(String cedula) {
-        String sql = "SELECT z.id, z.nombre, z.codigo FROM ciudadanos c JOIN zonas_electorales z ON c.zona_id = z.id WHERE c.documento = ?";
+        String sql = "SELECT z.id, z.nombre, z.codigo FROM ciudadanos c " +
+                    "JOIN asignaciones_ciudadanos ac ON c.id = ac.ciudadano_id " +
+                    "JOIN zonas_electorales z ON ac.zona_id = z.id " +
+                    "WHERE c.documento = ? AND ac.activo = true";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
@@ -98,7 +103,9 @@ public class DataCacheProxy {
     }
 
     public int idZonaVotacion(String cedula) {
-        String sql = "SELECT zona_id FROM ciudadanos WHERE documento = ?";
+        String sql = "SELECT ac.zona_id FROM ciudadanos c " +
+                    "JOIN asignaciones_ciudadanos ac ON c.id = ac.ciudadano_id " +
+                    "WHERE c.documento = ? AND ac.activo = true";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
@@ -189,32 +196,26 @@ public class DataCacheProxy {
     }
 
     public String consultarMesaDescriptiva(String cedula) {
-        String sql = "SELECT ciu.nombres, ciu.apellidos, ciu.documento, m.numero AS numero_mesa, " +
+        String sql = "SELECT c.nombre, c.documento, " +
                 "z.nombre AS nombre_zona, z.codigo AS codigo_zona, " +
-                "col.nombre AS nombre_colegio, col.direccion, " +
-                "c.nombre AS ciudad " +
-                "FROM ciudadanos ciu " +
-                "JOIN mesas_votacion m ON ciu.mesa_id = m.id " +
-                "JOIN colegios col ON m.colegio_id = col.id " +
-                "JOIN ciudades c ON col.ciudad_id = c.id " +
-                "JOIN zonas_electorales z ON ciu.zona_id = z.id " +
-                "WHERE ciu.documento = ?";
+                "ci.nombre AS ciudad " +
+                "FROM ciudadanos c " +
+                "JOIN asignaciones_ciudadanos ac ON c.id = ac.ciudadano_id " +
+                "JOIN zonas_electorales z ON ac.zona_id = z.id " +
+                "JOIN ciudades ci ON c.ciudad_id = ci.id " +
+                "WHERE c.documento = ? AND ac.activo = true";
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cedula);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return String.format(
-                        "Votante: %s %s\nCédula: %s\nMesa: %d\nZona: %s (Código: %s)\nColegio: %s\nCiudad: %s\nDirección: %s",
-                        rs.getString("nombres"),
-                        rs.getString("apellidos"),
+                        "Votante: %s\nCédula: %s\nZona: %s (Código: %s)\nCiudad: %s",
+                        rs.getString("nombre"),
                         rs.getString("documento"),
-                        rs.getInt("numero_mesa"),
                         rs.getString("nombre_zona"),
                         rs.getString("codigo_zona"),
-                        rs.getString("nombre_colegio"),
-                        rs.getString("ciudad"),
-                        rs.getString("direccion")
+                        rs.getString("ciudad")
                     );
                 }
             }

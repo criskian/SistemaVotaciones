@@ -493,7 +493,7 @@ public class EstacionVotacionUI extends JFrame {
     private void enviarLotesPendientes() {
         try {
             // Aquí deberías recolectar los votos pendientes y enviarlos usando el nuevo método
-            gestorLotes.enviarLotesPendientes(proxy, numeroMesaConfig, colegioConfig);
+            gestorLotes.enviarLotesPendientes(proxy, null, numeroMesaConfig, colegioConfig);
             agregarLog("Lotes pendientes enviados correctamente");
         } catch (Exception e) {
             agregarLog("Error al enviar lotes: " + e.getMessage());
