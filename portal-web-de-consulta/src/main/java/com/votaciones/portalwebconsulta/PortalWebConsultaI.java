@@ -185,4 +185,15 @@ public class PortalWebConsultaI implements ProxyCacheDBCiudad {
             throw new RuntimeException("Error al verificar si es sospechoso", e);
         }
     }
+
+    @Override
+    public boolean AgregarLoteVotos(VotingSystem.Voto[] lote, com.zeroc.Ice.Current current) {
+        try {
+            logger.info("Agregando lote de votos ({} votos)", lote != null ? lote.length : 0);
+            return proxy.AgregarLoteVotos(lote, null);
+        } catch (Exception e) {
+            logger.error("Error al agregar lote de votos", e);
+            return false;
+        }
+    }
 }
