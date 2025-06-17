@@ -780,12 +780,12 @@ public class EstacionVotacionUI extends JFrame {
                     // Configurar variables globales
                     idMesaConfig = rs.getInt("id");
                     idZonaConfig = rs.getInt("zona_id");
-                    puerto = puerto; // Usar valor por defecto de properties
                     
                     System.out.println("[DEBUG] Mesa validada exitosamente:");
                     System.out.println("  - ID Mesa: " + idMesaConfig);
                     System.out.println("  - ID Zona: " + idZonaConfig);
-                    System.out.println("  - Puerto: " + puerto);
+                    System.out.println("  - Colegio: " + colegio);
+                    System.out.println("  - Número Mesa: " + numeroMesa);
                     
                     return true;
                 }
@@ -796,6 +796,7 @@ public class EstacionVotacionUI extends JFrame {
                 "Verifica que PostgreSQL esté ejecutándose y que la base de datos exista.",
                 "Error de conexión", JOptionPane.ERROR_MESSAGE);
             System.err.println("[ERROR] Error validando mesa: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
