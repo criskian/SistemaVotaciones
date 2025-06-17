@@ -139,5 +139,5 @@ public class LoteVotos implements java.lang.Cloneable,
     private static final LoteVotos _nullMarshalValue = new LoteVotos();
 
     /** @hidden */
-    public static final long serialVersionUID = 1385803574L;
+    public static final long serialVersionUID = -7639495354922455242L;
 }
