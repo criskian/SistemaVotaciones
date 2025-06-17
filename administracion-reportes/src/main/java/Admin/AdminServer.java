@@ -33,8 +33,6 @@ public interface AdminServer extends com.zeroc.Ice.Object
 
     void generarReporteCSV(String tipoReporte, com.zeroc.Ice.Current current);
 
-    void exportarResultadosExcel(com.zeroc.Ice.Current current);
-
     void registrarLog(String evento, String detalle, com.zeroc.Ice.Current current);
 
     String[] obtenerLogs(String fecha, com.zeroc.Ice.Current current);
@@ -231,21 +229,6 @@ public interface AdminServer extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_exportarResultadosExcel(AdminServer obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        obj.exportarResultadosExcel(current);
-        return inS.setResult(inS.writeEmptyParams());
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_registrarLog(AdminServer obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
@@ -324,7 +307,6 @@ public interface AdminServer extends com.zeroc.Ice.Object
     {
         "agregarCandidato",
         "eliminarCandidato",
-        "exportarResultadosExcel",
         "generarReporteCSV",
         "ice_id",
         "ice_ids",
@@ -364,61 +346,57 @@ public interface AdminServer extends com.zeroc.Ice.Object
             }
             case 2:
             {
-                return _iceD_exportarResultadosExcel(this, in, current);
+                return _iceD_generarReporteCSV(this, in, current);
             }
             case 3:
             {
-                return _iceD_generarReporteCSV(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 4:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 5:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
             }
             case 6:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }
             case 7:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
+                return _iceD_listarCandidatos(this, in, current);
             }
             case 8:
             {
-                return _iceD_listarCandidatos(this, in, current);
+                return _iceD_modificarCandidato(this, in, current);
             }
             case 9:
             {
-                return _iceD_modificarCandidato(this, in, current);
+                return _iceD_obtenerLogs(this, in, current);
             }
             case 10:
             {
-                return _iceD_obtenerLogs(this, in, current);
+                return _iceD_obtenerResultadosGlobales(this, in, current);
             }
             case 11:
             {
-                return _iceD_obtenerResultadosGlobales(this, in, current);
+                return _iceD_obtenerResultadosZona(this, in, current);
             }
             case 12:
             {
-                return _iceD_obtenerResultadosZona(this, in, current);
+                return _iceD_procesarVotos(this, in, current);
             }
             case 13:
             {
-                return _iceD_procesarVotos(this, in, current);
+                return _iceD_registrarLog(this, in, current);
             }
             case 14:
             {
-                return _iceD_registrarLog(this, in, current);
-            }
-            case 15:
-            {
                 return _iceD_validarFormatoDatos(this, in, current);
             }
-            case 16:
+            case 15:
             {
                 return _iceD_validarIntegridadResultados(this, in, current);
             }

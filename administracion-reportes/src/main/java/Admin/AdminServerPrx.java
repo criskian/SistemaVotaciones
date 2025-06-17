@@ -321,39 +321,6 @@ public interface AdminServerPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
-    default void exportarResultadosExcel()
-    {
-        exportarResultadosExcel(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default void exportarResultadosExcel(java.util.Map<String, String> context)
-    {
-        _iceI_exportarResultadosExcelAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> exportarResultadosExcelAsync()
-    {
-        return _iceI_exportarResultadosExcelAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<Void> exportarResultadosExcelAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_exportarResultadosExcelAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_exportarResultadosExcelAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "exportarResultadosExcel", null, sync, null);
-        f.invoke(false, context, null, null, null);
-        return f;
-    }
-
     default void registrarLog(String evento, String detalle)
     {
         registrarLog(evento, detalle, com.zeroc.Ice.ObjectPrx.noExplicitContext);

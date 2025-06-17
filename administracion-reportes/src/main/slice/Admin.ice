@@ -14,7 +14,6 @@ module Admin {
         
         // Generación de Reportes
         void generarReporteCSV(string tipoReporte);
-        void exportarResultadosExcel();
         
         // Gestión de Logs
         void registrarLog(string evento, string detalle);

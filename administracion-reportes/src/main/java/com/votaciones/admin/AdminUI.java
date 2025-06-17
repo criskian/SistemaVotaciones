@@ -226,8 +226,7 @@ public class AdminUI extends Application {
         
         excelBtn.setOnAction(e -> {
             try {
-                adminServer.exportarResultadosExcel(null);
-                logMessage("Resultados exportados a Excel exitosamente");
+                // No se llama al método exportarResultadosExcel
             } catch (Exception ex) {
                 logMessage("Error al exportar Excel: " + ex.getMessage());
             }
