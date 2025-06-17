@@ -43,6 +43,8 @@ public interface ProxyCacheDBCiudad extends com.zeroc.Ice.Object
 
     boolean EsSospechoso(String cedula, com.zeroc.Ice.Current current);
 
+    boolean AgregarLoteVotos(Voto[] lote, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -336,9 +338,31 @@ public interface ProxyCacheDBCiudad extends com.zeroc.Ice.Object
         return inS.setResult(ostr);
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_AgregarLoteVotos(ProxyCacheDBCiudad obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        Voto[] iceP_lote;
+        iceP_lote = VotoSeqHelper.read(istr);
+        inS.endReadParams();
+        boolean ret = obj.AgregarLoteVotos(iceP_lote, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeBool(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
+        "AgregarLoteVotos",
         "AgregarSospechoso",
         "AgregarVoto",
         "ConsultarCandidatos",
@@ -373,69 +397,73 @@ public interface ProxyCacheDBCiudad extends com.zeroc.Ice.Object
         {
             case 0:
             {
-                return _iceD_AgregarSospechoso(this, in, current);
+                return _iceD_AgregarLoteVotos(this, in, current);
             }
             case 1:
             {
-                return _iceD_AgregarVoto(this, in, current);
+                return _iceD_AgregarSospechoso(this, in, current);
             }
             case 2:
             {
-                return _iceD_ConsultarCandidatos(this, in, current);
+                return _iceD_AgregarVoto(this, in, current);
             }
             case 3:
             {
-                return _iceD_ConsultarMesaDescriptiva(this, in, current);
+                return _iceD_ConsultarCandidatos(this, in, current);
             }
             case 4:
             {
-                return _iceD_ConsultarVotantePorCedula(this, in, current);
+                return _iceD_ConsultarMesaDescriptiva(this, in, current);
             }
             case 5:
             {
-                return _iceD_EsSospechoso(this, in, current);
+                return _iceD_ConsultarVotantePorCedula(this, in, current);
             }
             case 6:
             {
-                return _iceD_GetConteoVotos(this, in, current);
+                return _iceD_EsSospechoso(this, in, current);
             }
             case 7:
             {
-                return _iceD_GetConteoVotosPorCandidato(this, in, current);
+                return _iceD_GetConteoVotos(this, in, current);
             }
             case 8:
             {
-                return _iceD_GetZonasVotacion(this, in, current);
+                return _iceD_GetConteoVotosPorCandidato(this, in, current);
             }
             case 9:
             {
-                return _iceD_IDZonaVotacion(this, in, current);
+                return _iceD_GetZonasVotacion(this, in, current);
             }
             case 10:
             {
-                return _iceD_RegistrarLogs(this, in, current);
+                return _iceD_IDZonaVotacion(this, in, current);
             }
             case 11:
             {
-                return _iceD_YaVoto(this, in, current);
+                return _iceD_RegistrarLogs(this, in, current);
             }
             case 12:
             {
-                return _iceD_ZonaMesaAsignada(this, in, current);
+                return _iceD_YaVoto(this, in, current);
             }
             case 13:
             {
-                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
+                return _iceD_ZonaMesaAsignada(this, in, current);
             }
             case 14:
             {
-                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_id(this, in, current);
             }
             case 15:
             {
-                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+                return com.zeroc.Ice.Object._iceD_ice_ids(this, in, current);
             }
             case 16:
+            {
+                return com.zeroc.Ice.Object._iceD_ice_isA(this, in, current);
+            }
+            case 17:
             {
                 return com.zeroc.Ice.Object._iceD_ice_ping(this, in, current);
             }

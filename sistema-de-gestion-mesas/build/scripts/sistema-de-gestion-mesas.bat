@@ -68,7 +68,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\AdminMesa-1.0-SNAPSHOT.jar;%APP_HOME%\lib\common-1.0-SNAPSHOT.jar;%APP_HOME%\lib\ice-3.7.10.jar;%APP_HOME%\lib\postgresql-42.7.2.jar;%APP_HOME%\lib\HikariCP-5.1.0.jar;%APP_HOME%\lib\logback-classic-1.4.14.jar;%APP_HOME%\lib\slf4j-api-2.0.12.jar;%APP_HOME%\lib\javafx-fxml-17.0.2-mac-aarch64.jar;%APP_HOME%\lib\javafx-controls-17.0.2-mac-aarch64.jar;%APP_HOME%\lib\javafx-controls-17.0.2.jar;%APP_HOME%\lib\javafx-graphics-17.0.2-mac-aarch64.jar;%APP_HOME%\lib\javafx-graphics-17.0.2.jar;%APP_HOME%\lib\javafx-base-17.0.2-mac-aarch64.jar;%APP_HOME%\lib\javafx-base-17.0.2.jar;%APP_HOME%\lib\checker-qual-3.42.0.jar;%APP_HOME%\lib\logback-core-1.4.14.jar
+set CLASSPATH=%APP_HOME%\lib\AdminMesa-1.0-SNAPSHOT.jar;%APP_HOME%\lib\proxy-cache-db-ciudad-1.0-SNAPSHOT.jar;%APP_HOME%\lib\common-1.0-SNAPSHOT.jar;%APP_HOME%\lib\reliable-message-1.0-SNAPSHOT.jar;%APP_HOME%\lib\ice-3.7.10.jar;%APP_HOME%\lib\postgresql-42.7.2.jar;%APP_HOME%\lib\HikariCP-5.1.0.jar;%APP_HOME%\lib\logback-classic-1.4.14.jar;%APP_HOME%\lib\slf4j-api-2.0.12.jar;%APP_HOME%\lib\jackson-annotations-2.17.0.jar;%APP_HOME%\lib\jackson-core-2.17.0.jar;%APP_HOME%\lib\jackson-databind-2.17.0.jar;%APP_HOME%\lib\javafx-fxml-17.0.2-mac-aarch64.jar;%APP_HOME%\lib\javafx-controls-17.0.2-mac-aarch64.jar;%APP_HOME%\lib\javafx-controls-17.0.2.jar;%APP_HOME%\lib\javafx-graphics-17.0.2-mac-aarch64.jar;%APP_HOME%\lib\javafx-graphics-17.0.2.jar;%APP_HOME%\lib\javafx-base-17.0.2-mac-aarch64.jar;%APP_HOME%\lib\javafx-base-17.0.2.jar;%APP_HOME%\lib\checker-qual-3.42.0.jar;%APP_HOME%\lib\logback-core-1.4.14.jar;%APP_HOME%\lib\byte-buddy-1.14.9.jar;%APP_HOME%\lib\json-20231013.jar
 
 
 @rem Execute sistema-de-gestion-mesas
