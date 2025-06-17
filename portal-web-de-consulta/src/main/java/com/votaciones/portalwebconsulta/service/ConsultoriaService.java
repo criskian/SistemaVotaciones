@@ -19,24 +19,24 @@ public class ConsultoriaService {
 
     public String consultarMesa(String cedula) {
         try {
-            // Obtener la información completa de votación
+            // Obtener la información de la mesa de votación
             String resultado = queryStation.consultVotingStation(cedula, null);
-            logger.info("Consultando información de votación para cédula: {}", cedula);
-            return resultado;
+            logger.info("Consultando información de mesa para cédula: {}", cedula);
+            return "Mesa de Votación: " + resultado;
         } catch (Exception e) {
-            logger.error("Error al consultar información de votación", e);
-            return "Error al consultar información de votación: " + e.getMessage();
+            logger.error("Error al consultar información de mesa", e);
+            return "Error al consultar información de mesa: " + e.getMessage();
         }
     }
 
     public String consultarZonaVotacion(String cedula) {
         try {
             String resultado = queryStation.consultZone(cedula, null);
-            logger.info("Consultando zona para cédula: {}", cedula);
+            logger.info("Consultando zona y colegio para cédula: {}", cedula);
             return resultado;
         } catch (Exception e) {
-            logger.error("Error al consultar zona", e);
-            return "Error al consultar zona: " + e.getMessage();
+            logger.error("Error al consultar zona y colegio", e);
+            return "Error al consultar zona y colegio: " + e.getMessage();
         }
     }
 

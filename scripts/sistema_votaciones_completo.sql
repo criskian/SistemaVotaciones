@@ -8,6 +8,30 @@
 -- Base de datos: sistema_votaciones
 -- =====================================================
 
+-- Limpiar datos existentes
+TRUNCATE TABLE votos CASCADE;
+TRUNCATE TABLE sospechosos CASCADE;
+TRUNCATE TABLE asignaciones_ciudadanos CASCADE;
+TRUNCATE TABLE ciudadanos CASCADE;
+TRUNCATE TABLE mesas_votacion CASCADE;
+TRUNCATE TABLE colegios CASCADE;
+TRUNCATE TABLE zonas_electorales CASCADE;
+TRUNCATE TABLE candidatos CASCADE;
+TRUNCATE TABLE logs CASCADE;
+TRUNCATE TABLE ciudades CASCADE;
+
+-- Resetear las secuencias
+ALTER SEQUENCE ciudades_id_seq RESTART WITH 1;
+ALTER SEQUENCE zonas_electorales_id_seq RESTART WITH 1;
+ALTER SEQUENCE colegios_id_seq RESTART WITH 1;
+ALTER SEQUENCE mesas_votacion_id_seq RESTART WITH 1;
+ALTER SEQUENCE ciudadanos_id_seq RESTART WITH 1;
+ALTER SEQUENCE asignaciones_ciudadanos_id_seq RESTART WITH 1;
+ALTER SEQUENCE candidatos_id_seq RESTART WITH 1;
+ALTER SEQUENCE votos_id_seq RESTART WITH 1;
+ALTER SEQUENCE sospechosos_id_seq RESTART WITH 1;
+ALTER SEQUENCE logs_id_seq RESTART WITH 1;
+
 -- Crear la base de datos si no existe
 -- CREATE DATABASE sistema_votaciones;
 
@@ -106,40 +130,61 @@ CREATE TABLE IF NOT EXISTS logs (
 -- SECCIÓN 2: DATOS DE CIUDADES
 -- =====================================================
 
-INSERT INTO ciudades (id, nombre, codigo) VALUES
-(1, 'Cali', 'CALI001'),
-(2, 'Bogotá', 'BOG001'),
-(3, 'Medellín', 'MED001');
+INSERT INTO ciudades (nombre, codigo) VALUES
+('Cali', 'CALI001'),
+('Bogotá', 'BOG001'),
+('Medellín', 'MED001'),
+('Barranquilla', 'BAQ001'),
+('Cartagena', 'CTG001');
 
 -- =====================================================
 -- SECCIÓN 3: DATOS DE ZONAS ELECTORALES
 -- =====================================================
 
-INSERT INTO zonas_electorales (id, nombre, codigo, ciudad_id) VALUES
-(1, 'Zona Norte', 'ZN001', 1),
-(2, 'Zona Sur', 'ZS001', 1),
-(3, 'Zona Centro', 'ZC001', 1);
+INSERT INTO zonas_electorales (nombre, codigo, ciudad_id) VALUES
+('Zona Norte', 'ZN001', 1),
+('Zona Sur', 'ZS001', 1),
+('Zona Centro', 'ZC001', 1),
+('Zona Oriental', 'ZO001', 1),
+('Zona Occidental', 'ZOC001', 1),
+('Zona Noroccidental', 'ZNO001', 1),
+('Zona Nororiental', 'ZNE001', 1),
+('Zona Suroriental', 'ZSE001', 1),
+('Zona Suroccidental', 'ZSO001', 1),
+('Zona Industrial', 'ZI001', 1);
 
 -- =====================================================
 -- SECCIÓN 4: DATOS DE COLEGIOS
 -- =====================================================
 
-INSERT INTO colegios (id, nombre, direccion, ciudad_id, zona_id) VALUES
-(1, 'Colegio San Pedro', 'Calle 15 # 23-45, Zona Norte', 1, 1),
-(2, 'Instituto Técnico Sur', 'Carrera 45 # 12-34, Zona Sur', 1, 2),
-(3, 'Liceo Central', 'Avenida 8 # 56-78, Zona Centro', 1, 3);
+INSERT INTO colegios (nombre, direccion, ciudad_id, zona_id) VALUES
+('Colegio San Pedro', 'Calle 15 # 23-45, Zona Norte', 1, 1),
+('Instituto Técnico Sur', 'Carrera 45 # 12-34, Zona Sur', 1, 2),
+('Liceo Central', 'Avenida 8 # 56-78, Zona Centro', 1, 3),
+('Colegio Oriental', 'Calle 25 # 30-15, Zona Oriental', 1, 4),
+('Instituto Occidental', 'Carrera 50 # 20-30, Zona Occidental', 1, 5),
+('Colegio Noroccidental', 'Avenida 10 # 40-50, Zona Noroccidental', 1, 6),
+('Liceo Nororiental', 'Calle 35 # 15-25, Zona Nororiental', 1, 7),
+('Instituto Suroriental', 'Carrera 60 # 25-35, Zona Suroriental', 1, 8),
+('Colegio Suroccidental', 'Avenida 15 # 45-55, Zona Suroccidental', 1, 9),
+('Instituto Industrial', 'Calle 40 # 20-30, Zona Industrial', 1, 10);
 
 -- =====================================================
 -- SECCIÓN 5: DATOS DE MESAS DE VOTACIÓN
 -- =====================================================
 
-INSERT INTO mesas_votacion (id, numero, colegio_id, activa) VALUES
-(1, 1, 1, false),
-(2, 2, 1, false),
-(3, 1, 2, false),
-(4, 2, 2, false),
-(5, 1, 3, false),
-(6, 2, 3, false);
+-- Generar 25 mesas para cada colegio
+DO $$
+DECLARE
+    colegio_id INTEGER;
+BEGIN
+    FOR colegio_id IN 1..10 LOOP
+        FOR mesa_num IN 1..25 LOOP
+            INSERT INTO mesas_votacion (numero, colegio_id, activa) 
+            VALUES (mesa_num, colegio_id, false);
+        END LOOP;
+    END LOOP;
+END $$;
 
 -- Actualizar el estado de las mesas basado en el campo activa
 UPDATE mesas_votacion SET estado = CASE WHEN activa THEN 'ACTIVA' ELSE 'INACTIVA' END;
@@ -148,14 +193,66 @@ UPDATE mesas_votacion SET estado = CASE WHEN activa THEN 'ACTIVA' ELSE 'INACTIVA
 -- SECCIÓN 6: DATOS DE CIUDADANOS
 -- =====================================================
 
-INSERT INTO ciudadanos (id, documento, nombre, ciudad_id) VALUES
-(1, '123456789', 'Pedro González', 1),
-(2, '987654321', 'Ana Martínez', 1),
-(3, '567890123', 'Juan Pérez', 1),
-(4, '111111111', 'María Herrera', 1),
-(5, '345678901', 'Miguel Sánchez', 1),
-(6, '234567890', 'Carmen Ruiz', 1),
-(7, '456789012', 'Roberto Silva', 1);
+-- Función para generar nombres aleatorios
+CREATE OR REPLACE FUNCTION generar_nombre_aleatorio() RETURNS VARCHAR AS $$
+DECLARE
+    nombres VARCHAR[] := ARRAY['Juan', 'María', 'Carlos', 'Ana', 'Pedro', 'Laura', 'José', 'Sofía', 'Miguel', 'Isabella',
+                              'Luis', 'Valentina', 'Andrés', 'Camila', 'Diego', 'Natalia', 'Fernando', 'Gabriela', 'Ricardo', 'Daniela',
+                              'Alejandro', 'Mariana', 'David', 'Carolina', 'Javier', 'Paula', 'Roberto', 'Andrea', 'Eduardo', 'Juliana',
+                              'Felipe', 'Catalina', 'Santiago', 'Valeria', 'Cristian', 'Manuela', 'Daniel', 'María José', 'Gustavo', 'Laura'];
+    apellidos VARCHAR[] := ARRAY['González', 'Rodríguez', 'Martínez', 'López', 'Pérez', 'Sánchez', 'Ramírez', 'Torres', 'Flores', 'Rivera',
+                                'Morales', 'Castro', 'Ortiz', 'Silva', 'Núñez', 'Cruz', 'Medina', 'Reyes', 'Gómez', 'Díaz',
+                                'Herrera', 'Vargas', 'Romero', 'Suárez', 'Mendoza', 'Guerrero', 'Rojas', 'Molina', 'Álvarez', 'Jiménez',
+                                'Moreno', 'Muñoz', 'Alonso', 'Gutiérrez', 'Navarro', 'Rubio', 'Dominguez', 'Soto', 'Cortés', 'Garrido'];
+BEGIN
+    RETURN nombres[floor(random() * array_length(nombres, 1)) + 1] || ' ' ||
+           apellidos[floor(random() * array_length(apellidos, 1)) + 1] || ' ' ||
+           apellidos[floor(random() * array_length(apellidos, 1)) + 1];
+END;
+$$ LANGUAGE plpgsql;
+
+-- Insertar 10,000 ciudadanos (1,000 por cada zona)
+DO $$
+DECLARE
+    zona_id INTEGER;
+    ciudadano_id INTEGER;
+    documento_base INTEGER := 1000000000;
+    batch_size INTEGER := 1000; -- Tamaño del lote para mejor rendimiento
+BEGIN
+    -- Para cada zona
+    FOR zona_id IN 1..10 LOOP
+        -- Insertar 1,000 ciudadanos por zona
+        FOR i IN 1..1000 LOOP
+            -- Insertar ciudadano
+            INSERT INTO ciudadanos (documento, nombre, ciudad_id)
+            VALUES (
+                (documento_base + (zona_id * 1000) + i)::VARCHAR,
+                generar_nombre_aleatorio(),
+                1
+            )
+            RETURNING id INTO ciudadano_id;
+            
+            -- Asignar ciudadano a la zona
+            INSERT INTO asignaciones_ciudadanos (ciudadano_id, zona_id, activo)
+            VALUES (ciudadano_id, zona_id, true);
+            
+            -- Mostrar progreso cada 1000 registros
+            IF i % 1000 = 0 THEN
+                RAISE NOTICE 'Procesados % ciudadanos para la zona %', i, zona_id;
+            END IF;
+        END LOOP;
+    END LOOP;
+END $$;
+
+-- Verificar la distribución de ciudadanos por zona
+SELECT 
+    ze.nombre as zona,
+    COUNT(ac.ciudadano_id) as total_ciudadanos,
+    ROUND(COUNT(ac.ciudadano_id)::numeric / 10000 * 100, 2) as porcentaje
+FROM zonas_electorales ze
+LEFT JOIN asignaciones_ciudadanos ac ON ze.id = ac.zona_id
+GROUP BY ze.id, ze.nombre
+ORDER BY ze.id;
 
 -- =====================================================
 -- SECCIÓN 7: DATOS DE ASIGNACIONES DE CIUDADANOS

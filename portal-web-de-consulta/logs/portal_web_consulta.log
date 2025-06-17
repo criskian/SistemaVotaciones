@@ -781,3 +781,1448 @@ Caused by: java.net.ConnectException: Connection refused
 -- 17/6/25 06:25:31:433 Network: closed tcp connection
    local address = 127.0.0.1:50982
    remote address = 127.0.0.1:10000
+-- 17/6/25 08:14:30:240 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 17/6/25 08:14:30:275 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 17/6/25 08:14:30:275 Network: established tcp connection
+   local address = 127.0.0.1:61504
+   remote address = 127.0.0.1:10000
+-- 17/6/25 08:14:30:277 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:14:30:280 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+08:14:30.282 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+08:14:30.286 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+08:14:30.286 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+08:14:30.286 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+08:14:34.325 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:14:34:328 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:14:34:412 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+08:14:34.412 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:14:43.524 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000002001
+-- 17/6/25 08:14:43:525 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:14:43:529 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 73
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+08:14:43.529 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000002001
+08:14:49.024 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000005001
+-- 17/6/25 08:14:49:025 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:14:49:027 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+08:14:49.027 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000005001
+08:15:01.608 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000005007
+-- 17/6/25 08:15:01:609 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:01:613 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:01.613 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000005007
+08:15:02.924 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000005007
+-- 17/6/25 08:15:02:925 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:02:929 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:02.930 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000005007
+08:15:09.875 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000005099
+-- 17/6/25 08:15:09:879 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:09:887 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:09.888 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000005099
+08:15:14.761 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000005999
+-- 17/6/25 08:15:14:762 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 8
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:14:766 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 8
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:14.766 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000005999
+08:15:27.591 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000006000
+-- 17/6/25 08:15:27:593 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 9
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:27:596 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 9
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:27.597 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000006000
+08:15:28.341 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000006000
+-- 17/6/25 08:15:28:341 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 10
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:28:346 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 10
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:28.346 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000006000
+08:15:31.725 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 10000060000
+-- 17/6/25 08:15:31:726 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 84
+   request id = 11
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:31:743 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 11
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:31.743 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 10000060000
+08:15:36.074 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000006009
+-- 17/6/25 08:15:36:076 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 12
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:36:082 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 82
+   request id = 12
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:36.083 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000006009
+08:15:40.808 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000007009
+-- 17/6/25 08:15:40:809 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 13
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:40:813 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 76
+   request id = 13
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:40.813 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000007009
+08:15:50.512 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 2000007009
+-- 17/6/25 08:15:50:513 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 14
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:50:517 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 82
+   request id = 14
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:50.517 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 2000007009
+08:15:58.691 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 2000001001
+-- 17/6/25 08:15:58:692 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 15
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:15:58:694 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 82
+   request id = 15
+   reply status = 0 (ok)
+   encoding = 1.1
+08:15:58.694 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 2000001001
+08:16:02.741 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:16:02:741 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 16
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:16:02:746 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 16
+   reply status = 0 (ok)
+   encoding = 1.1
+08:16:02.746 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:48.591 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:48:593 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 17
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:48:617 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 17
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:48.617 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:48.758 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:48:758 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 18
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:48:759 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 18
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:48.759 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:48.907 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:48:908 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 19
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:48:909 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 19
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:48.909 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:57.093 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:57:096 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 20
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:57:106 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 20
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:57.106 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:57.241 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:57:241 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 21
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:57:243 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 21
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:57.243 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:57.526 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:57:527 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 22
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:57:533 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 22
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:57.534 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:57.757 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:57:758 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 23
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:57:758 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 23
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:57.759 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:57.974 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:57:974 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 24
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:57:975 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 24
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:57.975 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:58.208 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:58:209 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 25
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:58:213 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 25
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:58.213 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:58.740 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:58:741 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 26
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:58:742 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 26
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:58.742 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:59.093 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:59:094 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 27
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:59:095 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 27
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:59.095 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:59.560 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:59:561 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 28
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:59:562 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 28
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:59.562 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:59.691 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:59:691 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 29
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:59:692 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 29
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:59.692 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:19:59.842 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:19:59:842 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 30
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:19:59:843 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 30
+   reply status = 0 (ok)
+   encoding = 1.1
+08:19:59.844 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:00.091 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:00:092 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 31
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:00:094 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 31
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:00.094 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:00.224 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:00:224 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 32
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:00:225 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 32
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:00.226 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:00.360 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:00:360 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 33
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:00:363 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 33
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:00.363 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:00.527 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:00:527 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 34
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:00:529 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 34
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:00.529 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:00.643 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:00:644 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 35
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:00:646 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 35
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:00.646 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:00.796 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:00:797 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 36
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:00:800 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 36
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:00.800 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:00.910 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:00:911 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 37
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:00:913 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 37
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:00.913 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:01.027 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:01:028 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 38
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:01:030 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 38
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:01.030 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:01.174 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:01:174 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 39
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:01:175 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 39
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:01.176 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:01.357 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:01:357 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 40
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:01:358 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 40
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:01.358 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:01.609 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:01:609 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 41
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:01:610 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 41
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:01.610 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:02.043 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:02:043 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 42
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:02:045 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 42
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:02.045 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:02.558 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:02:559 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 43
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:02:561 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 43
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:02.561 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:02.907 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:02:907 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 44
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:02:908 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 44
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:02.908 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:03.057 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:03:058 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 45
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:03:059 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 45
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:03.059 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:03.242 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:03:242 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 46
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:03:243 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 46
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:03.243 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:03.391 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:03:391 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 47
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:03:392 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 47
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:03.392 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:03.757 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:03:758 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 48
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:03:759 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 48
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:03.759 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:04.109 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:04:110 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 49
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:04:112 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 49
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:04.112 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:04.277 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:04:277 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 50
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:04:281 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 50
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:04.281 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:04.443 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:04:444 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 51
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:04:447 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 51
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:04.447 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:04.610 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:04:611 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 52
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:04:613 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 52
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:04.613 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:04.743 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:04:743 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 53
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:04:745 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 53
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:04.745 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:05.108 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:05:108 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 54
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:05:109 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 54
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:05.110 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:06.524 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:06:524 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 55
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:06:525 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 55
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:06.525 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:06.725 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:06:725 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 56
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:06:726 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 56
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:06.726 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:06.910 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:06:911 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 57
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:06:913 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 57
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:06.913 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:07.077 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:07:078 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 58
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:07:079 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 58
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:07.079 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:07.241 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:07:241 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 59
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:07:242 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 59
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:07.242 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:07.426 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:07:426 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 60
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:07:428 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 60
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:07.428 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:07.575 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:07:575 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 61
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:07:576 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 61
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:07.576 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:07.757 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:07:758 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 62
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:07:758 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 62
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:07.759 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:07.924 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:07:925 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 63
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:07:926 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 63
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:07.926 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+08:20:08.159 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:20:08:160 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 64
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:20:08:162 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 64
+   reply status = 0 (ok)
+   encoding = 1.1
+08:20:08.162 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 1000001001
+-- 17/6/25 08:27:00:278 Protocol: sending close connection 
+   message type = 4 (close connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 17/6/25 08:27:00:284 Network: closed tcp connection
+   local address = 127.0.0.1:61504
+   remote address = 127.0.0.1:10000
+-- 17/6/25 08:31:51:366 Network: trying to establish tcp connection to 127.0.0.1:10000
+-- 17/6/25 08:31:51:399 Protocol: received validate connection 
+   message type = 3 (validate connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 17/6/25 08:31:51:399 Network: established tcp connection
+   local address = 127.0.0.1:54185
+   remote address = 127.0.0.1:10000
+-- 17/6/25 08:31:51:401 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 90
+   request id = 1
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ice_isA
+   mode = 1 (nonmutating)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:31:51:404 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 26
+   request id = 1
+   reply status = 0 (ok)
+   encoding = 1.1
+08:31:51.405 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Conexión exitosa con el proxy en el puerto 10000
+08:31:51.408 [AWT-EventQueue-0] INFO  c.v.p.service.AccesoDatosService - Inicializando servicio de acceso a datos
+08:31:51.409 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Inicializando servicio de seguridad
+08:31:51.409 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Inicializando servicio de consultoría
+08:32:42.057 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+08:32:42.061 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando zona y mesa asignada para cédula: 1000001001
+-- 17/6/25 08:32:42:063 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 75
+   request id = 2
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ZonaMesaAsignada
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:32:42:094 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 46
+   request id = 2
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 17/6/25 08:32:42:095 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 3
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:32:42:100 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 3
+   reply status = 0 (ok)
+   encoding = 1.1
+08:32:42.102 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona y colegio para cédula: 1000001001
+08:32:42.103 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000001001
+-- 17/6/25 08:32:42:103 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 4
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:32:42:105 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 70
+   request id = 4
+   reply status = 0 (ok)
+   encoding = 1.1
+08:32:42.105 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de mesa para cédula: 1000001001
+08:33:02.074 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000005001
+08:33:02.074 [AWT-EventQueue-0] INFO  c.v.p.PortalWebConsultaI - Consultando zona y mesa asignada para cédula: 1000005001
+-- 17/6/25 08:33:02:074 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 75
+   request id = 5
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ZonaMesaAsignada
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:33:02:076 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 52
+   request id = 5
+   reply status = 0 (ok)
+   encoding = 1.1
+-- 17/6/25 08:33:02:077 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 6
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:33:02:078 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 6
+   reply status = 0 (ok)
+   encoding = 1.1
+08:33:02.079 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando zona y colegio para cédula: 1000005001
+08:33:02.079 [AWT-EventQueue-0] INFO  c.v.p.service.SeguridadService - Validando formato de cédula: 1000005001
+-- 17/6/25 08:33:02:079 Protocol: sending request 
+   message type = 0 (request)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 83
+   request id = 7
+   identity = ProxyCacheDBCiudad
+   facet = 
+   operation = ConsultarMesaDescriptiva
+   mode = 0 (normal)
+   context = 
+   encoding = 1.1
+-- 17/6/25 08:33:02:080 Protocol: received reply 
+   message type = 2 (reply)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 78
+   request id = 7
+   reply status = 0 (ok)
+   encoding = 1.1
+08:33:02.080 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de mesa para cédula: 1000005001

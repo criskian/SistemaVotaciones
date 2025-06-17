@@ -34,7 +34,14 @@ public class ProxyCacheAdapter implements QueryStation {
             if (zona == null) {
                 return "No se encontró zona para la cédula: " + citizenId;
             }
-            return String.format("Zona: %s\nCódigo: %s", zona.nombre, zona.codigo);
+            
+            // Obtener información del colegio asociado a la zona
+            String mesaInfo = proxy.ConsultarMesaDescriptiva(citizenId, null);
+            String[] partes = mesaInfo.split(" - ");
+            String colegio = partes.length > 1 ? partes[1] : "No disponible";
+            
+            return String.format("Zona Electoral: %s\nCódigo de Zona: %s\nColegio Asignado: %s", 
+                               zona.nombre, zona.codigo, colegio);
         } catch (Exception e) {
             logger.error("Error al consultar zona", e);
             return "Error al consultar zona: " + e.getMessage();

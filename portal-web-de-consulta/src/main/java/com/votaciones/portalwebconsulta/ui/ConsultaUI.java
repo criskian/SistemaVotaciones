@@ -55,12 +55,12 @@ public class ConsultaUI extends JFrame {
         buttonPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 
         // Crear botones con iconos y texto
-        JButton consultarMesaButton = createButton("Consultar Mesa", "[M]");
+        JButton consultarZonaButton = createButton("Consultar Zona", "[Z]");
         JButton listarCandidatosButton = createButton("Ver Candidatos", "[C]");
         JButton verVotosButton = createButton("Ver Votos", "[V]");
         JButton limpiarButton = createButton("Limpiar", "[X]");
 
-        buttonPanel.add(consultarMesaButton);
+        buttonPanel.add(consultarZonaButton);
         buttonPanel.add(listarCandidatosButton);
         buttonPanel.add(verVotosButton);
         buttonPanel.add(limpiarButton);
@@ -91,18 +91,19 @@ public class ConsultaUI extends JFrame {
         add(mainPanel);
 
         // Configurar acciones de los botones
-        consultarMesaButton.addActionListener(e -> {
+        consultarZonaButton.addActionListener(e -> {
             try {
                 String cedula = cedulaField.getText().trim();
                 if (cedula.isEmpty()) {
                     mostrarMensaje("Por favor ingrese una cédula", true);
                     return;
                 }
-                String mesaVotacion = controller.consultarMesaVotacion(cedula);
-                resultadoArea.setText(mesaVotacion);
+                String zonaInfo = controller.consultarZona(cedula);
+                String mesaInfo = controller.consultarMesaVotacion(cedula);
+                resultadoArea.setText("Información de Votación:\n\n" + zonaInfo + "\n\n" + mesaInfo);
                 resultadoArea.setForeground(Color.BLACK);
             } catch (Exception ex) {
-                logger.error("Error al consultar mesa y zona", ex);
+                logger.error("Error al consultar zona y mesa", ex);
                 mostrarMensaje("Error al consultar información de votación: " + ex.getMessage(), true);
             }
         });
