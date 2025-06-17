@@ -1,6 +1,7 @@
 package com.votaciones.estacion.lotes;
 
 import com.votaciones.estacion.GestionMesasProxy;
+import com.votaciones.estacion.BrokerZonaProxy;
 import VotingSystem.Voto;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -65,28 +66,28 @@ public class GestorLotes {
         }
     }
 
-    public void enviarLotesPendientes(GestionMesasProxy proxy, int mesaId, String zona) {
+    public void enviarLotesPendientes(GestionMesasProxy proxy, BrokerZonaProxy brokerProxy, int mesaId, String zona) {
         if (votosPendientesEnvio.isEmpty()) {
             System.out.println("[GestorLotes] No hay votos pendientes para enviar");
             return;
         }
-        
-        System.out.println("[GestorLotes] Enviando " + votosPendientesEnvio.size() + " votos pendientes");
-        
-        try {
-            // Intentar enviar todos los votos pendientes
-            boolean exito = proxy.enviarLoteVotos(votosPendientesEnvio, mesaId, zona);
-            
-            if (exito) {
-                System.out.println("[GestorLotes] Lote enviado exitosamente. Limpiando cola.");
-                votosPendientesEnvio.clear();
-                ultimoEnvio = System.currentTimeMillis();
-            } else {
-                System.err.println("[GestorLotes] Error al enviar lote. Los votos permanecen en cola.");
+        if (brokerProxy != null) {
+            System.out.println("[GestorLotes] Enviando votos al broker de zona...");
+            enviarVotosAlBroker(brokerProxy);
+        } else {
+            System.out.println("[GestorLotes] Enviando votos directamente al sistema central...");
+            try {
+                boolean exito = proxy.enviarLoteVotos(votosPendientesEnvio, mesaId, zona);
+                if (exito) {
+                    System.out.println("[GestorLotes] Lote enviado exitosamente. Limpiando cola.");
+                    votosPendientesEnvio.clear();
+                    ultimoEnvio = System.currentTimeMillis();
+                } else {
+                    System.err.println("[GestorLotes] Error al enviar lote. Los votos permanecen en cola.");
+                }
+            } catch (Exception e) {
+                System.err.println("[GestorLotes] Error al enviar lotes pendientes: " + e.getMessage());
             }
-            
-        } catch (Exception e) {
-            System.err.println("[GestorLotes] Error al enviar lotes pendientes: " + e.getMessage());
         }
     }
     
@@ -114,6 +115,23 @@ public class GestorLotes {
         if (timer != null) {
             timer.cancel();
             System.out.println("[GestorLotes] Timer cancelado");
+        }
+    }
+
+    public void enviarVotosAlBroker(BrokerZonaProxy brokerProxy) {
+        if (votosPendientesEnvio.isEmpty()) {
+            System.out.println("[GestorLotes] No hay votos pendientes para enviar al broker");
+            return;
+        }
+        System.out.println("[GestorLotes] Enviando " + votosPendientesEnvio.size() + " votos al broker");
+        try {
+            for (Voto voto : votosPendientesEnvio) {
+                brokerProxy.enviarVoto(voto);
+            }
+            votosPendientesEnvio.clear();
+            ultimoEnvio = System.currentTimeMillis();
+        } catch (Exception e) {
+            System.err.println("[GestorLotes] Error al enviar votos al broker: " + e.getMessage());
         }
     }
 } 

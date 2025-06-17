@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.votaciones'
+version = '1.0-SNAPSHOT'
+
+mainClassName = 'com.votaciones.brokerzona.BrokerZonaApp'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.zeroc:ice:3.7.10'
+    testImplementation 'junit:junit:4.13.2'
+}
+
+task copyIceFiles(type: Copy) {
+    from 'src/main/slice'
+    into "$buildDir/generated-src/slice"
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.votaciones.brokerzona.BrokerZonaApp'
+        )
+    }
+} 
