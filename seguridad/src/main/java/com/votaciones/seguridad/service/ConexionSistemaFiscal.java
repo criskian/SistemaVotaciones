@@ -6,6 +6,11 @@ import org.slf4j.LoggerFactory;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Simula la conexión con el sistema fiscal externo.
@@ -34,25 +39,36 @@ public class ConexionSistemaFiscal {
     public boolean consultarAntecedentes(String documento) {
         try {
             logger.debug("Consultando antecedentes para documento: {}", documento);
-            
-            // Simular latencia de red
+
+            // Consultar en la base de datos real de sospechosos
+            String DB_URL = "jdbc:postgresql://localhost:5432/sistema_votaciones";
+            String DB_USER = "postgres";
+            String DB_PASSWORD = "postgres";
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+                String sql = "SELECT COUNT(*) FROM sospechosos s JOIN ciudadanos c ON s.ciudadano_id = c.id WHERE c.documento = ? AND LOWER(s.motivo) LIKE '%antecedente%'";
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    stmt.setString(1, documento);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        if (rs.next() && rs.getInt(1) > 0) {
+                            logger.info("Antecedentes detectados para documento: {}", documento);
+                            return true;
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                logger.error("Error consultando antecedentes en la base de datos", e);
+            }
+
+            // Si no hay antecedentes en la base de datos, usar simulación si está activada
             if (simulacionActivada) {
                 Thread.sleep(tiempoRespuestaMs);
+                boolean tieneAntecedentes = false; // documentosConAntecedentes.contains(documento) || (random.nextDouble() < 0.05);
+                logger.debug("Resultado antecedentes (simulación) para {}: {}", documento, tieneAntecedentes);
+                return tieneAntecedentes;
             }
-            
-            boolean tieneAntecedentes;
-            
-            if (simulacionActivada) {
-                // Modo simulación: algunos documentos predefinidos + probabilidad aleatoria
-                tieneAntecedentes = false; // documentosConAntecedentes.contains(documento) || (random.nextDouble() < 0.05);
-            } else {
-                // Aquí iría la llamada real a la API de fiscalía
-                tieneAntecedentes = consultarApiFiscalia(documento);
-            }
-            
-            logger.debug("Resultado antecedentes para {}: {}", documento, tieneAntecedentes);
-            return tieneAntecedentes;
-            
+
+            logger.debug("No se detectaron antecedentes para {}", documento);
+            return false;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             logger.error("Consulta interrumpida para documento: " + documento, e);

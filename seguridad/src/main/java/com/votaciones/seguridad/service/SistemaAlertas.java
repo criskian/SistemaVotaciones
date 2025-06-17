@@ -12,6 +12,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.List;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class SistemaAlertas {
     private static final Logger logger = LoggerFactory.getLogger(SistemaAlertas.class);
@@ -125,6 +129,9 @@ public class SistemaAlertas {
                 }
             }
             
+            // Persistir en base de datos para que el sistema de gestión de mesas la vea
+            persistirAlertaEnBD(alerta);
+            
             // Procesar según severidad
             switch (alerta.getSeveridad()) {
                 case "CRITICA":
@@ -194,5 +201,23 @@ public class SistemaAlertas {
     private String generarIdAlerta() {
         return "ALT-" + System.currentTimeMillis() + "-" + 
                String.format("%04d", contadorAlertas.get() % 10000);
+    }
+    
+    // Método para persistir la alerta en la base de datos
+    private void persistirAlertaEnBD(AlertaSeguridad alerta) {
+        String DB_URL = "jdbc:postgresql://localhost:5432/sistema_votaciones";
+        String DB_USER = "postgres";
+        String DB_PASSWORD = "postgres";
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String sql = "INSERT INTO alertas (tipo, mensaje, severidad, fecha_hora) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, alerta.getTipo());
+                stmt.setString(2, alerta.getMensaje());
+                stmt.setString(3, alerta.getSeveridad());
+                stmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            logger.error("Error al persistir alerta en la base de datos", e);
+        }
     }
 } 

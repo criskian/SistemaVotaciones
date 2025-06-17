@@ -301,26 +301,33 @@ public class AdminMesaApp extends JFrame {
     }
 
     private void cargarMesasDesdeDB() {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement(
-                 "SELECT m.id, m.numero, col.nombre as colegio, z.nombre as zona, m.estado, m.ultima_actualizacion " +
-                 "FROM mesas_votacion m " +
-                 "JOIN colegios col ON m.colegio_id = col.id " +
-                 "JOIN zonas_electorales z ON col.zona_id = z.id " +
-                 "ORDER BY m.id")) {
-            ResultSet rs = stmt.executeQuery();
-            tableModel.setRowCount(0); // Limpiar tabla
-            while (rs.next()) {
-                int mesaId = rs.getInt("id");
-                int numero = rs.getInt("numero");
-                String colegio = rs.getString("colegio");
-                String zona = rs.getString("zona");
-                String estado = rs.getString("estado");
-                int votos = obtenerVotosMesa(mesaId);
-                String ultimaActualizacion = rs.getString("ultima_actualizacion");
-                tableModel.addRow(new Object[]{
-                    mesaId, numero, colegio, zona, estado, votos, ultimaActualizacion
-                });
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String sql = "SELECT m.id, m.numero, col.nombre as colegio, z.nombre as zona, m.estado, m.ultima_actualizacion " +
+                         "FROM mesas_votacion m " +
+                         "JOIN colegios col ON m.colegio_id = col.id " +
+                         "JOIN zonas_electorales z ON col.zona_id = z.id ";
+            if (colegioFiltroSeleccionado != null && !colegioFiltroSeleccionado.equals("Todos los colegios")) {
+                sql += "WHERE col.nombre = ? ";
+            }
+            sql += "ORDER BY m.id";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                if (colegioFiltroSeleccionado != null && !colegioFiltroSeleccionado.equals("Todos los colegios")) {
+                    stmt.setString(1, colegioFiltroSeleccionado);
+                }
+                ResultSet rs = stmt.executeQuery();
+                tableModel.setRowCount(0); // Limpiar tabla
+                while (rs.next()) {
+                    int mesaId = rs.getInt("id");
+                    int numero = rs.getInt("numero");
+                    String colegio = rs.getString("colegio");
+                    String zona = rs.getString("zona");
+                    String estado = rs.getString("estado");
+                    int votos = obtenerVotosMesa(mesaId);
+                    String ultimaActualizacion = rs.getString("ultima_actualizacion");
+                    tableModel.addRow(new Object[]{
+                        mesaId, numero, colegio, zona, estado, votos, ultimaActualizacion
+                    });
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error al cargar mesas desde DB: " + e.getMessage());
