@@ -192,7 +192,7 @@ public class EstacionVotacionUI extends JFrame {
         setLayout(new BorderLayout(10, 10));
         
         add(createPanelSuperior(), BorderLayout.NORTH);
-        add(createPanelCentral(), BorderLayout.CENTER);
+        add(createControlsPanel(), BorderLayout.CENTER);
         add(createPanelInferior(), BorderLayout.SOUTH);
         
         setSize(1200, 800);
@@ -236,26 +236,22 @@ public class EstacionVotacionUI extends JFrame {
         statusPanel.add(estadoLabel);
         statusPanel.add(horaLabel);
         
-        // Panel de controles
-        JPanel controlsPanel = new JPanel(new GridLayout(3, 1, 10, 10));
-        controlsPanel.setBorder(BorderFactory.createTitledBorder("Controles"));
-        
-        registrarVotoBtn = createStyledButton("Registrar Voto", "[1]");
-        enviarLotesBtn = createStyledButton("Enviar Lotes Pendientes", "[2]");
-        mostrarEstadisticasBtn = createStyledButton("Mostrar Estadísticas", "[3]");
-        
-        registrarVotoBtn.addActionListener(e -> registrarVoto());
-        enviarLotesBtn.addActionListener(e -> enviarLotesPendientes());
-        mostrarEstadisticasBtn.addActionListener(e -> mostrarEstadisticas());
-        
-        controlsPanel.add(registrarVotoBtn);
-        controlsPanel.add(enviarLotesBtn);
-        controlsPanel.add(mostrarEstadisticasBtn);
-        
-        panel.add(statusPanel, BorderLayout.WEST);
-        panel.add(controlsPanel, BorderLayout.EAST);
-        
         return panel;
+    }
+
+    private JPanel createControlsPanel() {
+        JPanel controlsPanel = new JPanel(new GridBagLayout());
+        controlsPanel.setBorder(BorderFactory.createTitledBorder("Controles"));
+        registrarVotoBtn = createStyledButton("Registrar Voto", "[1]");
+        registrarVotoBtn.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 28));
+        registrarVotoBtn.setPreferredSize(new Dimension(350, 100));
+        registrarVotoBtn.addActionListener(e -> registrarVoto());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        controlsPanel.add(registrarVotoBtn, gbc);
+        return controlsPanel;
     }
 
     private JButton createStyledButton(String text, String icon) {
@@ -263,34 +259,6 @@ public class EstacionVotacionUI extends JFrame {
         button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
         button.setPreferredSize(new Dimension(200, 40));
         return button;
-    }
-
-    private JPanel createPanelCentral() {
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createTitledBorder("Registro de Votos"));
-        
-        String[] columnas = {
-            "ID Voto", "Cédula", "Candidato", "Hora", "Estado"
-        };
-        
-        tableModel = new DefaultTableModel(columnas, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        
-        votosTable = new JTable(tableModel);
-        votosTable.setFillsViewportHeight(true);
-        votosTable.setRowHeight(25);
-        
-        // Configurar renderizador para filas alternadas
-        votosTable.setDefaultRenderer(Object.class, new AlternatingRowRenderer());
-        
-        JScrollPane scrollPane = new JScrollPane(votosTable);
-        panel.add(scrollPane, BorderLayout.CENTER);
-        
-        return panel;
     }
 
     private JPanel createPanelInferior() {

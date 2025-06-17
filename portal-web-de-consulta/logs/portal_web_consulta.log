@@ -774,3 +774,10 @@ Caused by: java.net.ConnectException: Connection refused
    reply status = 0 (ok)
    encoding = 1.1
 06:03:17.721 [AWT-EventQueue-0] INFO  c.v.p.service.ConsultoriaService - Consultando información de votación para cédula: 123456789
+-- 17/6/25 06:25:31:396 Protocol: sending close connection 
+   message type = 4 (close connection)
+   compression status = 0 (not compressed; do not compress response, if any)
+   message size = 14
+-- 17/6/25 06:25:31:433 Network: closed tcp connection
+   local address = 127.0.0.1:50982
+   remote address = 127.0.0.1:10000
